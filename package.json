@@ -1,0 +1,15 @@
+{
+  "name": "charter",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
+  "license": "MIT",
+  "dependencies": {
+    "chordprojs": "reverentgeek/chordprojs.git",
+    "handlebars": "^4.0.5"
+  }
+}

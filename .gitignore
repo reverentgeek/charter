@@ -35,3 +35,6 @@ node_modules
 # ChordPro and HTML files
 *.chordpro
 *.html
+archive
+charts
+.DS_Store

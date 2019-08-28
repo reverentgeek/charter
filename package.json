@@ -9,7 +9,11 @@
   "author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
   "license": "MIT",
   "dependencies": {
-    "chordprojs": "reverentgeek/chordprojs.git",
-    "handlebars": "^4.0.5"
+    "chordprojs": "github:reverentgeek/chordprojs",
+    "handlebars": "^4.1.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.2.2",
+    "eslint-config-leankit": "^5.1.0"
   }
 }

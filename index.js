@@ -22,11 +22,12 @@ const parseChordFile = ( chordFile, htmlFile ) => {
 	fs.writeFileSync( htmlFile, html, { encoding: "utf8" } );
 };
 
-const files = fs.readdirSync( __dirname );
+const chartFolder = path.join( __dirname, "charts" );
+const files = fs.readdirSync( chartFolder );
 const chordFiles = files.filter( f => { return f.indexOf( ".chordpro" ) > -1; } );
 chordFiles.forEach( cf => {
-	const filePath = path.join( __dirname, cf );
+	const filePath = path.join( chartFolder, cf );
 	const fileName = path.basename( filePath, ".chordpro" );
-	const newFile = path.join( __dirname, `${fileName}.html` );
+	const newFile = path.join( chartFolder, `${ fileName }.html` );
 	parseChordFile( filePath, newFile );
 } );

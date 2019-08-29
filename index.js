@@ -24,10 +24,12 @@ const parseChordFile = ( chordFile, htmlFile ) => {
 
 const chartFolder = path.join( __dirname, "charts" );
 const files = fs.readdirSync( chartFolder );
-const chordFiles = files.filter( f => { return f.indexOf( ".chordpro" ) > -1; } );
+const chordFiles = files.filter( f => f.endsWith( ".cho" ) || f.endsWith( ".chordpro" ) );
 chordFiles.forEach( cf => {
+	const fileName = path.basename( cf, cf.endsWith( ".cho" ) ? ".cho" : ".chordpro" );
 	const filePath = path.join( chartFolder, cf );
-	const fileName = path.basename( filePath, ".chordpro" );
 	const newFile = path.join( chartFolder, `${ fileName }.html` );
+	console.log( filePath );
+	console.log( newFile );
 	parseChordFile( filePath, newFile );
 } );

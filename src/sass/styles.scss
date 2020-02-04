@@ -1,13 +1,23 @@
 @charset "utf-8";
 
 * html, body, h1, h2 { font-family: Verdana, Helvetica; }
-.charter-header { width: 100%; }
+.charter-header { position: relative; }
 .charter-title { font-size: 1.5em; font-weight: bold; margin: 0; padding: 0; }
 .charter-logo { text-align: right; }
 .charter-artist, .charter-subtitle, .charter-key { font-weight: normal; margin: 0 0 3px 0; padding: 0; }
 .charter-artist { font-size: .7em; }
 .charter-subtitle { font-size: .7em; }
 .charter-key { font-weight: bold; font-size: .9em; }
+.charter-header-logo { 
+	position: absolute;
+	top: 0;
+	right: 0;
+	float: right;
+	text-align: center;
+	width: 100px;
+}
+.charter-logo { width: 70px; height: 70px; }
+.charter-logo-tagline { font-size: .7em; }
 .charter-section { margin-top: 2em; page-break-inside: avoid; }
 .charter-section-title { font-weight: bold; text-transform: uppercase; font-size: 1.1em; }
 .charter-section-body { margin-left: 20px }
@@ -18,3 +28,4 @@
 .charter-comment { font-style: italic; }
 .charter-chord { font-weight: bold; vertical-align: bottom; padding-right: 18px !important; }
 // .charter-lyric {}
+

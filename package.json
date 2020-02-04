@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "clean": "node tools/clean.js",
-    "build:css": "node-sass --omit-source-map-url src/sass/styles.sass build/css/styles.css",
+    "build:css": "node-sass --omit-source-map-url src/sass/styles.scss build/assets/styles.css",
     "build:html": "node tools/html.js",
     "build": "npm run clean && npm run build:css && npm run build:html",
     "pdf": "node tools/pdf.js",
-    "serve": "nodemon -e sass,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build && node ./tools/serve.js\" ",
+    "serve": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build && node ./tools/serve.js\" ",
     "start": "npm run build && npm run pdf",
     "test": "jest --coverage",
     "test:watch": "jest --coverage --watch"

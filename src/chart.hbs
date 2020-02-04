@@ -2,15 +2,16 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/css/styles.css">
+		<link rel="stylesheet" href="/assets/styles.css">
 	</head>
 	<body>
-		<table class="charter-header">
-			<tr>
-				<td>{{{header}}}</td>
-				<td class="charter-logo">Chart by ReverentGeek</td>
-			</tr>
-		</table>
+		<div class="charter-header">
+			<div class="charter-header-text">{{{header}}}</div>
+			<div class="charter-header-logo">
+				<img class="charter-logo" src="/assets/logo.png">
+				<div class="charter-logo-tagline">ReverentGeek Charts</div>
+			</div>
+		</div>
 		{{{body}}}
 		{{!-- {{{footer}}} --}}
 	</body>

@@ -3,8 +3,12 @@
 const fs = require( "fs-extra" );
 const path = require( "path" );
 
-const buildFolder = path.join( __dirname, "..", "build" );
-const pdfFolder = path.join( __dirname, "..", "pdf" );
-fs.emptyDir( pdfFolder );
-fs.emptyDir( buildFolder );
-fs.ensureDir( path.join( buildFolder, "css" ) );
+( async () => {
+	const buildFolder = path.join( __dirname, "..", "build" );
+	const assetFolder = path.join( __dirname, "..", "src", "assets" );
+	const pdfFolder = path.join( __dirname, "..", "pdf" );
+	await fs.emptyDir( pdfFolder );
+	await fs.emptyDir( buildFolder );
+	await fs.ensureDir( path.join( buildFolder, "assets" ) );
+	await fs.copy( assetFolder, path.join( buildFolder, "assets" ) );	
+} )();

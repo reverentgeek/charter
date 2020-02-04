@@ -1,8 +1,7 @@
 "use strict";
 
 function parseLyricLine( lyricLine ) {
-	// const chunks = lyricLine.split( /(\[[^\]]*\][^[(]*|\([^)]*\))/ ).filter( t => t !== "" );
-	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[]+|\([^)]*\))/ ).filter( t => t !== "" );
+	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
 	// console.log( chunks );
 	const chords = [];
 	const lyrics = [];

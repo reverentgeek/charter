@@ -4,7 +4,9 @@ Turns `.chordpro` files into formatted HTML chord charts and renders them to PDF
 
 ## Requirements
 
-To use this application, you will need [Node.js](https://nodejs.org/) version 12 or higher, and [wkhtmltopdf](https://wkhtmltopdf.org/) installed on your system and in your system path. For macOS, you can install this with [Homebrew](https://brew.sh/) using:
+To use this application, you will need [Node.js](https://nodejs.org/) version 12 or higher.
+
+_Optional_: There is an option to use [wkhtmltopdf](https://wkhtmltopdf.org/) to perform the final conversion from HTML to PDF. To us it, it must first be installed on your system and in your search path. For macOS, you can install this with [Homebrew](https://brew.sh/) using the following.
 
 ```sh
 brew cask install wkhtmltopdf

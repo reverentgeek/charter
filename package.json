@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "clean": "node tools/clean.js",
-    "build:css": "node-sass --omit-source-map-url src/sass/styles.scss build/assets/styles.css",
+    "build:css": "node-sass --omit-source-map-url --output build/assets src/sass ",
     "build:html": "node tools/html.js",
     "build": "npm run clean && npm run build:css && npm run build:html",
-    "pdf": "node tools/pdf.js",
+    "pdf": "node tools/electron-pdf.js",
     "serve": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build && node ./tools/serve.js\" ",
     "start": "npm run build && npm run pdf",
     "test": "jest --coverage",
@@ -17,6 +17,7 @@
   "author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
   "license": "MIT",
   "dependencies": {
+    "electron-pdf": "^7.0.0",
     "fs-extra": "^8.1.0",
     "handlebars": "^4.7.2",
     "serve": "^11.3.0"

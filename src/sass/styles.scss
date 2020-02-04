@@ -1,7 +1,11 @@
 @charset "utf-8";
 
-* html, body, h1, h2 { font-family: Verdana, Helvetica; }
-.charter-header { position: relative; }
+* html, body, h1, h2 { font-family: Verdana, Helvetica; font-size: 10pt; }
+.charter-header { 
+	position: relative; 
+	min-height: 70px;
+	margin-bottom: 1em;
+}
 .charter-title { font-size: 1.5em; font-weight: bold; margin: 0; padding: 0; }
 .charter-logo { text-align: right; }
 .charter-artist, .charter-subtitle, .charter-key { font-weight: normal; margin: 0 0 3px 0; padding: 0; }
@@ -14,9 +18,14 @@
 	right: 0;
 	float: right;
 }
-.charter-logo { height: 80px; }
+.charter-header::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+.charter-logo { height: 70px; }
 .charter-logo-tagline { font-size: .7em; }
-.charter-section { margin-top: 2em; page-break-inside: avoid; }
+.charter-section { margin-bottom: 2em; page-break-inside: avoid; }
 .charter-section-title { font-weight: bold; text-transform: uppercase; font-size: 1.1em; }
 .charter-section-body { margin-left: 20px }
 // .charter-chart {}

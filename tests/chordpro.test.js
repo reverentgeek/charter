@@ -56,6 +56,15 @@ test( "parses a line with chords ahead of lyrics", () => {
 	} );
 } );
 
+test( "parses a line with a comment at the end", () => {
+	const res = chordpro.parseLyricLine( "I [6m]walk with the king of [5]victory (REPEAT)" );
+	expect( res.chords.length ).toEqual( res.lyrics.length );
+	expect( res ).toStrictEqual( {
+		chords: [ "", "6m", "5", "(REPEAT)" ],
+		lyrics: [ "I ", "walk with the king of ", "victory ", "" ]
+	} );
+} );
+
 test( "parses a title section", () => {
 	const res = chordpro.parseSection( "{title: This is a Title}" );
 	expect( res ).toStrictEqual( { type: "title", text: "This is a Title" } );

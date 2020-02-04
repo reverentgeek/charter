@@ -42,6 +42,7 @@ function renderChart( chart, options ) {
 		header.push( `<h2 class="charter-key">${ keyLine.join( " | " ) }</h2>` );
 	}
 
+	body.push( "<div class=\"charter-body\">" );
 	chart.sections.forEach( section => {
 		body.push( "<div class=\"charter-section\">" );
 		body.push( `<div class="charter-section-title">${ section.title }</div>` );
@@ -64,6 +65,7 @@ function renderChart( chart, options ) {
 		body.push( "</div>" ); // section
 
 	} );
+	body.push( "</div>" ); // charter-body
 
 	if ( chart.footer.length > 0 ) {
 		footer.push( "<div class=\"charter-footer\">" );
@@ -77,13 +79,14 @@ function renderChart( chart, options ) {
 	return {
 		header: header.join( "\n" ),
 		body: body.join( "\n" ),
-		footer: footer.join( "\n" )
+		footer: footer.join( "\n" ),
+		columns: options.columns
 	};
 }
 
-async function render( chart ) {
+async function render( chart, options = { columns: false } ) {
 	const template = await getChartTemplate();
-	const chartHtml = renderChart( chart );
+	const chartHtml = renderChart( chart, options );
 	return template( chartHtml );
 }
 

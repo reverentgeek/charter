@@ -38,3 +38,6 @@ node_modules
 archive
 charts
 .DS_Store
+build/
+coverage/
+pdf/

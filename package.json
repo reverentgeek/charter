@@ -4,17 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "render": "serve ./charts"
+    "clean": "node tools/clean.js",
+    "build:css": "node-sass --omit-source-map-url src/sass/styles.sass build/css/styles.css",
+    "build:html": "node tools/html.js",
+    "build": "npm run clean && npm run build:css && npm run build:html",
+    "pdf": "node tools/pdf.js",
+    "serve": "nodemon -e sass,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build && node ./tools/serve.js\" ",
+    "start": "npm run build && npm run pdf",
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch"
   },
   "author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
   "license": "MIT",
   "dependencies": {
-    "chordprojs": "github:reverentgeek/chordprojs",
+    "fs-extra": "^8.1.0",
     "handlebars": "^4.7.2",
     "serve": "^11.3.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "eslint-config-reverentgeek": "^2.0.1"
+    "eslint-config-reverentgeek": "^2.0.1",
+    "jest": "^25.1.0",
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2"
   }
 }

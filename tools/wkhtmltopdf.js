@@ -12,7 +12,7 @@ const port = 3000;
 
 async function renderPdf( title, pdfFolder ) {
 	console.log( `saving ${ title } to pdf...` );
-	await exec( `wkhtmltopdf -T 6 -R 6 -B 6 -L 6 http://localhost:${ port }/${ title } ${ pdfFolder }/${ title }.pdf` );
+	await exec( `wkhtmltopdf --page-size Letter -T 6 -R 6 -B 6 -L 6 http://localhost:${ port }/${ title } ${ pdfFolder }/${ title }.pdf` );
 }
 
 async function generatePdfFiles() {

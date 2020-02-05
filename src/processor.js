@@ -12,7 +12,7 @@ async function saveChordProFileAsHtml( chartFolder, buildFolder, chordFile ) {
 	console.log( `Converting ${ chordFile } to html...` );
 	const text = await fs.readFile( file, "utf8" );
 	const chart = chordpro.parse( text );
-	const chartHtml = await html.render( chart );
+	const chartHtml = await html.render( chart, { columns: false } );
 	await fs.writeFile( htmlFile, chartHtml, { encoding: "utf8" } );
 }
 

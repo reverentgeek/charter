@@ -12,7 +12,8 @@
     "serve": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build && node ./tools/serve.js\" ",
     "start": "npm run build && npm run pdf",
     "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch"
+    "test:watch": "jest --coverage --watch",
+    "wk": "npm run build && node tools/wkhtmltopdf.js"
   },
   "author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
   "license": "MIT",

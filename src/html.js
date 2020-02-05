@@ -21,9 +21,9 @@ function renderChart( chart, options ) {
 	if ( chart.title ) {
 		header.push( `<h1 class="charter-title">${ chart.title }</h1>` );
 	}
-	if ( chart.artist ) {
-		header.push( `<h2 class="charter-artist">${ chart.artist }</h2>` );
-	}
+
+	chart.artist.forEach( artist => header.push( `<h2 class="charter-artist">${ artist }</h2>` ) );
+
 	if ( chart.subtitle ) {
 		header.push( `<h2 class="charter-subtitle">${ chart.subtitle }</h2>` );
 	}

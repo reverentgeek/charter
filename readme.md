@@ -2,6 +2,14 @@
 
 Turns `.chordpro` files into formatted HTML chord charts and renders them to PDF.
 
+Turn something like this...
+
+![chordpro sample](./docs/chordpro-sample.jpg)
+
+...into something like this!
+
+![Chart sample](./docs/chart-sample.jpg)
+
 ## Requirements
 
 To use this application, you will need [Node.js](https://nodejs.org/) version 12 or higher.

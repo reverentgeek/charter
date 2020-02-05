@@ -11,8 +11,7 @@ const options = yargs
 	.option( "o", { alias: "out", describe: "Path to destination file. If none specified, the file will be saved in the same path as the chordpro file.", type: "string" } )
 	.option( "temp", { describe: "Specify path to temp folder for generating intermediate files.", type: "string" } )
 	.option( "html", { describe: "Save as HTML instead of PDF", type: "boolean" } )
-	.option( "columns", { describe: "Use two-column format", type: "boolean" } )
-	.option( "p", { alias: "port", describe: "Internal HTTP port used to render PDF. Change if there is a conflict.", type: "number", default: defaultPort } );
+	.option( "columns", { describe: "Use two-column format", type: "boolean" } );
 //	.option( "wk", { describe: "Use wkhtmltopdf utility to convert to PDF (must be in your path)", type: "boolean" } );
 
 const config = options.argv;

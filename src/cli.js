@@ -1,15 +1,12 @@
 "use strict";
 
 const chordpro = require( "./chordpro" );
+const { renderPdf } = require( "../src/electron" );
 const html = require( "./html" );
 const fs = require( "fs-extra" );
 const path = require( "path" );
 const os = require( "os" );
 const sass = require( "node-sass" );
-const handler = require( "serve-handler" );
-const http = require( "http" );
-const util = require( "util" );
-const exec = util.promisify( require( "child_process" ).exec );
 
 function rename( file, isPdf ) {
 	const ext = isPdf ? ".pdf" : ".html";
@@ -94,7 +91,6 @@ async function validate( config ) {
 		isTempDir,
 		isHtml,
 		isPdf,
-		port: config.port,
 		columns: !!config.columns
 	};
 }
@@ -130,17 +126,11 @@ async function saveChordProFileAsHtml( src, dst, columns ) {
 	await fs.writeFile( dst, chartHtml, { encoding: "utf8" } );
 }
 
-async function renderPdf( port, title, pdfFolder ) {
-	console.log( `saving ${ title } to pdf...` );
-	const pdf = path.join( __dirname, "..", "node_modules", ".bin", "electron-pdf" );
-	await exec( `${ pdf } --pageSize=Letter --marginsType=0 http://localhost:${ port }/${ title } ${ pdfFolder }/${ title }.pdf` );
-}
-
 async function execute( config ) {
 	const cfg = await validate( config );
 	// console.log( cfg );
 	const files = cfg.isFolder ? await getAllChordProFiles( cfg.src ) : [ cfg.src ];
-	const buildTitles = [];
+	const buildFiles = [];
 	if ( files.length === 0 ) {
 		throw new Error( "No chordpro files found." );
 	}
@@ -152,29 +142,20 @@ async function execute( config ) {
 	for( let i = 0; i < files.length; i++ ) {
 		const dst = cfg.isFile ? path.join( cfg.buildFolder, rename( cfg.dst, false ) ) : path.join( cfg.buildFolder, rename( files[i], false ) );
 		saveChordProFileAsHtml( files[i], dst, cfg.columns );
-		buildTitles.push( path.basename( dst, path.extname( dst ) ) );
+		buildFiles.push( dst );
 	}
 	if ( cfg.isPdf ) {
-		return new Promise( resolve => {
-			const server = http.createServer( ( request, response ) => {
-				return handler( request, response, {
-					public: cfg.buildFolder
-				} );
-			} );
-	
-			server.listen( cfg.port, async () => {
-				const pdfFolder = cfg.isFile ? path.dirname( cfg.dst ) : cfg.dst;
-				for( let i = 0; i < buildTitles.length; i++ ) {
-					await renderPdf( cfg.port, buildTitles[i], pdfFolder );
-				}
-				server.close();
-				if ( cfg.isTempDir ) {
-					fs.remove( cfg.buildFolder );
-				}
-				return resolve();
-			} );
-		} );
-		
+		const pdfFolder = cfg.isFile ? path.dirname( cfg.dst ) : cfg.dst;
+		for( let i = 0; i < buildFiles.length; i++ ) {
+			const src = buildFiles[i];
+			const dstFileName = path.basename( src, path.extname( src ) ) + ".pdf";
+			const dst = path.join( pdfFolder, dstFileName );
+			console.log( `saving ${ dstFileName } ...` );
+			await renderPdf( src, dst );
+		}
+		if ( cfg.isTempDir ) {
+			fs.remove( cfg.buildFolder );
+		}
 	} else if ( cfg.isTempDir ) {
 		fs.remove( cfg.buildFolder );
 	}

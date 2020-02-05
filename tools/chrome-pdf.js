@@ -1,7 +1,8 @@
 "use strict";
 
 const path = require( "path" );
-const { renderPdf } = require( "../src/electron" );
+const pathToChrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome";
+const { renderPdf } = require( "../src/chrome" )( pathToChrome );
 const processor = require( "../src/processor" );
 
 ( async () => {

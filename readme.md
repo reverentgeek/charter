@@ -59,7 +59,6 @@ chord-charter -f path/to/chartfiles -o path/to/savepdfs
 |`--temp`|Specify path to the temp folder for generating intermediate files.|
 |`--html`|Save as HTML instead of PDF|
 |`--columns`|Use two-column format (doesn't work well with all charts)|
-|`-p`, `--port`|Internal HTTP port used to render PDF files. Change if there is a conflict. The default is `8989`.|
 
 ## Advanced Usage
 

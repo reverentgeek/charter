@@ -1,5 +1,8 @@
 @charset "utf-8";
-
+@media print {
+  @page { margin: .7cm; }
+  body { margin: 0; }
+}
 * html, body, h1, h2 {
   font-family: Verdana, Helvetica;
   font-size: 10pt;
@@ -76,4 +79,4 @@ td.charter-chord {
   vertical-align: bottom;
   padding-right: 18px;
 }
-.charter-lyric { }
+td.charter-lyric { white-space: nowrap; }

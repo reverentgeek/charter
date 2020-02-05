@@ -1,8 +1,8 @@
 {
-  "name": "charter",
+  "name": "chord-charter",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Application to convert chordpro files to HTML or PDF",
+  "main": "bin/index.js",
   "scripts": {
     "clean": "node tools/clean.js",
     "build:css": "node-sass --omit-source-map-url --output build/assets src/sass ",
@@ -20,7 +20,8 @@
     "electron-pdf": "^7.0.0",
     "fs-extra": "^8.1.0",
     "handlebars": "^4.7.2",
-    "serve": "^11.3.0"
+    "serve": "^11.3.0",
+    "yargs": "^15.1.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
@@ -28,5 +29,9 @@
     "jest": "^25.1.0",
     "node-sass": "^4.13.1",
     "nodemon": "^2.0.2"
-  }
+  },
+  "bin": {
+    "chord-charter": "./bin/index.js"
+  },
+  "repository": "github:reverentgeek/charter"
 }

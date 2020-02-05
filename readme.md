@@ -22,9 +22,52 @@ brew cask install wkhtmltopdf
 npm install
 ```
 
+### Installing the Command-Line Interface (CLI)
+
+The charter application can be installed as a command-line interface (CLI) app that can be used anywhere in your terminal or command prompt.
+
+```sh
+npm install -g .
+```
+
+This will install the `chord-charter` CLI app.
+
 ## Usage
 
 You can use this application to view `.chordpro` files as HTML in the browser and convert them to PDF. A sample ChordPro file is included in the source code.
+
+## Command Line Interface (CLI)
+
+Converting a single ChordPro file to PDF. By default, the `.pdf` file will be saved in the same folder as the ChordPro file.
+
+```sh
+chord-charter -f path/to/chartfile.chordpro
+```
+
+Specifying the output file.
+
+```sh
+chord-charter -f path/to/chartfile.chordpro -o path/to/chordchart.pdf
+```
+
+Converting a folder of chordpro files at once. The folder will be scanned for any files ending with a `.chordpro` or `.cho` extension.
+
+```sh
+chord-charter -f path/to/chartfiles -o path/to/savepdfs
+```
+
+|Option|Description|
+|:---|:---|
+|`--help`|Show help|
+|`--version`|Show version number|
+|`-f`, `--source`|Path to file or folder of chordpro files to convert|
+|`-o`, `--out`|Path to destination file. If none specified, the file will be saved in the same path as the chordpro file.|
+|`--temp`|Specify path to the temp folder for generating intermediate files.|
+|`--html`|Save as HTML instead of PDF|
+|`--columns`|Use two-column format (doesn't work well with all charts)|
+|`-p`, `--port`|Internal HTTP port used to render PDF files. Change if there is a conflict. The default is `8989`.|
+
+## Advanced Usage
 
 ### Converting ChordPro files to PDF
 

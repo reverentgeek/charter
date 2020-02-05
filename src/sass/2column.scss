@@ -1,1 +1,9 @@
-.charter-body { column-count: 2; }
+* html, body, h1, h2 {
+	font-family: Verdana, Helvetica;
+	font-size: 8.75pt;
+  }  
+.charter-body { 
+	column-count: 2;
+	column-fill: balance;
+	column-gap: 0;
+}

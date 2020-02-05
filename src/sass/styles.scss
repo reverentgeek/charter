@@ -2,7 +2,7 @@
 
 * html, body, h1, h2 {
   font-family: Verdana, Helvetica;
-  font-size: 9.5pt;
+  font-size: 10pt;
 }
 td { margin: 0; padding: 0; }
 .charter-header {
@@ -65,12 +65,9 @@ td { margin: 0; padding: 0; }
 .charter-section-body {
   margin-left: 20px;
 }
-.charter-chart {
-}
-.charter-chords {
-}
-.charter-lyrics {
-}
+// .charter-chart { }
+// .charter-chords { }
+// .charter-lyrics { }
 .charter-comment {
   font-style: italic;
 }
@@ -79,5 +76,4 @@ td.charter-chord {
   vertical-align: bottom;
   padding-right: 18px;
 }
-.charter-lyric {
-}
+.charter-lyric { }

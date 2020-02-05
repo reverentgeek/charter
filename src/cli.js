@@ -133,7 +133,7 @@ async function saveChordProFileAsHtml( src, dst, columns ) {
 async function renderPdf( port, title, pdfFolder ) {
 	console.log( `saving ${ title } to pdf...` );
 	const pdf = path.join( __dirname, "..", "node_modules", ".bin", "electron-pdf" );
-	await exec( `${ pdf } http://localhost:${ port }/${ title } ${ pdfFolder }/${ title }.pdf` );
+	await exec( `${ pdf } --pageSize=Letter --marginsType=0 http://localhost:${ port }/${ title } ${ pdfFolder }/${ title }.pdf` );
 }
 
 async function execute( config ) {

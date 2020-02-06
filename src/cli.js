@@ -1,7 +1,7 @@
 "use strict";
 
 const chordpro = require( "./chordpro" );
-const { renderPdf } = require( "../src/electron" );
+const { renderPdf } = require( "./pdf" );
 const html = require( "./html" );
 const fs = require( "fs-extra" );
 const path = require( "path" );
@@ -146,13 +146,16 @@ async function execute( config ) {
 	}
 	if ( cfg.isPdf ) {
 		const pdfFolder = cfg.isFile ? path.dirname( cfg.dst ) : cfg.dst;
-		for( let i = 0; i < buildFiles.length; i++ ) {
-			const src = buildFiles[i];
-			const dstFileName = path.basename( src, path.extname( src ) ) + ".pdf";
+		console.time( "time" );
+		console.log( `rendering pdf${ buildFiles.length > 1 ? "s": "" }...` );
+		const files = buildFiles.map( f => {
+			const src = `file://${ f }`;
+			const dstFileName = path.basename( f, path.extname( f ) ) + ".pdf";
 			const dst = path.join( pdfFolder, dstFileName );
-			console.log( `saving ${ dstFileName } ...` );
-			await renderPdf( src, dst );
-		}
+			return { src, dst };
+		} );
+		await renderPdf( files );
+		console.timeEnd( "time" );
 		if ( cfg.isTempDir ) {
 			fs.remove( cfg.buildFolder );
 		}

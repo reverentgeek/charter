@@ -11,6 +11,15 @@ test( "parses a line of chordpro text", () => {
 	} );
 } );
 
+test( "parses a line of chordpro text ending with a chord", () => {
+	const res = chordpro.parseLyricLine( "Give me [A]eyes to see [E]more of who you are[B]" );
+	expect( res.chords.length ).toEqual( res.lyrics.length );
+	expect( res ).toStrictEqual( {
+		chords: [ "", "A", "E", "B" ],
+		lyrics: [ "Give me ", "eyes to see ", "more of who you are", "" ]
+	} );
+} );
+
 test( "parses a line of chordpro text with sharp/minor", () => {
 	const res = chordpro.parseLyricLine( "There is [A]nothing that could [E]ever sepa - [B]rate us from Your [C#m]love" );
 	expect( res.chords.length ).toEqual( res.lyrics.length );
@@ -80,6 +89,11 @@ test( "parses artist section with random spaces", () => {
 	expect( res ).toStrictEqual( { type: "artist", text: "John Smith" } );
 } );
 
+test( "parses artist section with embedded colons spaces", () => {
+	const res = chordpro.parseSection( "{ artist:  Music by: John Smith }" );
+	expect( res ).toStrictEqual( { type: "artist", text: "Music by: John Smith" } );
+} );
+
 test( "parses key section", () => {
 	const res = chordpro.parseSection( "{key: A}" );
 	expect( res ).toStrictEqual( { type: "key", text: "A" } );
@@ -105,12 +119,17 @@ test( "parses chorus section", () => {
 	expect( res ).toStrictEqual( { type: "comment", text: "chorus" } );
 } );
 
+test( "parses unknown section as comment", () => {
+	const res = chordpro.parseSection( "{chorus}" );
+	expect( res ).toStrictEqual( { type: "comment", text: "chorus" } );
+} );
+
 test ( "parses entire chordpro file", async () => {
 	const text = await fs.readFile( "./tests/test.chordpro", "utf8" );
 	const res = chordpro.parse( text );
 	expect( res.title ).toBe( "Believer" );
 	expect( res.subtitle ).toBe( "(as published by Essential Music Publishing)" );
-	expect( res.artist ).toBe( "Bryan Fowler, Mitch Wong, Rhett Walker" );
+	expect( res.artist ).toStrictEqual( [ "Bryan Fowler, Mitch Wong, Rhett Walker" ] );
 	expect( res.key ).toBe( "Eb" );
 	expect( res.tempo ).toBe( "87" );
 	expect( res.time ).toBe( "4/4" );
@@ -124,4 +143,22 @@ test ( "parses entire chordpro file", async () => {
 	expect( res.sections[0].chords[0] ).toStrictEqual( [ "Ab", "Eb", "Bb", "Cm" ] );
 	expect( res.sections[0].lyrics[0] ).toStrictEqual( [ "   ", "I walk a bit different ", "now   ", "" ] );
 	expect( res.footer.length ).toBe( 4 );
+} );
+
+test ( "parses a single line chordpro file", async () => {
+	const res = chordpro.parse( `{comment: Verse 1}
+[1]A very [4]short [5]song` );
+	expect( res.title ).toBe( "" );
+	expect( res.subtitle ).toBe( "" );
+	expect( res.artist ).toStrictEqual( [] );
+	expect( res.key ).toBe( "" );
+	expect( res.tempo ).toBe( "" );
+	expect( res.time ).toBe( "" );
+	expect( res.sections.length ).toBe( 1 );
+	expect( res.sections[0].title ).toBe( "Verse 1" );
+	expect( res.sections[0].chords.length ).toBe( 1 );
+	expect( res.sections[0].lyrics.length ).toBe( 1 );
+	expect( res.sections[0].chords[0] ).toStrictEqual( [ "1", "4", "5" ] );
+	expect( res.sections[0].lyrics[0] ).toStrictEqual( [ "A very ", "short ", "song" ] );
+	expect( res.footer.length ).toBe( 0 );
 } );

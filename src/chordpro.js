@@ -8,19 +8,8 @@ function parseLyricLine( lyricLine ) {
 	for( let i = 0; i < chunks.length; i++ ) {
 		if ( chunks[i].indexOf( "[" ) > -1 ) {
 			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" );
-			// console.log( "subchunks", subchunks );
-			let j = 0;
-			while( j < subchunks.length ){
-				if ( subchunks[j].startsWith( "[" ) ) {
-					chords.push( subchunks[j].replace( "[", "" ).replace( "]", "" ) );
-					lyrics.push( ( j + 1 ) < subchunks.length ? subchunks[ j + 1 ] : "" );
-					j++;
-				} else {
-					chords.push( "" );
-					lyrics.push( subchunks[j] );
-				}
-				j++;
-			}
+			chords.push( subchunks[0].replace( "[", "" ).replace( "]", "" ) );
+			lyrics.push( subchunks.length === 2 ? subchunks[ 1 ] : "" );
 		}
 		else if ( chunks[i].startsWith( "(" ) ) {
 			chords.push( chunks[i] );
@@ -36,7 +25,7 @@ function parseLyricLine( lyricLine ) {
 function parseSection( line ) {
 	const text = line.replace( "{", "" ).replace( "}", "" );
 	const parts = text.split( ":" );
-	return parts.length > 1 ? { type: parts[0].toLowerCase().trim(), text: parts.slice( 1 ).join( ":" ).trim() } : { type: "misc", text: parts[0].trim() };
+	return parts.length > 1 ? { type: parts[0].toLowerCase().trim(), text: parts.slice( 1 ).join( ":" ).trim() } : { type: "comment", text: parts[0].trim() };
 }
 
 function parse( chordProText ) {

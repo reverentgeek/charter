@@ -2,13 +2,17 @@
 const fs = require( "fs" ).promises;
 const chordpro = require( "../src/chordpro" );
 const html = require( "../src/html" );
+let parsed;
 let renderedChart;
+let renderedHtml;
+let renderedColumnHtml;
 
 beforeAll( async () => {
 	const file = await fs.readFile( "./tests/test.chordpro", "utf8" );
-	const parsed = chordpro.parse( file ); 
+	parsed = chordpro.parse( file ); 
 	renderedChart = html.renderChart( parsed );
-	// console.log( parsed, renderedHtml );
+	renderedHtml = await html.render( parsed, { columns: false } );
+	renderedColumnHtml = await html.render( parsed, { columns: true } );
 } );
 
 test( "html renders title", () => {
@@ -32,4 +36,54 @@ test( "html renders sections", () => {
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Chorus 1</div>" ) );
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">I walk a bit different </td>" ) );
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(2nd x to Br.)</td>" ) );
+} );
+
+test( "rendered html includes html template", () => {
+	expect( renderedHtml ).toEqual( expect.stringContaining( "<link rel=\"stylesheet\" href=\"./assets/styles.css\">" ) );
+} );
+
+test( "rendered default html not not include 2-column css", () => {
+	expect( renderedHtml ).toEqual( expect.not.stringContaining( "./assets/2column.css" ) );
+} );
+
+test( "rendered column html to include 2-column css", () => {
+	expect( renderedColumnHtml ).toEqual( expect.stringContaining( "<link rel=\"stylesheet\" href=\"./assets/2column.css\">" ) );
+} );
+
+test( "empty chart", () => {
+	const chart = {
+		title: "",
+		subtitle: "",
+		artist: [],
+		key: "",
+		tempo: "",
+		time: "",
+		sections: [],
+		footer: []
+	};
+	const htmlChart = html.renderChart( chart );
+	expect( htmlChart.header ).toEqual( "" );
+	expect( htmlChart.body ).toEqual( "" );
+	expect( htmlChart.footer ).toEqual( "" );
+} );
+
+test( "chart with only body", () => {
+	const chart = {
+		title: "",
+		subtitle: "",
+		artist: [],
+		key: "",
+		tempo: "",
+		time: "",
+		sections: [],
+		footer: []
+	};
+	chart.sections = parsed.sections;
+	const htmlChart = html.renderChart( chart );
+	expect( htmlChart.header ).toEqual( "" );
+	expect( htmlChart.footer ).toEqual( "" );
+	expect( htmlChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Verse 1</div>" ) );
+	expect( htmlChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Chorus 1</div>" ) );
+	expect( htmlChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">I walk a bit different </td>" ) );
+	expect( htmlChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(2nd x to Br.)</td>" ) );
 } );

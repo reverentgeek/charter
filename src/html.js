@@ -13,7 +13,7 @@ async function getChartTemplate() {
 	return _template;
 }
 
-function renderChart( chart, options ) {
+function renderChart( chart, options = { columns: false } ) {
 	const header = [];
 	const body = [];
 	const footer = [];
@@ -42,30 +42,32 @@ function renderChart( chart, options ) {
 		header.push( `<h2 class="charter-key">${ keyLine.join( " | " ) }</h2>` );
 	}
 
-	body.push( "<div class=\"charter-body\">" );
-	chart.sections.forEach( section => {
-		body.push( "<div class=\"charter-section\">" );
-		body.push( `<div class="charter-section-title">${ section.title }</div>` );
-		body.push( "<div class=\"charter-section-body\">" );
-		for( let i = 0; i < section.chords.length; i++ ) {
-			body.push( "<table class=\"charter-chart\">" );
-			body.push( "<tr class=\"charter-chords\">" );
-			for( let j = 0; j < section.chords[i].length; j++ ){
-				body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ section.chords[i][j] }</td>` );
+	if ( chart.sections.length > 0 ) {
+		body.push( "<div class=\"charter-body\">" );
+		chart.sections.forEach( section => {
+			body.push( "<div class=\"charter-section\">" );
+			body.push( `<div class="charter-section-title">${ section.title }</div>` );
+			body.push( "<div class=\"charter-section-body\">" );
+			for( let i = 0; i < section.chords.length; i++ ) {
+				body.push( "<table class=\"charter-chart\">" );
+				body.push( "<tr class=\"charter-chords\">" );
+				for( let j = 0; j < section.chords[i].length; j++ ){
+					body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ section.chords[i][j] }</td>` );
+				}
+				body.push( "</tr>" );
+				body.push( "<tr class=\"charter-lyrics\">" );
+				for( let j = 0; j < section.lyrics[i].length; j++ ){
+					body.push( `<td class="charter-lyric">${ section.lyrics[i][j] }</td>` );
+				}
+				body.push( "</tr>" );
+				body.push( "</table>" );
 			}
-			body.push( "</tr>" );
-			body.push( "<tr class=\"charter-lyrics\">" );
-			for( let j = 0; j < section.lyrics[i].length; j++ ){
-				body.push( `<td class="charter-lyric">${ section.lyrics[i][j] }</td>` );
-			}
-			body.push( "</tr>" );
-			body.push( "</table>" );
-		}
-		body.push( "</div>" ); // section body
-		body.push( "</div>" ); // section
+			body.push( "</div>" ); // section body
+			body.push( "</div>" ); // section
 
-	} );
-	body.push( "</div>" ); // charter-body
+		} );
+		body.push( "</div>" ); // charter-body
+	}
 
 	if ( chart.footer.length > 0 ) {
 		footer.push( "<div class=\"charter-footer\">" );

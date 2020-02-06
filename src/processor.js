@@ -5,14 +5,14 @@ const html = require( "./html" );
 const fs = require( "fs-extra" );
 const path = require( "path" );
 
-async function saveChordProFileAsHtml( chartFolder, buildFolder, chordFile ) {
+async function saveChordProFileAsHtml( chartFolder, buildFolder, chordFile, columns ) {
 	const title = path.basename( chordFile, chordFile.endsWith( ".cho" ) ? ".cho" : ".chordpro" );
 	const file = path.join( chartFolder, chordFile );
 	const htmlFile = path.join( buildFolder, `${ title }.html` );
 	console.log( `Converting ${ chordFile } to html...` );
 	const text = await fs.readFile( file, "utf8" );
 	const chart = chordpro.parse( text );
-	const chartHtml = await html.render( chart, { columns: false } );
+	const chartHtml = await html.render( chart, { columns } );
 	await fs.writeFile( htmlFile, chartHtml, { encoding: "utf8" } );
 }
 
@@ -34,12 +34,12 @@ async function getAllChordProFiles( chartFolder ) {
 	return files.filter( f => f.endsWith( ".cho" ) || f.endsWith( ".chordpro" ) );
 }
 
-async function convertChordProFilesToHtml( pathToChartFolder = "", pathToBuildFolder = "" ) {
+async function convertChordProFilesToHtml( { pathToChartFolder = "", pathToBuildFolder = "", columns = false } ) {
 	const chartFolder = await getChartFolder( pathToChartFolder );
 	const buildFolder = await getBuildFolder( pathToBuildFolder );
 	const chordFiles = await getAllChordProFiles( chartFolder );
 	for( let i = 0; i < chordFiles.length; i++ ){
-		await saveChordProFileAsHtml( chartFolder, buildFolder, chordFiles[i] );
+		await saveChordProFileAsHtml( chartFolder, buildFolder, chordFiles[i], columns );
 	}
 }
 

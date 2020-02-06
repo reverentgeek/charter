@@ -87,3 +87,49 @@ test( "chart with only body", () => {
 	expect( htmlChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">I walk a bit different </td>" ) );
 	expect( htmlChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(2nd x to Br.)</td>" ) );
 } );
+
+describe( "formats chords", () => {
+	test( "formats major chords", () => {
+		const a = html.formatChord( "A" );
+		expect( a ).toBe( "A" );
+		const bflat = html.formatChord( "Bb" );
+		expect( bflat ).toBe( "Bb" );
+		const csharp = html.formatChord( "C#" );
+		expect( csharp ).toBe( "C#" );
+		const five = html.formatChord( "5" );
+		expect( five ).toBe( "5" );
+	} );
+
+	test( "formats flatted and sharped numbers", () => {
+		const flatSeven = html.formatChord( "b7" );
+		expect( flatSeven ).toBe( "b7" );
+		const sharp5 = html.formatChord( "#5" );
+		expect( sharp5 ).toBe( "#5" );
+	} );
+
+	test( "formats inverted chords", () => {
+		const goverb = html.formatChord( "G/B" );
+		expect( goverb ).toBe( "G/B" );
+		const oneover3 = html.formatChord( "1/3" );
+		expect( oneover3 ).toBe( "1/3" );
+	} );
+
+	test( "formats suspended chords", () => {
+		const dsus = html.formatChord( "Dsus" );
+		expect( dsus ).toBe( "D<sup>sus</sup>" );
+		const onesus = html.formatChord( "1sus" );
+		expect( onesus ).toBe( "1<sup>sus</sup>" );
+	} );
+
+	test( "formats flat 5 chords", () => {
+		const dflat5 = html.formatChord( "D5b" );
+		expect( dflat5 ).toBe( "D<sup>5b</sup>" );
+		const oneflat5 = html.formatChord( "15b" );
+		expect( oneflat5 ).toBe( "1<sup>5b</sup>" );
+	} );
+
+	test( "format augmented chords", () => {
+		const asharpaug7 = html.formatChord( "A#o7" );
+		expect( asharpaug7 ).toBe( "A#<sup>o7</sup>" );
+	} );
+} );

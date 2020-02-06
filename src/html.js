@@ -13,6 +13,14 @@ async function getChartTemplate() {
 	return _template;
 }
 
+function formatChord( chord ) {
+	if ( chord.length <= 1 || chord === "N.C." ) {
+		return chord;
+	}
+	const [ note, ...parts ] = chord.split( /(^[b#]{0,1}[A-G1-7]{1}[#b]{0,1}m{0,1}\/[b#]{0,1}[A-G1-7]{1}[#b]{0,1}m{0,1}|^[b#]{0,1}[A-G1-7]{1}[#b]{0,1}m{0,1})/g ).filter( p => p.length > 0 );
+	return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;
+}
+
 function renderChart( chart, options = { columns: false } ) {
 	const header = [];
 	const body = [];
@@ -52,7 +60,7 @@ function renderChart( chart, options = { columns: false } ) {
 				body.push( "<table class=\"charter-chart\">" );
 				body.push( "<tr class=\"charter-chords\">" );
 				for( let j = 0; j < section.chords[i].length; j++ ){
-					body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ section.chords[i][j] }</td>` );
+					body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
 				}
 				body.push( "</tr>" );
 				body.push( "<tr class=\"charter-lyrics\">" );
@@ -93,6 +101,7 @@ async function render( chart, options = { columns: false } ) {
 }
 
 module.exports = {
+	formatChord,
 	render,
 	renderChart
 };

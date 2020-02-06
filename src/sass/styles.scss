@@ -74,9 +74,9 @@ td { margin: 0; padding: 0; }
 .charter-comment {
   font-style: italic;
 }
-td.charter-chord {
+td.charter-chord:not(:empty) {
   font-weight: bold;
   vertical-align: bottom;
-  padding-right: 18px;
+  padding-right: 14px;
 }
-td.charter-lyric { white-space: nowrap; }
+td.charter-lyric { white-space: nowrap; padding-right: 2px; }

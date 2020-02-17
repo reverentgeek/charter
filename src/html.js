@@ -17,8 +17,12 @@ function formatChord( chord ) {
 	if ( chord.length <= 1 || chord === "N.C." ) {
 		return chord;
 	}
-	const [ note, ...parts ] = chord.split( /(^[b#]{0,1}[A-G1-7]{1}[#b]{0,1}m{0,1}\/[b#]{0,1}[A-G1-7]{1}[#b]{0,1}m{0,1}|^[b#]{0,1}[A-G1-7]{1}[#b]{0,1}m{0,1})/g ).filter( p => p.length > 0 );
-	return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;
+	const chords = chord.split( "/" );
+	const formatted = chords.map( c => {
+		const [ note, ...parts ] = c.split( /(^[b#]{0,1}[A-G1-7]{1}[#b]{0,1}(?:maj|dim|sus|m){0,1})/g ).filter( p => p.length > 0 );
+		return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;	
+	} );
+	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
 }
 
 function renderChart( chart, options = { columns: false } ) {

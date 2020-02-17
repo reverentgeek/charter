@@ -116,9 +116,9 @@ describe( "formats chords", () => {
 
 	test( "formats suspended chords", () => {
 		const dsus = html.formatChord( "Dsus" );
-		expect( dsus ).toBe( "D<sup>sus</sup>" );
+		expect( dsus ).toBe( "Dsus" );
 		const onesus = html.formatChord( "1sus" );
-		expect( onesus ).toBe( "1<sup>sus</sup>" );
+		expect( onesus ).toBe( "1sus" );
 	} );
 
 	test( "formats flat 5 chords", () => {
@@ -131,5 +131,15 @@ describe( "formats chords", () => {
 	test( "format augmented chords", () => {
 		const asharpaug7 = html.formatChord( "A#o7" );
 		expect( asharpaug7 ).toBe( "A#<sup>o7</sup>" );
+	} );
+
+	test( "format inverted chords with attributes", () => {
+		const bsevenoverfsharp = html.formatChord( "B7/F#" );
+		expect( bsevenoverfsharp ).toBe( "B<sup>7</sup>/F#" );
+	} );
+
+	test( "format maj chords", () => {
+		const fmajseven = html.formatChord( "Fmaj7" );
+		expect( fmajseven ).toBe( "Fmaj<sup>7</sup>" );
 	} );
 } );

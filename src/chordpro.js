@@ -90,7 +90,7 @@ function parse( chordProText ) {
 }
 
 module.exports = {
-	parse, 
-	parseLyricLine, 
+	parse,
+	parseLyricLine,
 	parseSection
 };

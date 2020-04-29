@@ -37,7 +37,7 @@ async function validate( config ) {
 		if ( !outExists ) {
 			outExists = await fs.exists( path.dirname( config.out ) );
 		}
-		
+
 		if ( !outExists ) {
 			throw new Error( "The path to the output file/folder does not appear to be valid." );
 		}

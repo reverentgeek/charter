@@ -24,7 +24,7 @@
   "author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
   "license": "MIT",
   "dependencies": {
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
     "handlebars": "^4.7.6",
     "node-sass": "^4.14.1",
     "puppeteer": "^4.0.0",
@@ -33,8 +33,8 @@
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-reverentgeek": "^3.0.0",
-    "jest": "^25.5.1",
-    "nodemon": "^2.0.3",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
     "serve": "^11.3.2"
   },
   "bin": {

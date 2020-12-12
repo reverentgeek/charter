@@ -26,15 +26,15 @@
 	"dependencies": {
 		"fs-extra": "^9.0.1",
 		"handlebars": "^4.7.6",
-		"node-sass": "^4.14.1",
-		"puppeteer": "^5.2.1",
-		"yargs": "^15.4.1"
+		"node-sass": "^5.0.0",
+		"puppeteer": "^5.5.0",
+		"yargs": "^16.2.0"
 	},
 	"devDependencies": {
-		"eslint": "^7.7.0",
-		"eslint-config-reverentgeek": "^3.0.0",
-		"jest": "^26.4.2",
-		"nodemon": "^2.0.4",
+		"eslint": "^7.15.0",
+		"eslint-config-reverentgeek": "^3.1.1",
+		"jest": "^26.6.3",
+		"nodemon": "^2.0.6",
 		"serve": "^11.3.2"
 	},
 	"bin": {

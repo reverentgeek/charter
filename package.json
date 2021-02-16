@@ -1,6 +1,6 @@
 {
 	"name": "chord-charter",
-	"version": "1.9.1",
+	"version": "1.9.2",
 	"description": "Application to convert chordpro files to HTML or PDF",
 	"main": "bin/index.js",
 	"scripts": {
@@ -25,13 +25,13 @@
 	"license": "MIT",
 	"dependencies": {
 		"fs-extra": "^9.1.0",
-		"handlebars": "^4.7.6",
+		"handlebars": "^4.7.7",
 		"node-sass": "^5.0.0",
-		"puppeteer": "^5.5.0",
+		"puppeteer": "^7.1.0",
 		"yargs": "^16.2.0"
 	},
 	"devDependencies": {
-		"eslint": "^7.18.0",
+		"eslint": "^7.20.0",
 		"eslint-config-reverentgeek": "^3.1.1",
 		"jest": "^26.6.3",
 		"nodemon": "^2.0.7",

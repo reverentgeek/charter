@@ -52,6 +52,8 @@ function parse( chordProText ) {
 				parsed.subtitle = section.text;
 				break;
 			case "artist":
+			case "composer":
+			case "lyricist":
 				parsed.artist.push( section.text );
 				break;
 			case "key":

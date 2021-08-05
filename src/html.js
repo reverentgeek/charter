@@ -19,7 +19,7 @@ function formatChord( chord ) {
 	}
 	const chords = chord.split( "/" );
 	const formatted = chords.map( c => {
-		const [ note, ...parts ] = c.split( /(^[b#]{0,1}[A-G1-7]{1}[#b]{0,1}(?:maj|dim|sus|m){0,1})/g ).filter( p => p.length > 0 );
+		const [ note, ...parts ] = c.split( /(^[b#]{0,1}[A-G1-7]{1}[#♯b♭]{0,1}(?:maj|dim|sus|m|aug|Maj){0,1})/g ).filter( p => p.length > 0 );
 		return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;	
 	} );
 	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];

@@ -25,7 +25,7 @@ function parseLyricLine( lyricLine ) {
 function parseSection( line ) {
 	const text = line.replace( "{", "" ).replace( "}", "" );
 	const parts = text.split( ":" );
-	return parts.length > 1 ? { type: parts[0].toLowerCase().trim(), text: parts.slice( 1 ).join( ":" ).trim() } : { type: "comment", text: parts[0].trim() };
+	return parts.length > 1 ? { type: parts[0].toLowerCase().trim(), text: parts.slice( 1 ).join( ":" ).trim() } : { type: parts[0].trim(), text: parts[0].trim() };
 }
 
 function parse( chordProText ) {
@@ -52,6 +52,8 @@ function parse( chordProText ) {
 				parsed.subtitle = section.text;
 				break;
 			case "artist":
+			case "composer":
+			case "lyricist":
 				parsed.artist.push( section.text );
 				break;
 			case "key":
@@ -63,6 +65,10 @@ function parse( chordProText ) {
 			case "tempo":
 				parsed.tempo = section.text;
 				break;
+            case "end_of_chorus":
+            case "end_of_verse":
+            case "end_of_bridge":
+                break;
 			default:
 				sectionIndex++;
 				parsed.sections.push( {

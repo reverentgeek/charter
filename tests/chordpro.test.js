@@ -7,7 +7,8 @@ test( "parses a line of chordpro text", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E", "B" ],
-		lyrics: [ "Give me ", "eyes to see ", "more of who you ", "are" ]
+		lyrics: [ "Give me ", "eyes to see ", "more of who you ", "are" ],
+		directions: [ "", "", "", "" ]
 	} );
 } );
 
@@ -16,7 +17,8 @@ test( "parses a line of chordpro text ending with a chord", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E", "B" ],
-		lyrics: [ "Give me ", "eyes to see ", "more of who you are", "" ]
+		lyrics: [ "Give me ", "eyes to see ", "more of who you are", "" ],
+		directions: [ "", "", "", "" ]
 	} );
 } );
 
@@ -25,7 +27,8 @@ test( "parses a line of chordpro text with sharp/minor", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E", "B", "C#m" ],
-		lyrics: [ "There is ", "nothing that could ", "ever sepa - ", "rate us from Your ", "love" ]
+		lyrics: [ "There is ", "nothing that could ", "ever sepa - ", "rate us from Your ", "love" ],
+		directions: [ "", "", "", "", "" ]
 	} );
 } );
 
@@ -34,7 +37,8 @@ test( "parses a line of embedded chord chordpro text", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E" ],
-		lyrics: [ "There is no", "thing that could ", "ever" ]
+		lyrics: [ "There is no", "thing that could ", "ever" ],
+		directions: [ "", "", "" ]
 	} );
 } );
 
@@ -42,8 +46,9 @@ test( "parses a line with comments", () => {
 	const res = chordpro.parseLyricLine( "I am a believer  [Ab]    [Eb]    [Cm]    [Bb] (2nd x to Br.)" );
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
-		chords: [ "", "Ab", "Eb", "Cm", "Bb", "(2nd x to Br.)" ],
-		lyrics: [ "I am a believer  ", "    ", "    ", "    ", " ", "" ]
+		chords: [ "", "Ab", "Eb", "Cm", "Bb", "" ],
+		lyrics: [ "I am a believer  ", "    ", "    ", "    ", " ", "" ],
+		directions: [ "", "", "", "", "", "(2nd x to Br.)" ]
 	} );
 } );
 
@@ -52,7 +57,8 @@ test( "parses a line of just chords (e.g. intro/turnaround)", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "|", "A", "|", "B", "|", "A", "|", "B", "|" ],
-		lyrics: [ " ", "            ", " ", "            ", " ", "            ", " ", "            ", " " ]
+		lyrics: [ " ", "            ", " ", "            ", " ", "            ", " ", "            ", " " ],
+		directions: [ "", "", "", "", "", "", "", "", "" ]
 	} );
 } );
 
@@ -61,7 +67,8 @@ test( "parses a line with chords ahead of lyrics", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "Ab", "", "Eb", "Bb", "", "Cm" ],
-		lyrics: [ " ", "I hold my ", "head a bit higher,  ", " ", "I lift my ", "voice a bit louder" ]
+		lyrics: [ " ", "I hold my ", "head a bit higher,  ", " ", "I lift my ", "voice a bit louder" ],
+		directions: [ "", "", "", "", "", "" ]
 	} );
 } );
 
@@ -69,8 +76,9 @@ test( "parses a line with a comment at the end", () => {
 	const res = chordpro.parseLyricLine( "I [6m]walk with the king of [5]victory (REPEAT)" );
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
-		chords: [ "", "6m", "5", "(REPEAT)" ],
-		lyrics: [ "I ", "walk with the king of ", "victory ", "" ]
+		chords: [ "", "6m", "5", "" ],
+		lyrics: [ "I ", "walk with the king of ", "victory ", "" ],
+		directions: [ "", "", "", "(REPEAT)" ]
 	} );
 } );
 

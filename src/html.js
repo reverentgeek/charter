@@ -20,7 +20,7 @@ function formatChord( chord ) {
 	const chords = chord.split( "/" );
 	const formatted = chords.map( c => {
 		const [ note, ...parts ] = c.split( /(^[b#]{0,1}[A-G1-7]{1}[#♯b♭]{0,1}(?:maj|dim|sus|m|aug|Maj){0,1})/g ).filter( p => p.length > 0 );
-		return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;	
+		return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;
 	} );
 	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
 }
@@ -64,7 +64,13 @@ function renderChart( chart, options = { columns: false } ) {
 				body.push( "<table class=\"charter-chart\">" );
 				body.push( "<tr class=\"charter-chords\">" );
 				for( let j = 0; j < section.chords[i].length; j++ ){
-					body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
+					if ( section.chords[i][j].length > 0 ) {
+						body.push( `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
+					}
+					if ( section.directions[i][j].length > 0 ) {
+						body.push( `<td class="charter-comment">${ section.directions[i][j] }</td>` );
+					}
+					// body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
 				}
 				body.push( "</tr>" );
 				body.push( "<tr class=\"charter-lyrics\">" );

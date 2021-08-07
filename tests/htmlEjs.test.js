@@ -9,7 +9,6 @@ let renderedColumnHtml;
 beforeAll( async () => {
 	const file = await fs.readFile( "./tests/test.cho", "utf8" );
 	parsed = chordpro.parse( file );
-	console.log( parsed );
 	renderedHtml = await html.render( parsed, { columns: false } );
 	renderedColumnHtml = await html.render( parsed, { columns: true } );
 	await fs.writeFile( "./tests/test.html", renderedHtml );

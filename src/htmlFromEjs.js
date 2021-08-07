@@ -25,17 +25,18 @@ function formatChord( chord ) {
 	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
 }
 
-const renderLyricLine = ( body, lyric, chord ) => {
+function renderLyricLine( body, lyric, chord, direction ) {
 	if ( chord ) {
-		body.push( `<span class="${ chord.startsWith( "(" ) ? "charter-direction-wrapper" : "chord-wrapper" }">` );
-		body.push( `<span class="${ chord.startsWith( "(" ) ? "charter-direction" : "chord" }">${ formatChord( chord ) }</span>` );
+		body.push( `<span class="chord-wrapper"><span class="chord">${ formatChord( chord ) }</span>` );
 		body.push( `<span class="chord-lyrics">${ lyric.length > 0 ? lyric : " " }</span>` );
 		body.push( "</span>" );
 		if ( lyric.trim() === "" ) body.push( "    " );
+	} else if ( direction ) {
+		body.push( `<span class="charter-direction-wrapper"><span class="charter-direction">${ direction }</span></span>` );
 	} else {
 		body.push( lyric );
 	}
-};
+}
 
 async function render( chart, options = { columns: false } ) {
 	const template = await getChartTemplate();
@@ -50,7 +51,7 @@ async function render( chart, options = { columns: false } ) {
 				if ( i > 0 ) body.push( "\n" );
 				body.push( "<span class=\"charter-song-line\">" );
 				for( let j = 0; j < section.chords[i].length; j++ ) {
-					renderLyricLine( body, section.lyrics[i][j].replace( "\r", "" ), section.chords[i][j] );
+					renderLyricLine( body, section.lyrics[i][j].replace( "\r", "" ), section.chords[i][j], section.directions[i][j] );
 				}
 				body.push( "</span>" ); // charter-song-line
 			}

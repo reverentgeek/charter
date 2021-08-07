@@ -1,14 +1,14 @@
 "use strict";
 
-const fs = require( "fs" ).promises;
-const hb = require( "handlebars" );
+const fs = require( "fs-extra" );
+const ejs = require( "ejs" );
 const path = require( "path" );
 let _template;
 
 async function getChartTemplate() {
 	if ( !_template ) {
-		const text = await fs.readFile( path.join( __dirname, "chart.hbs" ), "utf8" );
-		_template = hb.compile( text );
+		const text = await fs.readFile( path.join( __dirname, "chart.ejs" ), "utf8" );
+		_template = ejs.compile( text );
 	}
 	return _template;
 }
@@ -25,93 +25,76 @@ function formatChord( chord ) {
 	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
 }
 
-function renderChart( chart, options = { columns: false } ) {
-	const header = [];
-	const body = [];
-	const footer = [];
-
-	if ( chart.title ) {
-		header.push( `<h1 class="charter-title">${ chart.title }</h1>` );
+function renderLyricLine( body, lyric, chord, direction ) {
+	if ( chord ) {
+		body.push( `<span class="chord-wrapper"><span class="chord">${ formatChord( chord ) }</span>` );
+		body.push( `<span class="chord-lyrics">${ lyric.length > 0 ? lyric : " " }</span>` );
+		body.push( "</span>" );
+		if ( lyric.trim() === "" ) body.push( "    " );
+	} else if ( direction ) {
+		body.push( `<span class="charter-direction-wrapper"><span class="charter-direction">${ direction }</span></span>` );
+	} else {
+		body.push( lyric );
 	}
+}
 
-	chart.artist.forEach( artist => header.push( `<h2 class="charter-artist">${ artist }</h2>` ) );
+function totalLines( sections ) {
+	let count = 0;
+	sections.forEach( section => count += section.lyrics.length + 1 );
+	return count;
+}
 
-	if ( chart.subtitle ) {
-		header.push( `<h2 class="charter-subtitle">${ chart.subtitle }</h2>` );
+function getColumnBreak( sections ) {
+	if ( sections.length < 2 ) return 0;
+	if ( sections.length === 2 ) return 1;
+	const right = [];
+	const left = [ ...sections ];
+	for( let i = sections.length - 1; i > 0; i-- ) {
+		right.push( left.pop() );
+		if ( totalLines( right ) === totalLines( left ) ) return i;
+		if ( totalLines( right ) >= totalLines( left ) ) return i + 1;
 	}
-
-	const keyLine = [];
-	if ( chart.key ) {
-		keyLine.push( `Key: ${ chart.key }` );
-	}
-	if ( chart.tempo ) {
-		keyLine.push( `Tempo: ${ chart.tempo }` );
-	}
-	if ( chart.time ) {
-		keyLine.push( `Time: ${ chart.time }` );
-	}
-	if ( keyLine.length > 0 ) {
-		header.push( `<h2 class="charter-key">${ keyLine.join( " | " ) }</h2>` );
-	}
-
-	if ( chart.sections.length > 0 ) {
-		body.push( "<div class=\"charter-body\">" );
-		chart.sections.forEach( section => {
-			body.push( "<div class=\"charter-section\">" );
-			body.push( `<div class="charter-section-title">${ section.title }</div>` );
-			body.push( "<div class=\"charter-section-body\">" );
-			for( let i = 0; i < section.chords.length; i++ ) {
-				body.push( "<table class=\"charter-chart\">" );
-				body.push( "<tr class=\"charter-chords\">" );
-				for( let j = 0; j < section.chords[i].length; j++ ){
-					if ( section.chords[i][j].length > 0 ) {
-						body.push( `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
-					}
-					if ( section.directions[i][j].length > 0 ) {
-						body.push( `<td class="charter-comment">${ section.directions[i][j] }</td>` );
-					}
-					// body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
-				}
-				body.push( "</tr>" );
-				body.push( "<tr class=\"charter-lyrics\">" );
-				for( let j = 0; j < section.lyrics[i].length; j++ ){
-					body.push( `<td class="charter-lyric">${ section.lyrics[i][j] }</td>` );
-				}
-				body.push( "</tr>" );
-				body.push( "</table>" );
-			}
-			body.push( "</div>" ); // section body
-			body.push( "</div>" ); // section
-
-		} );
-		body.push( "</div>" ); // charter-body
-	}
-
-	if ( chart.footer.length > 0 ) {
-		footer.push( "<div class=\"charter-footer\">" );
-		chart.footer.forEach( f => {
-			footer.push( `<div class="charter-footer-line">${ f }</div>` );
-		} );
-		footer.push( "</div>" );
-	}
-	chart.footer.forEach;
-
-	return {
-		header: header.join( "\n" ),
-		body: body.join( "\n" ),
-		footer: footer.join( "\n" ),
-		columns: options.columns
-	};
 }
 
 async function render( chart, options = { columns: false } ) {
 	const template = await getChartTemplate();
-	const chartHtml = renderChart( chart, options );
-	return template( chartHtml );
+	chart.columns = options.columns;
+	const columnBreak = options.columns ? getColumnBreak( chart.sections ) : 0;
+	const body = [];
+	if ( chart.sections.length > 0 ) {
+		body.push( "<pre class=\"charter-song-body\">" );
+		chart.sections.forEach( ( section, index ) => {
+			if ( columnBreak > 0 && index === 0 ) {
+				body.push( "<span class=\"charter-column left-column\">" );
+			}
+			if ( columnBreak > 0 && columnBreak === index ) {
+				body.push( "</span><span class=\"charter-column right-column\">" );
+			}
+			body.push( `<span class="charter-song-section"><span class="charter-comment">${ section.title }</span>` );
+			for( let i = 0; i < section.chords.length; i++ ) {
+				if ( i > 0 ) body.push( "\n" );
+				body.push( "<span class=\"charter-song-line\">" );
+				for( let j = 0; j < section.chords[i].length; j++ ) {
+					renderLyricLine( body, section.lyrics[i][j], section.chords[i][j], section.directions[i][j] );
+				}
+				body.push( "</span>" ); // charter-song-line
+			}
+			body.push( "</span>\n\n" ); // charter-song-section
+
+		} );
+		if ( columnBreak > 0 ) {
+			body.push( "</span>" ); // charter-column
+		}
+		body.push( "</pre>" ); // charter-song-body
+	}
+	chart.body = body.join( "" );
+	const rendered = template( chart );
+	return rendered;
 }
 
 module.exports = {
 	formatChord,
-	render,
-	renderChart
+	getColumnBreak,
+	totalLines,
+	render
 };

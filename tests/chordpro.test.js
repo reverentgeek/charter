@@ -1,6 +1,6 @@
 "use strict";
 const chordpro = require( "../src/chordpro" );
-const fs = require( "fs" ).promises;
+const fs = require( "fs-extra" );
 
 test( "parses a line of chordpro text", () => {
 	const res = chordpro.parseLyricLine( "Give me [A]eyes to see [E]more of who you [B]are" );
@@ -120,12 +120,12 @@ test( "parses chorus section", () => {
 } );
 
 test( "parses unknown section as comment", () => {
-	const res = chordpro.parseSection( "{chorus}" );
-	expect( res ).toStrictEqual( { type: "comment", text: "chorus" } );
+	const res = chordpro.parseSection( "{weird:weird-stuff}" );
+	expect( res ).toStrictEqual( { type: "weird", text: "weird-stuff" } );
 } );
 
 test ( "parses entire chordpro file", async () => {
-	const text = await fs.readFile( "./tests/test.chordpro", "utf8" );
+	const text = await fs.readFile( "./tests/test.cho", "utf8" );
 	const res = chordpro.parse( text );
 	expect( res.title ).toBe( "Believer" );
 	expect( res.subtitle ).toBe( "(as published by Essential Music Publishing)" );
@@ -133,7 +133,7 @@ test ( "parses entire chordpro file", async () => {
 	expect( res.key ).toBe( "Eb" );
 	expect( res.tempo ).toBe( "87" );
 	expect( res.time ).toBe( "4/4" );
-	expect( res.sections.length ).toBe( 2 );
+	expect( res.sections.length ).toBe( 4 );
 	expect( res.sections[0].title ).toBe( "Verse 1" );
 	expect( res.sections[1].title ).toBe( "Chorus 1" );
 	expect( res.sections[0].chords.length ).toBe( 4 );

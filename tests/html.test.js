@@ -8,8 +8,8 @@ let renderedHtml;
 let renderedColumnHtml;
 
 beforeAll( async () => {
-	const file = await fs.readFile( "./tests/test.chordpro", "utf8" );
-	parsed = chordpro.parse( file ); 
+	const file = await fs.readFile( "./tests/test.cho", "utf8" );
+	parsed = chordpro.parse( file );
 	renderedChart = html.renderChart( parsed );
 	renderedHtml = await html.render( parsed, { columns: false } );
 	renderedColumnHtml = await html.render( parsed, { columns: true } );

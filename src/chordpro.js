@@ -7,7 +7,7 @@ function parseLyricLine( lyricLine ) {
 	const lyrics = [];
 	for( let i = 0; i < chunks.length; i++ ) {
 		if ( chunks[i].indexOf( "[" ) > -1 ) {
-			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" );
+			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" && t !== "\r" );
 			chords.push( subchunks[0].replace( "[", "" ).replace( "]", "" ) );
 			lyrics.push( subchunks.length === 2 ? subchunks[ 1 ] : "" );
 		}
@@ -65,10 +65,10 @@ function parse( chordProText ) {
 			case "tempo":
 				parsed.tempo = section.text;
 				break;
-            case "end_of_chorus":
-            case "end_of_verse":
-            case "end_of_bridge":
-                break;
+			case "end_of_chorus":
+			case "end_of_verse":
+			case "end_of_bridge":
+				break;
 			default:
 				sectionIndex++;
 				parsed.sections.push( {

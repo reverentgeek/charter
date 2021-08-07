@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name=" viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./assets/styles.css">
+	<% if ( columns ) { %>
+		<link rel="stylesheet" href="./assets/2column.css">
+	<% } %>
+</head>
+<body>
+<div id="chord-sheet-viewer-container" style="font-size: 0.95rem;">
+	<span class="charter-song-header">
+		<span class="charter-title-line">
+			<span class="charter-title"><%= title %></span>
+			<img class="charter-logo" alt="ReverentGeek Charts" src="./assets/logo.jpg">
+		</span>
+
+		<% if ( artist.length ) { %>
+			<% artist.forEach( artist => { %>
+				<span class="charter-author-line">
+					<span class="charter-authors"><%= artist %></span>
+				</span>
+			<% } ) %>
+		<% } %>
+		<% if ( subtitle ) { %>
+			<span class="charter-sub-title">
+				<%= subtitle %>
+			</span>
+		<% } %>
+		<% keyTempoTime( key, tempo, time ) %>
+	</span>
+<br>
+<%- body %>
+	
+</div>
+</body>
+
+</html>
+
+<% 
+function keyTempoTime( key, tempo, time ) { 
+	const keyLine=[]; 
+	if ( key ) { 
+		keyLine.push( `Key: ${ key }` ); 
+	}
+	if ( tempo ) { 
+		keyLine.push( `Tempo: ${ tempo }` ); 
+	} 
+	if ( time ) { 
+		keyLine.push( `Time: ${ time }` ); 
+	}
+	if ( keyLine.length> 0 ) { %>
+		<div class="charter-key-tempo-time-line">
+			<span class="charter-song-key-wrapper"><%= keyLine.join(" | ") %></span>
+		</div>
+	<% }
+} %>
+
+<% function lyric(ly, ch) { %>
+<span class="chord-wrapper"><% if (ch) { %><code class="chord"><%= ch %></code><% } if (ly) { %><span class="chord-lyrics"><%= ly %></span><% } %></span>
+<% } %>
+
+<% function lyricLine( lyrics, chords ) { -%><span class="charter-song-line"><% 
+	for (let i = 0; i < lyrics.length; i ++ ) { 
+		lyric( lyrics[i], chords[i] ); 
+	} 
+-%></span><% } -%>

@@ -16,26 +16,26 @@ beforeAll( async () => {
 } );
 
 test( "html renders title", () => {
-	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h1 class=\"charter-title\">Believer</h1>" ) );
+	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h1 class=\"charter-title\">Amazing Grace</h1>" ) );
 } );
 
 test( "html renders artist", () => {
-	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h2 class=\"charter-artist\">Bryan Fowler, Mitch Wong, Rhett Walker</h2>" ) );
+	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h2 class=\"charter-artist\">Words by: John Newton, John P. Rees</h2>" ) );
 } );
 
 test( "html renders subtitle", () => {
-	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h2 class=\"charter-subtitle\">(as published by Essential Music Publishing)</h2>" ) );
+	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h2 class=\"charter-subtitle\">Published in 1779</h2>" ) );
 } );
 
 test( "html renders key", () => {
-	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h2 class=\"charter-key\">Key: Eb | Tempo: 87 | Time: 4/4</h2>" ) );
+	expect( renderedChart.header ).toEqual( expect.stringContaining( "<h2 class=\"charter-key\">Key: G | Tempo: 90 | Time: 3/4</h2>" ) );
 } );
 
 test( "html renders sections", () => {
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Verse 1</div>" ) );
-	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Chorus 1</div>" ) );
-	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">I walk a bit different </td>" ) );
-	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(2nd x to Br.)</td>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Refrain</div>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">And grace my fears re - </td>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(testing direction)</td>" ) );
 } );
 
 test( "rendered html includes html template", () => {
@@ -82,10 +82,10 @@ test( "chart with only body", () => {
 	const htmlChart = html.renderChart( chart );
 	expect( htmlChart.header ).toEqual( "" );
 	expect( htmlChart.footer ).toEqual( "" );
-	expect( htmlChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Verse 1</div>" ) );
-	expect( htmlChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Chorus 1</div>" ) );
-	expect( htmlChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">I walk a bit different </td>" ) );
-	expect( htmlChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(2nd x to Br.)</td>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Verse 1</div>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Refrain</div>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">And grace my fears re - </td>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(testing direction)</td>" ) );
 } );
 
 describe( "formats chords", () => {

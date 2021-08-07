@@ -40,7 +40,7 @@ function renderLyricLine( body, lyric, chord, direction ) {
 
 function totalLines( sections ) {
 	let count = 0;
-	sections.forEach( section => count += section.lyrics.length );
+	sections.forEach( section => count += section.lyrics.length + 1 );
 	return count;
 }
 
@@ -75,7 +75,7 @@ async function render( chart, options = { columns: false } ) {
 				if ( i > 0 ) body.push( "\n" );
 				body.push( "<span class=\"charter-song-line\">" );
 				for( let j = 0; j < section.chords[i].length; j++ ) {
-					renderLyricLine( body, section.lyrics[i][j].replace( "\r", "" ), section.chords[i][j], section.directions[i][j] );
+					renderLyricLine( body, section.lyrics[i][j], section.chords[i][j], section.directions[i][j] );
 				}
 				body.push( "</span>" ); // charter-song-line
 			}
@@ -83,7 +83,7 @@ async function render( chart, options = { columns: false } ) {
 
 		} );
 		if ( columnBreak > 0 ) {
-			body.push( "</span>" );
+			body.push( "</span>" ); // charter-column
 		}
 		body.push( "</pre>" ); // charter-song-body
 	}

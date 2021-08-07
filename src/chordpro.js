@@ -6,8 +6,9 @@ function parseLyricLine( lyricLine ) {
 	const lyrics = [];
 	const directions = [];
 	for( let i = 0; i < chunks.length; i++ ) {
+		chunks[i] = chunks[i].replace( "\r", "" );
 		if ( chunks[i].indexOf( "[" ) > -1 ) {
-			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" && t !== "\r" );
+			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" );
 			chords.push( subchunks[0].replace( "[", "" ).replace( "]", "" ) );
 			lyrics.push( subchunks.length === 2 ? subchunks[ 1 ] : "" );
 			directions.push( "" );

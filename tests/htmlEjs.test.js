@@ -10,9 +10,7 @@ beforeAll( async () => {
 	const file = await fs.readFile( "./tests/test.cho", "utf8" );
 	parsed = chordpro.parse( file );
 	renderedHtml = await html.render( parsed, { columns: false } );
-	await fs.writeFile( "./tests/test.html", renderedHtml );
 	renderedColumnHtml = await html.render( parsed, { columns: true } );
-	await fs.writeFile( "./tests/test-columns.html", renderedColumnHtml );
 } );
 
 test( "rendered html includes html template", () => {
@@ -32,13 +30,15 @@ test( "rendered column html to include 2-column css", () => {
 test ( "calculates the total lines in sections", async () => {
 	const text = await fs.readFile( "./tests/test.cho", "utf8" );
 	const parsed = chordpro.parse( text );
-	expect( html.totalLines( parsed.sections ) ).toEqual( 18 );
+	expect( html.totalLines( parsed.sections ) ).toEqual( 21 );
 	parsed.sections.pop();
-	expect( html.totalLines( parsed.sections ) ).toEqual( 14 );
+	expect( html.totalLines( parsed.sections ) ).toEqual( 20 );
+	parsed.sections.pop();
+	expect( html.totalLines( parsed.sections ) ).toEqual( 15 );
 	parsed.sections.pop();
 	expect( html.totalLines( parsed.sections ) ).toEqual( 10 );
 	parsed.sections.pop();
-	expect( html.totalLines( parsed.sections ) ).toEqual( 4 );
+	expect( html.totalLines( parsed.sections ) ).toEqual( 5 );
 	parsed.sections.pop();
 	expect( html.totalLines( parsed.sections ) ).toEqual( 0 );
 } );
@@ -46,13 +46,13 @@ test ( "calculates the total lines in sections", async () => {
 test ( "calculates the column break point", async () => {
 	const text = await fs.readFile( "./tests/test.cho", "utf8" );
 	const parsed = chordpro.parse( text );
+	expect( html.getColumnBreak( parsed.sections ) ).toEqual( 3 );
+	parsed.sections.pop();
 	expect( html.getColumnBreak( parsed.sections ) ).toEqual( 2 );
 	parsed.sections.pop();
 	expect( html.getColumnBreak( parsed.sections ) ).toEqual( 2 );
 	parsed.sections.pop();
 	expect( html.getColumnBreak( parsed.sections ) ).toEqual( 1 );
-	parsed.sections.pop();
-	expect( html.getColumnBreak( parsed.sections ) ).toEqual( 0 );
 	parsed.sections.pop();
 	expect( html.getColumnBreak( parsed.sections ) ).toEqual( 0 );
 } );

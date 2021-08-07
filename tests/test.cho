@@ -1,42 +1,40 @@
-{title: Believer}
-{artist: Bryan Fowler, Mitch Wong, Rhett Walker}
-{subtitle: (as published by Essential Music Publishing)}
-{key: Eb}
-{tempo: 87}
-{time: 4/4}
+{title: Amazing Grace}
+{subtitle: Published in 1779}
+{artist: Words by: John Newton, John P. Rees}
+{artist: Music by: William W. Walker, Edwin Othello Excell}
+{key: G}  
+{tempo: 90}
+{time: 3/4 }
 
-{comment: Verse 1}
-[Ab]   [Eb]I walk a bit different [Bb]now   [Cm]
-Now that my heart's been [Ab]found, [Eb]nothing really feels the [Bb]same
-[Ab] I hold my [Eb]head a bit higher,  [Bb] I lift my [Cm]voice a bit louder
-[Ab] Yeah [Eb]something inside has [Bb]changed
-
-{comment: Chorus 1}
-I am a [Ab]mountain mov - [Eb]er, water-walker, [Cm]more than just [Bb]an overcomer
-[Ab] 'Cause [Eb]I've been set [Bb]free
-I am a [Ab]gospel preach - [Eb]er, heart on fire, [Cm]freedom sing - [Bb]ing testifier
-[Ab] 'Cause [Eb]I've been re - [Bb]deemed
-I am a believer  [Ab]    [Eb]    [Cm]    [Bb] (2nd x to Br.)
-I am a believer  [Ab]    [Eb]    [Bb]
+{section:Refrain}
+A - [G]mazing [G7]Grace! How [C]sweet the [G]sound
+That saved a wretch like [D]me!
+I [G]once was [G7]lost, but [C]now am [G]found,
+Was [Em]blind, but [D]now I [G]see. (testing direction)
 {end_of_chorus}
 
-{comment: Verse 2}
-[Ab]   [Eb]I know this is not my [Bb]home   [Cm]
-I know I don't walk a - [Ab]lone,   [Eb]no matter what comes [Bb]my way
-[Ab] I have [Eb] peace through the trouble,  [Bb] I have [Cm] joy through the struggle
-[Ab] And now my  [Eb] hope's in a brighter [Bb]day (To Ch.)
+{section:Verse 1}
+'Twas [G]grace that [G7]taught my [C]heart to [G]fear,
+And grace my fears re - [D]lieved.
+How [G]precious [G7]did that [C]grace ap - [G]pear,
+The [Em]hour I [D]first be - [G]lieved.
 {end_of_verse}
 
-{comment: Bridge}
-I am a [Ab]child of the Father, an [Eb]orphan no longer
-No [Cm]doubt about who I [Bb]am
-I'm in the [Ab]hands of the Healer, the [Eb]arms of the Savior
-His [Cm]grace makes me who I [Bb]am (To Ch.)
-{end_of_bridge}
+{section:Verse 2}
+Thro - [G]ugh many [G7]dangers, [C]toils and [G]snares
+We have already [D]come
+'Twas [G]grace hath [G7]brought us [C]safe thus [G]far
+And [Em]grace will [D]lead us [G]home
+{end_of_verse}
 
+{section:Verse 3}
+When [G]we've been [G7]there ten [C]thousand [G]years,
+Bright shining as the [D]sun,
+We've [G]no less [G7]days to [C]sing God's [G]praise
+Than [Em]when we [D]first be - [G]gun.
+{end_of_verse}
 
+{section:Repeat Refrain}
 
-CCLI Song # 7129946
-© Integrity's Praise! Music | RELWOF | Ships In A Bottle | So Essential Tunes
-For use solely with the SongSelect®. Terms of Use. All rights reserved. www.ccli.com
-CCLI License # 1201840
+CCLI Song # 22025
+© Words: Public DomainMusic: Public Domain

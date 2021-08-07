@@ -1,0 +1,387 @@
+@charset "utf-8";
+
+.charter-song-header {
+	background-color: #ffffff;
+	border: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	overflow: visible;
+	width: 100%;
+}
+
+.charter-logo {
+	position: absolute;
+	max-width: 200px;
+	top: 0;
+	right: 0;
+}
+
+.charter-title-line {
+	line-height: 1.2;
+	display: block;
+	width: 100%;
+	overflow: visible;
+}
+
+.charter-title {
+	font-size: 1.5em;
+	font-weight: bold;
+	display: inline-block;
+	white-space: normal;
+	width: 75%;
+}
+
+.charter-sub-title {
+	font-size: .7em;
+	display: inline-block;
+	white-space: normal;
+	width: 85%;
+}
+
+.charter-author-line {
+	font-size: .7em;
+	display: block;
+	width: 100%;
+	overflow: visible;
+}
+
+.charter-authors {
+	white-space: normal;
+	width: 73%;
+	display: inline-block;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding-right: 15px;
+}
+
+.charter-author2-line {
+	font-size: .7em;
+	display: block;
+}
+
+.charter-key-tempo-time-line {
+	font-size: .8em;
+	font-weight: bold;
+}
+
+.charter-song-key-wrapper {
+	white-space: nowrap;
+}
+
+.charter-song-key {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #000000;
+	background-color: transparent;
+	border: none;
+}
+
+.charter-song-key-change-wrapper {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #000000;
+	background-color: transparent;
+	border: none;
+	float: right;
+}
+
+.charter-tempo-time-wrapper {
+	white-space: nowrap;
+}
+
+.charter-second-page-title-line {
+	display: block;
+	line-height: 1.2;
+	overflow: visible;
+	font-size: 1.4rem;
+	font-weight: bold;
+	white-space: normal;
+	padding-bottom: 20pt;
+}
+
+.charter-page-number {
+	float: right;
+	font-size: .6em;
+	font-weight: normal;
+}
+
+.charter-song-body {
+	background-color: #ffffff;
+	border: none;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	overflow: visible;
+	/* margin: 0 0 0; */
+}
+
+.charter-comment {
+	display: block;
+	font-weight: bold;
+	line-height: 2;
+	text-transform: uppercase;
+}
+
+.charter-column {
+	float: left;
+	width: 50%;
+	font-size: .9em;
+	white-space: -moz-pre-wrap;
+	white-space: pre-wrap;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	max-width: 440px;
+}
+
+.charter-column span.charter-comment {
+	font-size: 1.1em;
+	margin-top: .5em;
+}
+
+.charter-column.left-column {
+	padding-right: 10px;
+}
+
+.charter-column.right-column {
+	padding-left: 10px;
+}
+
+.charter-column .charter-song-section .charter-song-line {
+	padding-left: 0;
+}
+
+.charter-song-body:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+div#chord-sheet-viewer-container div {
+	-moz-page-break-inside: auto;
+	page-break-inside: auto;
+}
+
+.charter-page-break {
+	margin: 10px 0 0 0;
+	padding: 10px 0;
+	border-top: 1px dotted #c5c5c5;
+}
+
+.charter-song-section {
+	display: block;
+	-moz-page-break-inside: avoid;
+	page-break-inside: avoid;
+}
+
+.charter-song-line {
+	padding-left: 2em;
+	display: inline-block;
+	line-height: 1.1em;
+	padding-top: .2em;
+}
+
+.lyrics-only {
+	line-height: 1;
+}
+
+.chord-wrapper {
+	display: inline-block;
+	position: relative;
+	vertical-align: bottom;
+}
+
+.charter-song-line .chord-wrapper .chord {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+	background-color: transparent;
+	border: none;
+	position: relative;
+	font-weight: bold;
+	white-space: nowrap;
+	padding: 0 .4em 0 0;
+	float: left;
+}
+
+.chords-only .chord-wrapper .chord {
+	padding: 0;
+	float: none;
+}
+
+.chords-only .chord-wrapper .chord-lyrics {
+	float: none;
+}
+
+.chords-only .charter-direction-wrapper .charter-direction {
+	float: none;
+}
+
+.chord-lyrics {
+	float: left;
+	clear: both;
+}
+
+.charter-direction-wrapper {
+	display: inline-block;
+	position: relative;
+	vertical-align: bottom;
+}
+
+.charter-direction {
+	color: #000000;
+	background-color: transparent;
+	border: none;
+	position: relative;
+	font-weight: normal;
+	font-style: italic;
+	white-space: nowrap;
+	padding: 0;
+	float: left;
+}
+
+h1 {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+pre {
+	margin: 0 0 0;
+}
+
+.copyright-info {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: .7em;
+	text-align: center;
+	margin: 0;
+	margin-bottom: 0;
+	padding: 2em 0 0 0;
+}
+
+.copyright-info p, ul {
+	margin: 0;
+	line-height: 1.3;
+	padding: 0;
+}
+
+.songnumber {
+	font-weight: bold;
+}
+
+.copyright {
+	line-height: 1.3;
+	list-style-type: none;
+}
+
+ul.copyright li {
+	list-style-type: none;
+	display: inline;
+}
+
+ul.copyright li:before {
+	content: " | ";
+}
+
+ul.copyright li:first-child:before {
+	content: none;
+}
+
+#chord-sheet-viewer-container {
+	position: relative;
+	overflow: hidden;
+	padding-bottom: 90%;
+	margin-bottom: 1.5em;
+	border: 1px solid #e6e6e6;
+	padding: 1.5rem 1rem 1rem 2rem;
+	max-width: 900px;
+}
+
+@media print {
+	#chord-sheet-viewer-container {
+		border: none;
+	}
+	a[href]:after {
+		content: none !important;
+	}
+	a {
+		text-decoration: none;
+		pointer-events: none;
+		cursor: default;
+		color: #000000;
+	}
+	.charter-title {
+		font-size: 16pt !important;
+	}
+	.charter-author-line {
+		font-size: 7pt !important;
+		margin-top: 2pt;
+	}
+	.charter-authors {
+		padding-right: 11.25pt !important;
+	}
+	.charter-author2-line {
+		font-size: 7pt !important;
+		margin-top: 2pt;
+	}
+	.charter-key-tempo-time-line {
+		font-size: 9pt !important;
+		margin-top: 2pt;
+	}
+	.charter-second-page-title-line {
+		font-size: 14pt !important;
+		padding-bottom: 20pt;
+	}
+	.charter-page-number {
+		font-size: 11pt !important;
+	}
+	.charter-song-body {
+		font-size: 13pt !important;
+	}
+	.charter-column {
+		font-size: 10pt !important;
+		letter-spacing: -1pt;
+		max-width: 276pt;
+	}
+	.charter-column span.charter-comment {
+		font-size: 11pt !important;
+		margin-top: 11pt;
+	}
+	.charter-column.left-column {
+		padding-right: 11pt;
+	}
+	.charter-column.right-column {
+		padding-left: 11pt;
+	}
+	.charter-column .charter-song-section .charter-song-line {
+		padding-left: 0 !important;
+	}
+	.charter-column .charter-song-section .charter-song-line code.chord {
+		font-size: 10pt !important;
+	}
+	.charter-song-line {
+		padding-left: 24pt !important;
+		line-height: 13pt;
+		padding-top: 1pt;
+	}
+	h1 {
+		font-size: 24pt !important;
+	}
+	.copyright-info {
+		font-size: 8pt !important;
+		padding: 18pt 0 0 0 !important;
+	}
+	body {
+		padding: 0 0 0 0 !important;
+	}
+	#chord-sheet-viewer-container {
+		padding: 16pt 30pt 12pt 24pt !important;
+	}
+	.charter-page-break {
+		page-break-before: always;
+		break-before: page;
+		padding: 0;
+		margin: 0;
+		border: none;
+	}
+}
+
+@page {
+	size: auto;
+	margin: 10mm 0 10mm 5mm;
+}

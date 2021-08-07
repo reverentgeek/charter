@@ -38,15 +38,39 @@ function renderLyricLine( body, lyric, chord, direction ) {
 	}
 }
 
+function totalLines( sections ) {
+	let count = 0;
+	sections.forEach( section => count += section.lyrics.length );
+	return count;
+}
+
+function getColumnBreak( sections ) {
+	if ( sections.length < 2 ) return 0;
+	if ( sections.length === 2 ) return 1;
+	const right = [];
+	const left = [ ...sections ];
+	for( let i = sections.length - 1; i > 0; i-- ) {
+		right.push( left.pop() );
+		if ( totalLines( right ) === totalLines( left ) ) return i;
+		if ( totalLines( right ) >= totalLines( left ) ) return i + 1;
+	}
+}
+
 async function render( chart, options = { columns: false } ) {
 	const template = await getChartTemplate();
 	chart.columns = options.columns;
-
+	const columnBreak = options.columns ? getColumnBreak( chart.sections ) : 0;
 	const body = [];
 	if ( chart.sections.length > 0 ) {
 		body.push( "<pre class=\"charter-song-body\">" );
-		chart.sections.forEach( section => {
-			body.push( `<span class="charter-comment">${ section.title }</span>` );
+		chart.sections.forEach( ( section, index ) => {
+			if ( columnBreak > 0 && index === 0 ) {
+				body.push( "<span class=\"charter-column left-column\">" );
+			}
+			if ( columnBreak > 0 && columnBreak === index ) {
+				body.push( "</span><span class=\"charter-column right-column\">" );
+			}
+			body.push( `<span class="charter-song-section"><span class="charter-comment">${ section.title }</span>` );
 			for( let i = 0; i < section.chords.length; i++ ) {
 				if ( i > 0 ) body.push( "\n" );
 				body.push( "<span class=\"charter-song-line\">" );
@@ -58,6 +82,9 @@ async function render( chart, options = { columns: false } ) {
 			body.push( "</span>\n\n" ); // charter-song-section
 
 		} );
+		if ( columnBreak > 0 ) {
+			body.push( "</span>" );
+		}
 		body.push( "</pre>" ); // charter-song-body
 	}
 	chart.body = body.join( "" );
@@ -67,5 +94,7 @@ async function render( chart, options = { columns: false } ) {
 
 module.exports = {
 	formatChord,
+	getColumnBreak,
+	totalLines,
 	render
 };

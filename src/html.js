@@ -79,7 +79,10 @@ async function render( chart, options = { columns: false } ) {
 				}
 				body.push( "</span>" ); // charter-song-line
 			}
-			body.push( "</span>\n\n" ); // charter-song-section
+			body.push( "</span>" ); // charter-song-section
+			if ( index !== chart.sections.length - 1 ) {
+				body.push( "\n\n" );
+			}
 
 		} );
 		if ( columnBreak > 0 ) {

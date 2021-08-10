@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name=" viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+<div id="charter-container">
+	<span class="charter-song-header">
+		<span class="charter-title-wrapper">
+			<span class="charter-title"><%= title %></span>
+			<img class="charter-logo" alt="ReverentGeek Charts" src="./assets/logo.jpg">
+		</span>
+		<% if ( artist.length ) { %>
+			<% artist.forEach( artist => { %>
+				<span class="charter-artist-wrapper">
+					<span class="charter-artist"><%= artist %></span>
+				</span>
+			<% } ) %>
+		<% } %>
+		<% if ( subtitle ) { %>
+			<span class="charter-sub-title">
+				<%= subtitle %>
+			</span>
+		<% } %>
+		<% keyTempoTime( key, tempo, time ) %>
+	</span>
+<br>
+<%- body %>
+</div>
+</body>
+</html>
+<% 
+function keyTempoTime( key, tempo, time ) { 
+	const keyLine=[]; 
+	if ( key ) { 
+		keyLine.push( `Key: ${ key }` ); 
+	}
+	if ( tempo ) { 
+		keyLine.push( `Tempo: ${ tempo }` ); 
+	} 
+	if ( time ) { 
+		keyLine.push( `Time: ${ time }` ); 
+	}
+	if ( keyLine.length> 0 ) { %>
+		<div class="charter-song-key-tempo-wrapper">
+			<span class="charter-song-key-tempo"><%= keyLine.join(" | ") %></span>
+		</div>
+	<% }
+} %>
+

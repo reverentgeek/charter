@@ -2,24 +2,28 @@
 
 function parseLyricLine( lyricLine ) {
 	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
-	// console.log( chunks );
 	const chords = [];
 	const lyrics = [];
+	const directions = [];
 	for( let i = 0; i < chunks.length; i++ ) {
+		chunks[i] = chunks[i].replace( "\r", "" );
 		if ( chunks[i].indexOf( "[" ) > -1 ) {
 			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" );
 			chords.push( subchunks[0].replace( "[", "" ).replace( "]", "" ) );
 			lyrics.push( subchunks.length === 2 ? subchunks[ 1 ] : "" );
+			directions.push( "" );
 		}
 		else if ( chunks[i].startsWith( "(" ) ) {
-			chords.push( chunks[i] );
+			chords.push( "" );
 			lyrics.push( "" );
+			directions.push( chunks[i] );
 		} else {
 			chords.push( "" );
 			lyrics.push( chunks[i] );
+			directions.push( "" );
 		}
 	}
-	return { chords, lyrics };
+	return { chords, lyrics, directions };
 }
 
 function parseSection( line ) {
@@ -65,16 +69,17 @@ function parse( chordProText ) {
 			case "tempo":
 				parsed.tempo = section.text;
 				break;
-            case "end_of_chorus":
-            case "end_of_verse":
-            case "end_of_bridge":
-                break;
+			case "end_of_chorus":
+			case "end_of_verse":
+			case "end_of_bridge":
+				break;
 			default:
 				sectionIndex++;
 				parsed.sections.push( {
 					title: section.text,
 					lyrics: [],
-					chords: []
+					chords: [],
+					directions: []
 				} );
 			}
 		} else if ( lines[i].trim().length > 0 ) {
@@ -87,9 +92,10 @@ function parse( chordProText ) {
 				}
 				return parsed;
 			}
-			const { chords, lyrics } = parseLyricLine( lines[i] );
+			const { chords, lyrics, directions } = parseLyricLine( lines[i] );
 			parsed.sections[sectionIndex].chords.push( chords );
 			parsed.sections[sectionIndex].lyrics.push( lyrics );
+			parsed.sections[sectionIndex].directions.push( directions );
 		}
 	}
 	return parsed;

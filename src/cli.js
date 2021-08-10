@@ -2,6 +2,7 @@
 
 const chordpro = require( "./chordpro" );
 const { renderPdf } = require( "./pdf" );
+// const html = require( "./html" );
 const html = require( "./html" );
 const fs = require( "fs-extra" );
 const path = require( "path" );
@@ -115,7 +116,8 @@ async function renderAssets( buildFolder ) {
 	const assetsFolder = path.join( buildFolder, "assets" );
 	await fs.ensureDir( assetsFolder );
 	await renderSass( assetsFolder, "styles.scss", "styles.css" );
-	await renderSass( assetsFolder, "2column.scss", "2column.css" );
+	await renderSass( assetsFolder, "tablestyles-columns.scss", "tablestyles-columns.css" );
+	await renderSass( assetsFolder, "tablestyles.scss", "tablestyles.css" );
 	await fs.copyFile( path.join( __dirname, "assets", "logo.jpg" ), path.join( assetsFolder, "logo.jpg" ) );
 }
 

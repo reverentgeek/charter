@@ -1,0 +1,82 @@
+@charset "utf-8";
+@media print {
+  @page { margin: .7cm; }
+  body { margin: 0; }
+}
+* html, body, h1, h2 {
+  font-family: Verdana, Helvetica;
+  font-size: 10pt;
+}
+td { margin: 0; padding: 0; }
+.charter-header {
+  position: relative;
+  min-height: 65px;
+  margin-bottom: 1em;
+}
+.charter-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.charter-logo {
+  text-align: right;
+}
+.charter-artist,
+.charter-subtitle,
+.charter-key {
+  font-weight: normal;
+  margin: 0 0 3px 0;
+  padding: 0;
+}
+.charter-artist {
+  font-size: 0.8em;
+}
+.charter-subtitle {
+  font-size: 0.8em;
+}
+.charter-key {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+.charter-header-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  float: right;
+}
+.charter-header::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.charter-logo {
+  height: 70px;
+}
+.charter-logo-tagline {
+  font-size: 0.7em;
+}
+.charter-section {
+  margin-bottom: 2em;
+  page-break-inside: avoid;
+}
+.charter-section-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.1em;
+}
+.charter-section-body {
+  margin-left: 20px;
+}
+// .charter-chart { }
+// .charter-chords { }
+// .charter-lyrics { }
+.charter-section-title {
+  font-style: italic;
+}
+td.charter-chord:not(:empty) {
+  font-weight: bold;
+  vertical-align: bottom;
+  padding-right: 14px;
+}
+td.charter-lyric { white-space: nowrap; padding-right: 2px; }

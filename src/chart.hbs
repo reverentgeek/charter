@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="./assets/styles.css">
-		{{#if columns}}
-			<link rel="stylesheet" href="./assets/2column.css">
-		{{/if}}
-	</head>
-	<body>
-		<div class="charter-header">
-			<div class="charter-header-text">{{{header}}}</div>
-			<div class="charter-header-logo">
-				<img class="charter-logo" src="./assets/logo.jpg">
-			</div>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./assets/tablestyles.css">
+	{{#if columns}}
+	<link rel="stylesheet" href="./assets/tablestyles-columns.css">
+	{{/if}}
+</head>
+
+<body>
+	<div class="charter-header">
+		<div class="charter-header-text">{{{header}}}</div>
+		<div class="charter-header-logo">
+			<img class="charter-logo" src="./assets/logo.jpg">
 		</div>
-		{{{body}}}
-		{{!-- {{{footer}}} --}}
-	</body>
+	</div>
+	{{{body}}}
+	{{!-- {{{footer}}} --}}
+</body>
+
 </html>

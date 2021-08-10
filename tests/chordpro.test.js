@@ -1,13 +1,14 @@
 "use strict";
 const chordpro = require( "../src/chordpro" );
-const fs = require( "fs" ).promises;
+const fs = require( "fs-extra" );
 
 test( "parses a line of chordpro text", () => {
 	const res = chordpro.parseLyricLine( "Give me [A]eyes to see [E]more of who you [B]are" );
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E", "B" ],
-		lyrics: [ "Give me ", "eyes to see ", "more of who you ", "are" ]
+		lyrics: [ "Give me ", "eyes to see ", "more of who you ", "are" ],
+		directions: [ "", "", "", "" ]
 	} );
 } );
 
@@ -16,7 +17,8 @@ test( "parses a line of chordpro text ending with a chord", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E", "B" ],
-		lyrics: [ "Give me ", "eyes to see ", "more of who you are", "" ]
+		lyrics: [ "Give me ", "eyes to see ", "more of who you are", "" ],
+		directions: [ "", "", "", "" ]
 	} );
 } );
 
@@ -25,7 +27,8 @@ test( "parses a line of chordpro text with sharp/minor", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E", "B", "C#m" ],
-		lyrics: [ "There is ", "nothing that could ", "ever sepa - ", "rate us from Your ", "love" ]
+		lyrics: [ "There is ", "nothing that could ", "ever sepa - ", "rate us from Your ", "love" ],
+		directions: [ "", "", "", "", "" ]
 	} );
 } );
 
@@ -34,7 +37,8 @@ test( "parses a line of embedded chord chordpro text", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "", "A", "E" ],
-		lyrics: [ "There is no", "thing that could ", "ever" ]
+		lyrics: [ "There is no", "thing that could ", "ever" ],
+		directions: [ "", "", "" ]
 	} );
 } );
 
@@ -42,8 +46,9 @@ test( "parses a line with comments", () => {
 	const res = chordpro.parseLyricLine( "I am a believer  [Ab]    [Eb]    [Cm]    [Bb] (2nd x to Br.)" );
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
-		chords: [ "", "Ab", "Eb", "Cm", "Bb", "(2nd x to Br.)" ],
-		lyrics: [ "I am a believer  ", "    ", "    ", "    ", " ", "" ]
+		chords: [ "", "Ab", "Eb", "Cm", "Bb", "" ],
+		lyrics: [ "I am a believer  ", "    ", "    ", "    ", " ", "" ],
+		directions: [ "", "", "", "", "", "(2nd x to Br.)" ]
 	} );
 } );
 
@@ -52,7 +57,8 @@ test( "parses a line of just chords (e.g. intro/turnaround)", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "|", "A", "|", "B", "|", "A", "|", "B", "|" ],
-		lyrics: [ " ", "            ", " ", "            ", " ", "            ", " ", "            ", " " ]
+		lyrics: [ " ", "            ", " ", "            ", " ", "            ", " ", "            ", " " ],
+		directions: [ "", "", "", "", "", "", "", "", "" ]
 	} );
 } );
 
@@ -61,7 +67,8 @@ test( "parses a line with chords ahead of lyrics", () => {
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
 		chords: [ "Ab", "", "Eb", "Bb", "", "Cm" ],
-		lyrics: [ " ", "I hold my ", "head a bit higher,  ", " ", "I lift my ", "voice a bit louder" ]
+		lyrics: [ " ", "I hold my ", "head a bit higher,  ", " ", "I lift my ", "voice a bit louder" ],
+		directions: [ "", "", "", "", "", "" ]
 	} );
 } );
 
@@ -69,8 +76,9 @@ test( "parses a line with a comment at the end", () => {
 	const res = chordpro.parseLyricLine( "I [6m]walk with the king of [5]victory (REPEAT)" );
 	expect( res.chords.length ).toEqual( res.lyrics.length );
 	expect( res ).toStrictEqual( {
-		chords: [ "", "6m", "5", "(REPEAT)" ],
-		lyrics: [ "I ", "walk with the king of ", "victory ", "" ]
+		chords: [ "", "6m", "5", "" ],
+		lyrics: [ "I ", "walk with the king of ", "victory ", "" ],
+		directions: [ "", "", "", "(REPEAT)" ]
 	} );
 } );
 
@@ -120,29 +128,34 @@ test( "parses chorus section", () => {
 } );
 
 test( "parses unknown section as comment", () => {
-	const res = chordpro.parseSection( "{chorus}" );
-	expect( res ).toStrictEqual( { type: "comment", text: "chorus" } );
+	const res = chordpro.parseSection( "{weird}" );
+	expect( res ).toStrictEqual( { type: "weird", text: "weird" } );
+} );
+
+test( "parses unknown section as comment", () => {
+	const res = chordpro.parseSection( "{weird:weird-stuff}" );
+	expect( res ).toStrictEqual( { type: "weird", text: "weird-stuff" } );
 } );
 
 test ( "parses entire chordpro file", async () => {
-	const text = await fs.readFile( "./tests/test.chordpro", "utf8" );
+	const text = await fs.readFile( "./tests/test.cho", "utf8" );
 	const res = chordpro.parse( text );
-	expect( res.title ).toBe( "Believer" );
-	expect( res.subtitle ).toBe( "(as published by Essential Music Publishing)" );
-	expect( res.artist ).toStrictEqual( [ "Bryan Fowler, Mitch Wong, Rhett Walker" ] );
-	expect( res.key ).toBe( "Eb" );
-	expect( res.tempo ).toBe( "87" );
-	expect( res.time ).toBe( "4/4" );
-	expect( res.sections.length ).toBe( 2 );
-	expect( res.sections[0].title ).toBe( "Verse 1" );
-	expect( res.sections[1].title ).toBe( "Chorus 1" );
+	expect( res.title ).toBe( "Amazing Grace" );
+	expect( res.subtitle ).toBe( "Published in 1779" );
+	expect( res.artist ).toStrictEqual( [ "Words by: John Newton, John P. Rees", "Music by: William W. Walker, Edwin Othello Excell" ] );
+	expect( res.key ).toBe( "G" );
+	expect( res.tempo ).toBe( "90" );
+	expect( res.time ).toBe( "3/4" );
+	expect( res.sections.length ).toBe( 5 );
+	expect( res.sections[0].title ).toBe( "Refrain" );
+	expect( res.sections[1].title ).toBe( "Verse 1" );
 	expect( res.sections[0].chords.length ).toBe( 4 );
 	expect( res.sections[0].lyrics.length ).toBe( 4 );
-	expect( res.sections[1].chords.length ).toBe( 6 );
-	expect( res.sections[1].lyrics.length ).toBe( 6 );
-	expect( res.sections[0].chords[0] ).toStrictEqual( [ "Ab", "Eb", "Bb", "Cm" ] );
-	expect( res.sections[0].lyrics[0] ).toStrictEqual( [ "   ", "I walk a bit different ", "now   ", "" ] );
-	expect( res.footer.length ).toBe( 4 );
+	expect( res.sections[1].chords.length ).toBe( 4 );
+	expect( res.sections[1].lyrics.length ).toBe( 4 );
+	expect( res.sections[0].chords[0] ).toStrictEqual( [ "", "G", "G7", "C", "G" ] );
+	expect( res.sections[0].lyrics[0] ).toStrictEqual( [ "A - ", "mazing ", "Grace! How ", "sweet the ", "sound" ] );
+	expect( res.footer.length ).toBe( 2 );
 } );
 
 test ( "parses a single line chordpro file", async () => {

@@ -27,8 +27,8 @@ function formatChord( chord ) {
 
 function renderLyricLine( body, lyric, chord, direction ) {
 	if ( chord ) {
-		body.push( `<span class="charter-chord-wrapper"><span class="chord">${ formatChord( chord ) }</span>` );
-		body.push( `<span class="charter-chord-lyrics">${ lyric.length > 0 ? lyric : " " }</span>` );
+		body.push( `<span class="charter-chord-wrapper"><span class="charter-chord">${ formatChord( chord ) }</span>` );
+		body.push( `<span class="charter-chord-lyric">${ lyric.length > 0 ? lyric : " " }</span>` );
 		body.push( "</span>" );
 		if ( lyric.trim() === "" ) body.push( "    " );
 	} else if ( direction ) {

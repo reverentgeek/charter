@@ -73,13 +73,6 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 	background-color: transparent;
 }
 
-.charter-song-key-change-wrapper {
-	font-weight: bold;
-	color: #000000;
-	background-color: transparent;
-	float: right;
-}
-
 .charter-tempo-time-wrapper {
 	white-space: nowrap;
 }
@@ -106,10 +99,6 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 	max-width: 440px;
 }
 
-.charter-column span.charter-section-title {
-	// margin-top: .5em;
-}
-
 .charter-column.left-column {
 	padding-right: 10px;
 }
@@ -128,12 +117,6 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 	clear: both;
 }
 
-.charter-page-break {
-	margin: 10px 0 0 0;
-	padding: 10px 0;
-	// border-top: 1px dotted #c5c5c5;
-}
-
 .charter-section-wrapper {
 	display: block;
 	-moz-page-break-inside: avoid;
@@ -147,17 +130,13 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 	padding-top: .2em;
 }
 
-.lyrics-only {
-	line-height: 1;
-}
-
 .charter-chord-wrapper {
 	display: inline-block;
 	position: relative;
 	vertical-align: bottom;
 }
 
-.charter-song-line .charter-chord-wrapper .chord {
+.charter-song-line .charter-chord-wrapper .charter-chord {
 	font-family: $font-family;
 	color: #000000;
 	background-color: transparent;
@@ -168,20 +147,7 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 	float: left;
 }
 
-.chords-only .charter-chord-wrapper .chord {
-	padding: 0;
-	float: none;
-}
-
-.chords-only .charter-chord-wrapper .charter-chord-lyrics {
-	float: none;
-}
-
-.chords-only .charter-direction-wrapper .charter-direction {
-	float: none;
-}
-
-.charter-chord-lyrics {
+.charter-chord-lyric {
 	float: left;
 	clear: both;
 }
@@ -195,7 +161,6 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 .charter-direction {
 	color: #000000;
 	background-color: transparent;
-	// border: none;
 	position: relative;
 	font-weight: normal;
 	font-style: italic;

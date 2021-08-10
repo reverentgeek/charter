@@ -27,8 +27,8 @@ function formatChord( chord ) {
 
 function renderLyricLine( body, lyric, chord, direction ) {
 	if ( chord ) {
-		body.push( `<span class="chord-wrapper"><span class="chord">${ formatChord( chord ) }</span>` );
-		body.push( `<span class="chord-lyrics">${ lyric.length > 0 ? lyric : " " }</span>` );
+		body.push( `<span class="charter-chord-wrapper"><span class="chord">${ formatChord( chord ) }</span>` );
+		body.push( `<span class="charter-chord-lyrics">${ lyric.length > 0 ? lyric : " " }</span>` );
 		body.push( "</span>" );
 		if ( lyric.trim() === "" ) body.push( "    " );
 	} else if ( direction ) {
@@ -70,7 +70,7 @@ async function render( chart, options = { columns: false } ) {
 			if ( columnBreak > 0 && columnBreak === index ) {
 				body.push( "</span><span class=\"charter-column right-column\">" );
 			}
-			body.push( `<span class="charter-song-section"><span class="charter-comment">${ section.title }</span>` );
+			body.push( `<span class="charter-section-wrapper"><span class="charter-section-title">${ section.title }</span>` );
 			for( let i = 0; i < section.chords.length; i++ ) {
 				if ( i > 0 ) body.push( "\n" );
 				body.push( "<span class=\"charter-song-line\">" );
@@ -79,7 +79,7 @@ async function render( chart, options = { columns: false } ) {
 				}
 				body.push( "</span>" ); // charter-song-line
 			}
-			body.push( "</span>" ); // charter-song-section
+			body.push( "</span>" ); // charter-section-wrapper
 			if ( index !== chart.sections.length - 1 ) {
 				body.push( "\n\n" );
 			}

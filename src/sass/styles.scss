@@ -1,7 +1,8 @@
 @charset "utf-8";
+$font-family: Verdana, Arial, Helvetica, sans-serif;
 
 * html, body, h1, h2 {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: $font-family;
 	font-size: 9pt;
 }
 
@@ -18,7 +19,7 @@
 	right: 0;
 }
 
-.charter-title-line {
+.charter-title-wrapper {
 	line-height: 1.2;
 	display: block;
 	width: 100%;
@@ -40,14 +41,14 @@
 	width: 85%;
 }
 
-.charter-author-line {
+.charter-artist-wrapper {
 	font-size: .7em;
 	display: block;
 	width: 100%;
 	overflow: visible;
 }
 
-.charter-authors {
+.charter-artist {
 	white-space: normal;
 	width: 73%;
 	display: inline-block;
@@ -57,17 +58,12 @@
 	padding-right: 15px;
 }
 
-.charter-author2-line {
-	font-size: .7em;
-	display: block;
-}
-
-.charter-key-tempo-time-line {
+.charter-song-key-tempo-wrapper {
 	font-size: .8em;
 	font-weight: bold;
 }
 
-.charter-song-key-wrapper {
+.charter-song-key-tempo {
 	white-space: nowrap;
 }
 
@@ -88,27 +84,11 @@
 	white-space: nowrap;
 }
 
-.charter-second-page-title-line {
-	display: block;
-	line-height: 1.2;
-	overflow: visible;
-	font-size: 1.4rem;
-	font-weight: bold;
-	white-space: normal;
-	padding-bottom: 20pt;
-}
-
-.charter-page-number {
-	float: right;
-	font-size: .6em;
-	font-weight: normal;
-}
-
 .charter-song-body {
 	overflow: visible;
 }
 
-.charter-comment {
+.charter-section-title {
 	display: block;
 	font-weight: bold;
 	line-height: 2;
@@ -126,7 +106,7 @@
 	max-width: 440px;
 }
 
-.charter-column span.charter-comment {
+.charter-column span.charter-section-title {
 	// margin-top: .5em;
 }
 
@@ -138,7 +118,7 @@
 	padding-left: 10px;
 }
 
-.charter-column .charter-song-section .charter-song-line {
+.charter-column .charter-section-wrapper .charter-song-line {
 	padding-left: 0;
 }
 
@@ -148,18 +128,13 @@
 	clear: both;
 }
 
-div#chord-sheet-viewer-container div {
-	-moz-page-break-inside: auto;
-	page-break-inside: auto;
-}
-
 .charter-page-break {
 	margin: 10px 0 0 0;
 	padding: 10px 0;
 	// border-top: 1px dotted #c5c5c5;
 }
 
-.charter-song-section {
+.charter-section-wrapper {
 	display: block;
 	-moz-page-break-inside: avoid;
 	page-break-inside: avoid;
@@ -176,14 +151,14 @@ div#chord-sheet-viewer-container div {
 	line-height: 1;
 }
 
-.chord-wrapper {
+.charter-chord-wrapper {
 	display: inline-block;
 	position: relative;
 	vertical-align: bottom;
 }
 
-.charter-song-line .chord-wrapper .chord {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+.charter-song-line .charter-chord-wrapper .chord {
+	font-family: $font-family;
 	color: #000000;
 	background-color: transparent;
 	position: relative;
@@ -193,12 +168,12 @@ div#chord-sheet-viewer-container div {
 	float: left;
 }
 
-.chords-only .chord-wrapper .chord {
+.chords-only .charter-chord-wrapper .chord {
 	padding: 0;
 	float: none;
 }
 
-.chords-only .chord-wrapper .chord-lyrics {
+.chords-only .charter-chord-wrapper .charter-chord-lyrics {
 	float: none;
 }
 
@@ -206,7 +181,7 @@ div#chord-sheet-viewer-container div {
 	float: none;
 }
 
-.chord-lyrics {
+.charter-chord-lyrics {
 	float: left;
 	clear: both;
 }
@@ -231,93 +206,20 @@ div#chord-sheet-viewer-container div {
 
 pre {
 	margin: 0 0 0;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: $font-family;
 }
 
-#chord-sheet-viewer-container {
+#charter-container {
 	position: relative;
 	overflow: hidden;
 }
 
+#charter-container div {
+	-moz-page-break-inside: auto;
+	page-break-inside: auto;
+}
+
 @media print {
 	@page { margin: .7cm; }
-	body { margin: 0; font-size: .9em; }
-
-	// #chord-sheet-viewer-container {
-	// 	border: none;
-	// }
-	// .charter-title {
-	// 	font-size: 16pt !important;
-	// }
-	// .charter-author-line {
-	// 	font-size: 7pt !important;
-	// 	margin-top: 2pt;
-	// }
-	// .charter-authors {
-	// 	padding-right: 11.25pt !important;
-	// }
-	// .charter-author2-line {
-	// 	font-size: 7pt !important;
-	// 	margin-top: 2pt;
-	// }
-	// .charter-key-tempo-time-line {
-	// 	font-size: 9pt !important;
-	// 	margin-top: 2pt;
-	// }
-	// .charter-second-page-title-line {
-	// 	font-size: 14pt !important;
-	// 	padding-bottom: 20pt;
-	// }
-	// .charter-page-number {
-	// 	font-size: 11pt !important;
-	// }
-	// .charter-song-body {
-	// 	font-size: 13pt !important;
-	// }
-	// .charter-column {
-	// 	font-size: 10pt !important;
-	// 	letter-spacing: -1pt;
-	// 	max-width: 276pt;
-	// }
-	// .charter-column span.charter-comment {
-	// 	font-size: 11pt !important;
-	// 	margin-top: 11pt;
-	// }
-	// .charter-column.left-column {
-	// 	padding-right: 11pt;
-	// }
-	// .charter-column.right-column {
-	// 	padding-left: 11pt;
-	// }
-	// .charter-column .charter-song-section .charter-song-line {
-	// 	padding-left: 0 !important;
-	// }
-	// .charter-column .charter-song-section .charter-song-line code.chord {
-	// 	font-size: 10pt !important;
-	// }
-	// .charter-song-line {
-	// 	padding-left: 24pt !important;
-	// 	line-height: 13pt;
-	// 	padding-top: 1pt;
-	// }
-	// h1 {
-	// 	font-size: 24pt !important;
-	// }
-	// .copyright-info {
-	// 	font-size: 8pt !important;
-	// 	padding: 18pt 0 0 0 !important;
-	// }
-	// body {
-	// 	padding: 0 0 0 0 !important;
-	// }
-	// #chord-sheet-viewer-container {
-	// 	padding: 16pt 30pt 12pt 24pt !important;
-	// }
-	// .charter-page-break {
-	// 	page-break-before: always;
-	// 	break-before: page;
-	// 	padding: 0;
-	// 	margin: 0;
-	// 	border: none;
-	// }
+	body { margin: 0; font-size: 0.95em; }
 }

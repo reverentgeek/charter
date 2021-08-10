@@ -35,7 +35,7 @@ test( "html renders sections", () => {
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Verse 1</div>" ) );
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Refrain</div>" ) );
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">And grace my fears re - </td>" ) );
-	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(testing direction)</td>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-section-title\">(testing direction)</td>" ) );
 } );
 
 test( "rendered html includes html template", () => {
@@ -85,7 +85,7 @@ test( "chart with only body", () => {
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Verse 1</div>" ) );
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<div class=\"charter-section-title\">Refrain</div>" ) );
 	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-lyric\">And grace my fears re - </td>" ) );
-	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-comment\">(testing direction)</td>" ) );
+	expect( renderedChart.body ).toEqual( expect.stringContaining( "<td class=\"charter-section-title\">(testing direction)</td>" ) );
 } );
 
 describe( "formats chords", () => {

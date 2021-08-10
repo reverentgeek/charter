@@ -68,9 +68,9 @@ function renderChart( chart, options = { columns: false } ) {
 						body.push( `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
 					}
 					if ( section.directions[i][j].length > 0 ) {
-						body.push( `<td class="charter-comment">${ section.directions[i][j] }</td>` );
+						body.push( `<td class="charter-section-title">${ section.directions[i][j] }</td>` );
 					}
-					// body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-comment">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
+					// body.push( section.chords[i][j].startsWith( "(" ) ? `<td class="charter-section-title">${ section.chords[i][j] }</td>` : `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
 				}
 				body.push( "</tr>" );
 				body.push( "<tr class=\"charter-lyrics\">" );

@@ -12,7 +12,7 @@ Turn something like this...
 
 ## Requirements
 
-To use this application, you will need [Node.js](https://nodejs.org/) version 12 or higher.
+To use this application, you will need the current LTS version of [Node.js](https://nodejs.org/).
 
 ## Setup
 

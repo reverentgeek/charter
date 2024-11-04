@@ -1,7 +1,7 @@
-"use strict";
-const fs = require( "fs" ).promises;
-const chordpro = require( "../src/chordpro" );
-const html = require( "../src/htmlTableFormat" );
+import fs from "node:fs/promises";
+import * as chordpro from "../src/chordpro.js";
+import * as html from "../src/htmlTableFormat.js";
+
 let parsed;
 let renderedChart;
 let renderedHtml;

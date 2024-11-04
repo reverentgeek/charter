@@ -1,8 +1,6 @@
-"use strict";
+import puppeteer from "puppeteer";
 
-const puppeteer = require( "puppeteer" );
-
-const renderPdf = async files => {
+export const renderPdf = async files => {
 	const browser = await puppeteer.launch();
 	for( let i = 0; i < files.length; i++ ) {
 		const page = await browser.newPage();
@@ -10,8 +8,4 @@ const renderPdf = async files => {
 		await page.pdf( { path: files[i].dst, format: "Letter" } );
 	}
 	await browser.close();
-};
-
-module.exports = {
-	renderPdf
 };

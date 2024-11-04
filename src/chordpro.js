@@ -1,6 +1,4 @@
-"use strict";
-
-function parseLyricLine( lyricLine ) {
+export function parseLyricLine( lyricLine ) {
 	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
 	const chords = [];
 	const lyrics = [];
@@ -26,13 +24,13 @@ function parseLyricLine( lyricLine ) {
 	return { chords, lyrics, directions };
 }
 
-function parseSection( line ) {
+export function parseSection( line ) {
 	const text = line.replace( "{", "" ).replace( "}", "" );
 	const parts = text.split( ":" );
 	return parts.length > 1 ? { type: parts[0].toLowerCase().trim(), text: parts.slice( 1 ).join( ":" ).trim() } : { type: parts[0].trim(), text: parts[0].trim() };
 }
 
-function parse( chordProText ) {
+export function parse( chordProText ) {
 	const lines = chordProText.split( "\n" );
 	const parsed = {
 		title: "",
@@ -49,38 +47,38 @@ function parse( chordProText ) {
 		if ( lines[i].trim().startsWith( "{" ) ) {
 			const section = parseSection( lines[i] );
 			switch( section.type ) {
-			case "title":
-				parsed.title = section.text;
-				break;
-			case "subtitle":
-				parsed.subtitle = section.text;
-				break;
-			case "artist":
-			case "composer":
-			case "lyricist":
-				parsed.artist.push( section.text );
-				break;
-			case "key":
-				parsed.key = section.text;
-				break;
-			case "time":
-				parsed.time = section.text;
-				break;
-			case "tempo":
-				parsed.tempo = section.text;
-				break;
-			case "end_of_chorus":
-			case "end_of_verse":
-			case "end_of_bridge":
-				break;
-			default:
-				sectionIndex++;
-				parsed.sections.push( {
-					title: section.text,
-					lyrics: [],
-					chords: [],
-					directions: []
-				} );
+				case "title":
+					parsed.title = section.text;
+					break;
+				case "subtitle":
+					parsed.subtitle = section.text;
+					break;
+				case "artist":
+				case "composer":
+				case "lyricist":
+					parsed.artist.push( section.text );
+					break;
+				case "key":
+					parsed.key = section.text;
+					break;
+				case "time":
+					parsed.time = section.text;
+					break;
+				case "tempo":
+					parsed.tempo = section.text;
+					break;
+				case "end_of_chorus":
+				case "end_of_verse":
+				case "end_of_bridge":
+					break;
+				default:
+					sectionIndex++;
+					parsed.sections.push( {
+						title: section.text,
+						lyrics: [],
+						chords: [],
+						directions: []
+					} );
 			}
 		} else if ( lines[i].trim().length > 0 ) {
 			if ( lines[i].trim().startsWith( "CCLI" ) ) {
@@ -100,9 +98,3 @@ function parse( chordProText ) {
 	}
 	return parsed;
 }
-
-module.exports = {
-	parse,
-	parseLyricLine,
-	parseSection
-};

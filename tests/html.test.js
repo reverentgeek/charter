@@ -1,7 +1,7 @@
-"use strict";
-const fs = require( "fs-extra" );
-const chordpro = require( "../src/chordpro" );
-const html = require( "../src/html" );
+import fs from "node:fs/promises";
+import * as chordpro from "../src/chordpro.js";
+import * as html from "../src/html.js";
+
 let parsed;
 let renderedHtml;
 let renderedColumnHtml;

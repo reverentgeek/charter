@@ -1,13 +1,15 @@
-"use strict";
+import path from "node:path";
+const __dirname = import.meta.url;
 
-const path = require( "path" );
+import chrome from "../src/chrome.js";
+import { getBuildFolder, getAllHtmlFiles } from "../src/processor.js";
+
 const pathToChrome = "/Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome";
-const { renderPdf } = require( "../src/chrome" )( pathToChrome );
-const processor = require( "../src/processor" );
+const { renderPdf  } = chrome( pathToChrome );
 
 ( async () => {
-	const buildFolder = await processor.getBuildFolder();
-	const files = await processor.getAllHtmlFiles( buildFolder );
+	const buildFolder = await getBuildFolder();
+	const files = await getAllHtmlFiles( buildFolder );
 	const pdfFolder = path.join( __dirname, "..", "pdf" );
 	for( let i = 0; i < files.length; i++ ) {
 		let src = path.join( buildFolder, files[i] );

@@ -1,9 +1,9 @@
-"use strict";
+import fs from "fs-extra";
+import ejs from "ejs";
+import path from "path";
 
-const fs = require( "fs-extra" );
-const ejs = require( "ejs" );
-const path = require( "path" );
 let _template;
+const __dirname = import.meta.dirname;
 
 async function getChartTemplate() {
 	if ( !_template ) {
@@ -13,13 +13,17 @@ async function getChartTemplate() {
 	return _template;
 }
 
-function formatChord( chord ) {
+export function formatChord( chord ) {
 	if ( chord.length <= 1 || chord === "N.C." ) {
 		return chord;
 	}
 	const chords = chord.split( "/" );
 	const formatted = chords.map( c => {
 		const [ note, ...parts ] = c.split( /(^[b#]{0,1}[A-G1-7]{1}[#♯b♭]{0,1}(?:maj|dim|sus|m|aug|Maj){0,1})/g ).filter( p => p.length > 0 );
+		if ( parts.length > 0 && parts[parts.length - 1 ] === ")" ) {
+			const chordParts = parts.slice( 0, -1 );
+			return chordParts.length > 0 ? `${ note }<sup>${ chordParts.join( "" ) }</sup>` + ")" : note + ")";
+		}
 		return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;
 	} );
 	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
@@ -38,13 +42,13 @@ function renderLyricLine( body, lyric, chord, direction ) {
 	}
 }
 
-function totalLines( sections ) {
+export function totalLines( sections ) {
 	let count = 0;
 	sections.forEach( section => count += section.lyrics.length + 1 );
 	return count;
 }
 
-function getColumnBreak( sections ) {
+export function getColumnBreak( sections ) {
 	if ( sections.length < 2 ) return 0;
 	if ( sections.length === 2 ) return 1;
 	const right = [];
@@ -56,7 +60,7 @@ function getColumnBreak( sections ) {
 	}
 }
 
-async function render( chart, options = { columns: false } ) {
+export async function render( chart, options = { columns: false } ) {
 	const template = await getChartTemplate();
 	chart.columns = options.columns;
 	const columnBreak = options.columns ? getColumnBreak( chart.sections ) : 0;
@@ -94,10 +98,3 @@ async function render( chart, options = { columns: false } ) {
 	const rendered = template( chart );
 	return rendered;
 }
-
-module.exports = {
-	formatChord,
-	getColumnBreak,
-	totalLines,
-	render
-};

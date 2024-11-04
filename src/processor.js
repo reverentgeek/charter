@@ -1,9 +1,9 @@
-"use strict";
+import fs from "fs-extra";
+import path from "path";
+import { parse } from "./chordpro.js";
+import { render } from "./html.js";
 
-const chordpro = require( "./chordpro" );
-const html = require( "./html" );
-const fs = require( "fs-extra" );
-const path = require( "path" );
+const __dirname = import.meta.dirname;
 
 async function saveChordProFileAsHtml( chartFolder, buildFolder, chordFile, columns ) {
 	const title = path.basename( chordFile, chordFile.endsWith( ".cho" ) ? ".cho" : ".chordpro" );
@@ -11,30 +11,30 @@ async function saveChordProFileAsHtml( chartFolder, buildFolder, chordFile, colu
 	const htmlFile = path.join( buildFolder, `${ title }.html` );
 	console.log( `Converting ${ chordFile } to html...` );
 	const text = await fs.readFile( file, "utf8" );
-	const chart = chordpro.parse( text );
-	const chartHtml = await html.render( chart, { columns } );
+	const chart = parse( text );
+	const chartHtml = await render( chart, { columns } );
 	await fs.writeFile( htmlFile, chartHtml, { encoding: "utf8" } );
 }
 
-async function getChartFolder( pathToChartFolder ) {
+export async function getChartFolder( pathToChartFolder ) {
 	return pathToChartFolder ? pathToChartFolder : path.join( __dirname, "..", "charts" );
 }
 
-async function getBuildFolder( pathToBuildFolder ) {
+export async function getBuildFolder( pathToBuildFolder ) {
 	return pathToBuildFolder ? pathToBuildFolder : path.join( __dirname, "..", "build" );
 }
 
-async function getAllHtmlFiles( buildFolder ) {
+export async function getAllHtmlFiles( buildFolder ) {
 	const files = await fs.readdir( buildFolder );
 	return files.filter( f => f.endsWith( ".html" ) );
 }
 
-async function getAllChordProFiles( chartFolder ) {
+export async function getAllChordProFiles( chartFolder ) {
 	const files = await fs.readdir( chartFolder );
 	return files.filter( f => f.endsWith( ".cho" ) || f.endsWith( ".chordpro" ) );
 }
 
-async function convertChordProFilesToHtml( { pathToChartFolder = "", pathToBuildFolder = "", columns = false } ) {
+export async function convertChordProFilesToHtml( { pathToChartFolder = "", pathToBuildFolder = "", columns = false } ) {
 	const chartFolder = await getChartFolder( pathToChartFolder );
 	const buildFolder = await getBuildFolder( pathToBuildFolder );
 	const chordFiles = await getAllChordProFiles( chartFolder );
@@ -42,11 +42,3 @@ async function convertChordProFilesToHtml( { pathToChartFolder = "", pathToBuild
 		await saveChordProFileAsHtml( chartFolder, buildFolder, chordFiles[i], columns );
 	}
 }
-
-module.exports = {
-	getAllChordProFiles,
-	convertChordProFilesToHtml,
-	getAllHtmlFiles,
-	getBuildFolder,
-	getChartFolder
-};

@@ -1,10 +1,10 @@
-"use strict";
+/* eslint-disable n/no-extraneous-import */
+import { createServer } from "http";
+import handler from "serve-handler";
 
-const handler = require( "serve-handler" );
-const http = require( "http" );
 const port = 3000;
 
-const server = http.createServer( ( request, response ) => {
+const server = createServer( ( request, response ) => {
 	return handler( request, response, {
 		public: "build"
 	} );

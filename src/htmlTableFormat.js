@@ -1,9 +1,9 @@
-"use strict";
+import fs from "fs-extra";
+import path from "path";
+import hb from "handlebars";
 
-const fs = require( "fs" ).promises;
-const hb = require( "handlebars" );
-const path = require( "path" );
 let _template;
+const __dirname = import.meta.dirname;
 
 async function getChartTemplate() {
 	if ( !_template ) {
@@ -13,19 +13,23 @@ async function getChartTemplate() {
 	return _template;
 }
 
-function formatChord( chord ) {
+export function formatChord( chord ) {
 	if ( chord.length <= 1 || chord === "N.C." ) {
 		return chord;
 	}
 	const chords = chord.split( "/" );
 	const formatted = chords.map( c => {
 		const [ note, ...parts ] = c.split( /(^[b#]{0,1}[A-G1-7]{1}[#♯b♭]{0,1}(?:maj|dim|sus|m|aug|Maj){0,1})/g ).filter( p => p.length > 0 );
+		if ( parts.length > 0 && parts[parts.length - 1 ] === ")" ) {
+			const chordParts = parts.slice( 0, -1 );
+			return chordParts.length > 0 ? `${ note }<sup>${ chordParts.join( "" ) }</sup>` + ")" : note + ")";
+		}
 		return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;
 	} );
 	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
 }
 
-function renderChart( chart, options = { columns: false } ) {
+export function renderChart( chart, options = { columns: false } ) {
 	const header = [];
 	const body = [];
 	const footer = [];
@@ -104,14 +108,8 @@ function renderChart( chart, options = { columns: false } ) {
 	};
 }
 
-async function render( chart, options = { columns: false } ) {
+export async function render( chart, options = { columns: false } ) {
 	const template = await getChartTemplate();
 	const chartHtml = renderChart( chart, options );
 	return template( chartHtml );
 }
-
-module.exports = {
-	formatChord,
-	render,
-	renderChart
-};

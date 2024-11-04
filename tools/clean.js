@@ -1,14 +1,13 @@
-"use strict";
-
-const fs = require( "fs-extra" );
-const path = require( "path" );
+import fs from "fs-extra";
+import { join } from "node:path";
+const __dirname = import.meta.url;
 
 ( async () => {
-	const buildFolder = path.join( __dirname, "..", "build" );
-	const assetFolder = path.join( __dirname, "..", "src", "assets" );
-	const pdfFolder = path.join( __dirname, "..", "pdf" );
+	const buildFolder = join( __dirname, "..", "build" );
+	const assetFolder = join( __dirname, "..", "src", "assets" );
+	const pdfFolder = join( __dirname, "..", "pdf" );
 	await fs.emptyDir( pdfFolder );
 	await fs.emptyDir( buildFolder );
-	await fs.ensureDir( path.join( buildFolder, "assets" ) );
-	await fs.copy( assetFolder, path.join( buildFolder, "assets" ) );	
+	await fs.ensureDir( join( buildFolder, "assets" ) );
+	await fs.copy( assetFolder, join( buildFolder, "assets" ) );
 } )();

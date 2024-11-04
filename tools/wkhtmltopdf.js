@@ -1,12 +1,13 @@
-"use strict";
+/* eslint-disable n/no-extraneous-import */
+import handler from "serve-handler";
+import path from "node:path";
+import http from "node:http";
+import { promisify } from "node:util";
+import child_process from "node:child_process";
+import { getBuildFolder, getAllHtmlFiles } from "../src/processor.js";
 
-const handler = require( "serve-handler" );
-const http = require( "http" );
-const path = require( "path" );
-const util = require( "util" );
-const exec = util.promisify( require( "child_process" ).exec );
-
-const processor = require( "../src/processor" );
+const exec = promisify( child_process.exec );
+const __dirname = import.meta.url;
 
 const port = 3000;
 
@@ -16,8 +17,8 @@ async function renderPdf( title, pdfFolder ) {
 }
 
 async function generatePdfFiles() {
-	const buildFolder = await processor.getBuildFolder();
-	const files = await processor.getAllHtmlFiles( buildFolder );
+	const buildFolder = await getBuildFolder();
+	const files = await getAllHtmlFiles( buildFolder );
 	const titles = files.map( f => path.basename( f, ".html" ) );
 	const pdfFolder = path.join( __dirname, "..", "pdf" );
 	for( let i = 0; i < titles.length; i++ ) {

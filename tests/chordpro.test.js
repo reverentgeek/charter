@@ -1,6 +1,5 @@
-"use strict";
-const chordpro = require( "../src/chordpro" );
-const fs = require( "fs-extra" );
+import * as chordpro from "../src/chordpro.js";
+import fs from "node:fs/promises";
 
 test( "parses a line of chordpro text", () => {
 	const res = chordpro.parseLyricLine( "Give me [A]eyes to see [E]more of who you [B]are" );

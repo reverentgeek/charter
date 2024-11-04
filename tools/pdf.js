@@ -1,12 +1,12 @@
-"use strict";
+import path from "node:path";
+import { getBuildFolder, getAllHtmlFiles } from "../src/processor.js";
+import { renderPdf } from "../src/pdf.js";
 
-const path = require( "path" );
-const { renderPdf } = require( "../src/pdf" );
-const processor = require( "../src/processor" );
+const __dirname = import.meta.url;
 
 ( async () => {
-	const buildFolder = await processor.getBuildFolder();
-	const files = await processor.getAllHtmlFiles( buildFolder );
+	const buildFolder = await getBuildFolder();
+	const files = await getAllHtmlFiles( buildFolder );
 	const pdfFolder = path.join( __dirname, "..", "pdf" );
 	const srcDstFiles = files.map( f => {
 		const src = "file://" + path.join( buildFolder, f );

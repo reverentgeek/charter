@@ -1,13 +1,13 @@
-"use strict";
+import path from "node:path";
+import os from "node:os";
+import fs from "fs-extra";
+import * as sass from "sass";
 
-const chordpro = require( "./chordpro" );
-const { renderPdf } = require( "./pdf" );
-// const html = require( "./html" );
-const html = require( "./html" );
-const fs = require( "fs-extra" );
-const path = require( "path" );
-const os = require( "os" );
-const sass = require( "node-sass" );
+import { render } from "./html.js";
+import { parse } from "./chordpro.js";
+import { renderPdf } from "./pdf.js";
+
+const __dirname = import.meta.dirname;
 
 function rename( file, isPdf ) {
 	const ext = isPdf ? ".pdf" : ".html";
@@ -103,12 +103,14 @@ async function getAllChordProFiles( folder ) {
 }
 
 async function renderSass( assetsFolder, sassFile, cssFile ) {
-	const res = sass.renderSync( {
-		file: path.join( __dirname, "sass", sassFile ),
-		outFile: path.join( assetsFolder, cssFile ),
-		outputStyle: "compact",
-		sourceMap: false
-	} );
+	const sassFilePath = path.join( __dirname, "sass", sassFile );
+	const res = sass.compile( sassFilePath );
+	// const res = sass.renderSync( {
+	// 	file: path.join( __dirname, "sass", sassFile ),
+	// 	outFile: path.join( assetsFolder, cssFile ),
+	// 	outputStyle: "compact",
+	// 	sourceMap: false
+	// } );
 	await fs.writeFile( path.join( assetsFolder, cssFile ), res.css );
 }
 
@@ -123,12 +125,12 @@ async function renderAssets( buildFolder ) {
 
 async function saveChordProFileAsHtml( src, dst, columns ) {
 	const text = await fs.readFile( src, "utf8" );
-	const chart = chordpro.parse( text );
-	const chartHtml = await html.render( chart, { columns } );
+	const chart = parse( text );
+	const chartHtml = await render( chart, { columns } );
 	await fs.writeFile( dst, chartHtml, { encoding: "utf8" } );
 }
 
-async function execute( config ) {
+export async function execute( config ) {
 	const cfg = await validate( config );
 	// console.log( cfg );
 	const files = cfg.isFolder ? await getAllChordProFiles( cfg.src ) : [ cfg.src ];
@@ -165,5 +167,3 @@ async function execute( config ) {
 		fs.remove( cfg.buildFolder );
 	}
 }
-
-module.exports = { execute };

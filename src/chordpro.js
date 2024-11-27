@@ -1,17 +1,16 @@
 export function parseLyricLine( lyricLine ) {
-	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
+	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( ( t ) => t !== "" );
 	const chords = [];
 	const lyrics = [];
 	const directions = [];
-	for( let i = 0; i < chunks.length; i++ ) {
+	for ( let i = 0; i < chunks.length; i++ ) {
 		chunks[i] = chunks[i].replace( "\r", "" );
 		if ( chunks[i].indexOf( "[" ) > -1 ) {
-			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" );
+			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( ( t ) => t !== "" );
 			chords.push( subchunks[0].replace( "[", "" ).replace( "]", "" ) );
-			lyrics.push( subchunks.length === 2 ? subchunks[ 1 ] : "" );
+			lyrics.push( subchunks.length === 2 ? subchunks[1] : "" );
 			directions.push( "" );
-		}
-		else if ( chunks[i].startsWith( "(" ) ) {
+		} else if ( chunks[i].startsWith( "(" ) ) {
 			chords.push( "" );
 			lyrics.push( "" );
 			directions.push( chunks[i] );

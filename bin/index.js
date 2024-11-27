@@ -12,7 +12,7 @@ const config = yargs( hideBin( process.argv ) )
 	.option( "columns", { describe: "Use two-column format", type: "boolean" } )
 	.parse();
 
-console.log( config );
+// console.log( config );
 execute( config )
 	.then( () => console.log( "finished" ) )
 	.catch( err => {

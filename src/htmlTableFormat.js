@@ -1,16 +1,35 @@
 import fs from "fs-extra";
-import path from "path";
+import { join } from "node:path";
 import hb from "handlebars";
 
 let _template;
-const __dirname = import.meta.dirname;
+const chordRegEx = /^(?<flatted>[b#]{0,1})(?<root>[A-G1-7][#♯b♭]?)(?<quality>(2|3|4|5|6|7|9|\(|\)|no|o|\+|add|maj|dim|sus|m|aug){0,5})$/;
 
 async function getChartTemplate() {
 	if ( !_template ) {
-		const text = await fs.readFile( path.join( __dirname, "chart.hbs" ), "utf8" );
+		const __dirname = import.meta.dirname;
+		const chartFile = join( __dirname, "chart.hbs" );
+		const text = await fs.readFile( chartFile, "utf8" );
 		_template = hb.compile( text );
 	}
 	return _template;
+}
+
+function parseChord( chord ) {
+	const match = chord.match( chordRegEx );
+	if ( !match || !match.groups ) {
+		return {
+			flatted: "",
+			root: chord,
+			quality: "",
+		};
+	}
+	const g = match.groups;
+	return {
+		flatted: g["flatted"] ?? "",
+		root: g["root"] ?? "",
+		quality: g["quality"] ?? "",
+	};
 }
 
 export function formatChord( chord ) {
@@ -18,13 +37,10 @@ export function formatChord( chord ) {
 		return chord;
 	}
 	const chords = chord.split( "/" );
-	const formatted = chords.map( c => {
-		const [ note, ...parts ] = c.split( /(^[b#]{0,1}[A-G1-7]{1}[#♯b♭]{0,1}(?:maj|dim|sus|m|aug|Maj){0,1})/g ).filter( p => p.length > 0 );
-		if ( parts.length > 0 && parts[parts.length - 1 ] === ")" ) {
-			const chordParts = parts.slice( 0, -1 );
-			return chordParts.length > 0 ? `${ note }<sup>${ chordParts.join( "" ) }</sup>` + ")" : note + ")";
-		}
-		return parts.length > 0 ? `${ note }<sup>${ parts.join( "" ) }</sup>` : note;
+	const formatted = chords.map( ( c ) => {
+		const { flatted, root, quality } = parseChord( c );
+		const html = `${ flatted }${ root }${ quality ? "<sup>" + quality + "</sup>" : "" }`;
+		return html;
 	} );
 	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
 }

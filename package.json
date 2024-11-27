@@ -4,6 +4,9 @@
 	"description": "Application to convert chordpro files to HTML or PDF",
 	"main": "bin/index.js",
 	"type": "module",
+	"engines": {
+		"node": ">=22.0.0"
+	},
 	"scripts": {
 		"clean": "node tools/clean.js",
 		"build:css": "node-sass --omit-source-map-url --output build/assets src/sass ",
@@ -17,8 +20,7 @@
 		"serve": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build && node ./tools/serve.js\" ",
 		"serve:columns": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build:columns && node ./tools/serve.js\" ",
 		"start": "npm run convert",
-		"test": "node --experimental-vm-modules ./node_modules/.bin/jest --coverage",
-		"test:watch": "jest --coverage --watch",
+		"test": "node --test --experimental-test-coverage",
 		"chrome": "npm run build && node tools/chrome-pdf.js",
 		"wk": "npm run build && node tools/wkhtmltopdf.js"
 	},
@@ -35,8 +37,6 @@
 	"devDependencies": {
 		"eslint": "^9.14.0",
 		"eslint-config-reverentgeek": "^5.1.0",
-		"eslint-plugin-jest": "^28.8.3",
-		"jest": "^29.4.3",
 		"nodemon": "^3.1.7",
 		"serve": "^14.2.0"
 	},

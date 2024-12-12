@@ -104,6 +104,17 @@ describe( "html table tests", () => {
 			assert.equal( five, "5" );
 		} );
 
+		it( "formats minor chords", () => {
+			const a = html.formatChord( "Am" );
+			assert.equal( a, "Am" );
+			const bflat = html.formatChord( "Bbm" );
+			assert.equal( bflat, "Bbm" );
+			const csharp = html.formatChord( "C#m" );
+			assert.equal( csharp, "C#m" );
+			const five = html.formatChord( "5m" );
+			assert.equal( five, "5m" );
+		} );
+
 		it( "formats flatted and sharped numbers", () => {
 			const flatSeven = html.formatChord( "b7" );
 			assert.equal( flatSeven, "b7" );
@@ -144,7 +155,7 @@ describe( "html table tests", () => {
 
 		it( "format maj chords", () => {
 			const fmajseven = html.formatChord( "Fmaj7" );
-			assert.equal( fmajseven, "F<sup>maj7</sup>" );
+			assert.equal( fmajseven, "Fmaj<sup>7</sup>" );
 		} );
 
 		it( "does not format non-chords", () => {

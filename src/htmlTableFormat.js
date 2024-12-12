@@ -3,7 +3,7 @@ import { join } from "node:path";
 import hb from "handlebars";
 
 let _template;
-const chordRegEx = /^(?<flatted>[b#]{0,1})(?<root>[A-G1-7][#♯b♭]?)(?<quality>(2|3|4|5|6|7|9|\(|\)|no|o|\+|add|maj|dim|sus|m|aug){0,5})$/;
+const chordRegEx = /^(?<flatted>[b#]{0,1})(?<root>[A-G1-7][#♯b♭]?(m(?!aj)|maj)?)(?<quality>(2|3|4|5|6|7|9|\(|\)|no|o|\+|add|dim|sus|aug){0,5})$/;
 
 async function getChartTemplate() {
 	if ( !_template ) {

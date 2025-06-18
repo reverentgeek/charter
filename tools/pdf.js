@@ -2,7 +2,7 @@ import path from "node:path";
 import { getBuildFolder, getAllHtmlFiles } from "../src/processor.js";
 import { renderPdf } from "../src/pdf.js";
 
-const __dirname = import.meta.url;
+const __dirname = import.meta.dirname;
 
 ( async () => {
 	const buildFolder = await getBuildFolder();

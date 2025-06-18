@@ -7,7 +7,7 @@ import child_process from "node:child_process";
 import { getBuildFolder, getAllHtmlFiles } from "../src/processor.js";
 
 const exec = promisify( child_process.exec );
-const __dirname = import.meta.url;
+const __dirname = import.meta.dirname;
 
 const port = 3000;
 

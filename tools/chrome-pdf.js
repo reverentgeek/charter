@@ -1,5 +1,5 @@
 import path from "node:path";
-const __dirname = import.meta.url;
+const __dirname = import.meta.dirname;
 
 import chrome from "../src/chrome.js";
 import { getBuildFolder, getAllHtmlFiles } from "../src/processor.js";

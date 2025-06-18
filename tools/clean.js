@@ -1,6 +1,6 @@
 import fs from "fs-extra";
 import { join } from "node:path";
-const __dirname = import.meta.url;
+const __dirname = import.meta.dirname;
 
 ( async () => {
 	const buildFolder = join( __dirname, "..", "build" );

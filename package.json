@@ -38,7 +38,7 @@
 		"eslint": "^9.14.0",
 		"eslint-config-reverentgeek": "^5.1.0",
 		"nodemon": "^3.1.7",
-		"serve": "^14.2.0"
+		"serve": "^14.2.4"
 	},
 	"bin": {
 		"chord-charter": "./bin/index.js"

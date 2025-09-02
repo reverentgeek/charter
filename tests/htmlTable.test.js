@@ -10,7 +10,6 @@ let renderedHtml;
 let renderedColumnHtml;
 
 describe( "html table tests", () => {
-
 	before( async () => {
 		const file = await fs.readFile( "./tests/test.cho", "utf8" );
 		parsed = chordpro.parse( file );
@@ -165,5 +164,4 @@ describe( "html table tests", () => {
 			assert.equal( nc2, "RANDOM" );
 		} );
 	} );
-
 } );

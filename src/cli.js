@@ -105,12 +105,7 @@ async function getAllChordProFiles( folder ) {
 async function renderSass( assetsFolder, sassFile, cssFile ) {
 	const sassFilePath = path.join( __dirname, "sass", sassFile );
 	const res = sass.compile( sassFilePath );
-	// const res = sass.renderSync( {
-	// 	file: path.join( __dirname, "sass", sassFile ),
-	// 	outFile: path.join( assetsFolder, cssFile ),
-	// 	outputStyle: "compact",
-	// 	sourceMap: false
-	// } );
+
 	await fs.writeFile( path.join( assetsFolder, cssFile ), res.css );
 }
 
@@ -143,7 +138,7 @@ export async function execute( config ) {
 		await fs.ensureDir( cfg.buildFolder );
 	}
 	await renderAssets( cfg.buildFolder );
-	for( let i = 0; i < files.length; i++ ) {
+	for ( let i = 0; i < files.length; i++ ) {
 		const dst = cfg.isFile ? path.join( cfg.buildFolder, rename( cfg.dst, false ) ) : path.join( cfg.buildFolder, rename( files[i], false ) );
 		saveChordProFileAsHtml( files[i], dst, cfg.columns );
 		buildFiles.push( dst );
@@ -151,8 +146,8 @@ export async function execute( config ) {
 	if ( cfg.isPdf ) {
 		const pdfFolder = cfg.isFile ? path.dirname( cfg.dst ) : cfg.dst;
 		console.time( "time" );
-		console.log( `rendering pdf${ buildFiles.length > 1 ? "s": "" }...` );
-		const files = buildFiles.map( f => {
+		console.log( `rendering pdf${ buildFiles.length > 1 ? "s" : "" }...` );
+		const files = buildFiles.map( ( f ) => {
 			const src = `file://${ f }`;
 			const dstFileName = path.basename( f, path.extname( f ) ) + ".pdf";
 			const dst = path.join( pdfFolder, dstFileName );

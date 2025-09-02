@@ -15,7 +15,7 @@ const config = yargs( hideBin( process.argv ) )
 // console.log( config );
 execute( config )
 	.then( () => console.log( "finished" ) )
-	.catch( err => {
+	.catch( ( err ) => {
 		// options.showHelp();
 		console.log( err.message );
 	} );

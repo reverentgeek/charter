@@ -21,14 +21,14 @@ function parseChord( chord ) {
 		return {
 			flatted: "",
 			root: chord,
-			quality: "",
+			quality: ""
 		};
 	}
 	const g = match.groups;
 	return {
 		flatted: g["flatted"] ?? "",
 		root: g["root"] ?? "",
-		quality: g["quality"] ?? "",
+		quality: g["quality"] ?? ""
 	};
 }
 
@@ -69,7 +69,7 @@ export function getColumnBreak( sections ) {
 	if ( sections.length === 2 ) return 1;
 	const right = [];
 	const left = [ ...sections ];
-	for( let i = sections.length - 1; i > 0; i-- ) {
+	for ( let i = sections.length - 1; i > 0; i-- ) {
 		right.push( left.pop() );
 		if ( totalLines( right ) === totalLines( left ) ) return i;
 		if ( totalLines( right ) >= totalLines( left ) ) return i + 1;
@@ -91,10 +91,10 @@ export async function render( chart, options = { columns: false } ) {
 				body.push( "</span><span class=\"charter-column right-column\">" );
 			}
 			body.push( `<span class="charter-section-wrapper"><span class="charter-section-title">${ section.title }</span>` );
-			for( let i = 0; i < section.chords.length; i++ ) {
+			for ( let i = 0; i < section.chords.length; i++ ) {
 				if ( i > 0 ) body.push( "\n" );
 				body.push( "<span class=\"charter-song-line\">" );
-				for( let j = 0; j < section.chords[i].length; j++ ) {
+				for ( let j = 0; j < section.chords[i].length; j++ ) {
 					renderLyricLine( body, section.lyrics[i][j], section.chords[i][j], section.directions[i][j] );
 				}
 				body.push( "</span>" ); // charter-song-line
@@ -103,7 +103,6 @@ export async function render( chart, options = { columns: false } ) {
 			if ( index !== chart.sections.length - 1 ) {
 				body.push( "\n\n" );
 			}
-
 		} );
 		if ( columnBreak > 0 ) {
 			body.push( "</span>" ); // charter-column

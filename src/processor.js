@@ -38,7 +38,7 @@ export async function convertChordProFilesToHtml( { pathToChartFolder = "", path
 	const chartFolder = await getChartFolder( pathToChartFolder );
 	const buildFolder = await getBuildFolder( pathToBuildFolder );
 	const chordFiles = await getAllChordProFiles( chartFolder );
-	for( let i = 0; i < chordFiles.length; i++ ){
+	for ( let i = 0; i < chordFiles.length; i++ ) {
 		await saveChordProFileAsHtml( chartFolder, buildFolder, chordFiles[i], columns );
 	}
 }

@@ -21,14 +21,14 @@ function parseChord( chord ) {
 		return {
 			flatted: "",
 			root: chord,
-			quality: "",
+			quality: ""
 		};
 	}
 	const g = match.groups;
 	return {
 		flatted: g["flatted"] ?? "",
 		root: g["root"] ?? "",
-		quality: g["quality"] ?? "",
+		quality: g["quality"] ?? ""
 	};
 }
 
@@ -76,14 +76,14 @@ export function renderChart( chart, options = { columns: false } ) {
 
 	if ( chart.sections.length > 0 ) {
 		body.push( "<div class=\"charter-body\">" );
-		chart.sections.forEach( section => {
+		chart.sections.forEach( ( section ) => {
 			body.push( "<div class=\"charter-section\">" );
 			body.push( `<div class="charter-section-title">${ section.title }</div>` );
 			body.push( "<div class=\"charter-section-body\">" );
-			for( let i = 0; i < section.chords.length; i++ ) {
+			for ( let i = 0; i < section.chords.length; i++ ) {
 				body.push( "<table class=\"charter-chart\">" );
 				body.push( "<tr class=\"charter-chords\">" );
-				for( let j = 0; j < section.chords[i].length; j++ ){
+				for ( let j = 0; j < section.chords[i].length; j++ ) {
 					if ( section.chords[i][j].length > 0 ) {
 						body.push( `<td class="charter-chord">${ formatChord( section.chords[i][j] ) }</td>` );
 					}
@@ -94,7 +94,7 @@ export function renderChart( chart, options = { columns: false } ) {
 				}
 				body.push( "</tr>" );
 				body.push( "<tr class=\"charter-lyrics\">" );
-				for( let j = 0; j < section.lyrics[i].length; j++ ){
+				for ( let j = 0; j < section.lyrics[i].length; j++ ) {
 					body.push( `<td class="charter-lyric">${ section.lyrics[i][j] }</td>` );
 				}
 				body.push( "</tr>" );
@@ -102,14 +102,13 @@ export function renderChart( chart, options = { columns: false } ) {
 			}
 			body.push( "</div>" ); // section body
 			body.push( "</div>" ); // section
-
 		} );
 		body.push( "</div>" ); // charter-body
 	}
 
 	if ( chart.footer.length > 0 ) {
 		footer.push( "<div class=\"charter-footer\">" );
-		chart.footer.forEach( f => {
+		chart.footer.forEach( ( f ) => {
 			footer.push( `<div class="charter-footer-line">${ f }</div>` );
 		} );
 		footer.push( "</div>" );

@@ -1,12 +1,12 @@
 export function parseLyricLine( lyricLine ) {
-	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( ( t ) => t !== "" );
+	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
 	const chords = [];
 	const lyrics = [];
 	const directions = [];
 	for ( let i = 0; i < chunks.length; i++ ) {
 		chunks[i] = chunks[i].replace( "\r", "" );
 		if ( chunks[i].indexOf( "[" ) > -1 ) {
-			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( ( t ) => t !== "" );
+			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" );
 			chords.push( subchunks[0].replace( "[", "" ).replace( "]", "" ) );
 			lyrics.push( subchunks.length === 2 ? subchunks[1] : "" );
 			directions.push( "" );
@@ -42,10 +42,10 @@ export function parse( chordProText ) {
 		footer: []
 	};
 	let sectionIndex = -1;
-	for( let i = 0; i < lines.length; i++ ) {
+	for ( let i = 0; i < lines.length; i++ ) {
 		if ( lines[i].trim().startsWith( "{" ) ) {
 			const section = parseSection( lines[i] );
-			switch( section.type ) {
+			switch ( section.type ) {
 				case "title":
 					parsed.title = section.text;
 					break;
@@ -81,7 +81,7 @@ export function parse( chordProText ) {
 			}
 		} else if ( lines[i].trim().length > 0 ) {
 			if ( lines[i].trim().startsWith( "CCLI" ) ) {
-				while( i < lines.length ) {
+				while ( i < lines.length ) {
 					if ( lines[i].trim().length > 0 ) {
 						parsed.footer.push( lines[i].trim() );
 					}

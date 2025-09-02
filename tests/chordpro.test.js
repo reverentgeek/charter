@@ -4,7 +4,6 @@ import * as chordpro from "../src/chordpro.js";
 import fs from "node:fs/promises";
 
 describe( "chordpro tests", () => {
-
 	it( "parses a line of chordpro text", () => {
 		const res = chordpro.parseLyricLine( "Give me [A]eyes to see [E]more of who you [B]are" );
 		assert.equal( res.chords.length, res.lyrics.length );
@@ -178,5 +177,4 @@ describe( "chordpro tests", () => {
 		assert.deepEqual( res.sections[0].lyrics[0], [ "A very ", "short ", "song" ] );
 		assert.equal( res.footer.length, 0 );
 	} );
-
 } );

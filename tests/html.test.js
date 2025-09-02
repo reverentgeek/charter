@@ -9,7 +9,6 @@ let renderedHtml;
 let renderedColumnHtml;
 
 describe( "html tests", () => {
-
 	before( async () => {
 		const file = await fs.readFile( "./tests/test.cho", "utf8" );
 		parsed = chordpro.parse( file );
@@ -134,5 +133,4 @@ describe( "html tests", () => {
 			assert.equal( nc2, "RANDOM" );
 		} );
 	} );
-
 } );

@@ -21,7 +21,7 @@ async function generatePdfFiles() {
 	const files = await getAllHtmlFiles( buildFolder );
 	const titles = files.map( f => path.basename( f, ".html" ) );
 	const pdfFolder = path.join( __dirname, "..", "pdf" );
-	for( let i = 0; i < titles.length; i++ ) {
+	for ( let i = 0; i < titles.length; i++ ) {
 		await renderPdf( titles[i], pdfFolder );
 	}
 }

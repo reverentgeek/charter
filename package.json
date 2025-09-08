@@ -27,18 +27,18 @@
 	"author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
 	"license": "MIT",
 	"dependencies": {
-		"ejs": "^3.1.6",
-		"fs-extra": "^11.1.0",
-		"handlebars": "^4.7.7",
-		"puppeteer": "^24.10.1",
-		"sass": "^1.80.6",
+		"ejs": "^3.1.10",
+		"fs-extra": "^11.3.1",
+		"handlebars": "^4.7.8",
+		"puppeteer": "^24.19.0",
+		"sass": "^1.92.1",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^9.14.0",
+		"eslint": "^9.35.0",
 		"eslint-config-reverentgeek": "^6.0.2",
-		"nodemon": "^3.1.7",
-		"serve": "^14.2.4"
+		"nodemon": "^3.1.10",
+		"serve": "^14.2.5"
 	},
 	"bin": {
 		"chord-charter": "./bin/index.js"

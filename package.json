@@ -5,7 +5,7 @@
 	"main": "bin/index.js",
 	"type": "module",
 	"engines": {
-		"node": ">=22.0.0"
+		"node": ">=22.16.0"
 	},
 	"scripts": {
 		"clean": "node tools/clean.js",
@@ -28,15 +28,15 @@
 	"license": "MIT",
 	"dependencies": {
 		"ejs": "^3.1.10",
-		"fs-extra": "^11.3.1",
+		"fs-extra": "^11.3.2",
 		"handlebars": "^4.7.8",
-		"puppeteer": "^24.19.0",
-		"sass": "^1.92.1",
+		"puppeteer": "^24.22.0",
+		"sass": "^1.93.1",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^9.35.0",
-		"eslint-config-reverentgeek": "^6.0.2",
+		"eslint": "^9.36.0",
+		"eslint-config-reverentgeek": "^6.2.0",
 		"nodemon": "^3.1.10",
 		"serve": "^14.2.5"
 	},

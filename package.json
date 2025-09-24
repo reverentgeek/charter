@@ -1,6 +1,6 @@
 {
 	"name": "chord-charter",
-	"version": "3.1.5",
+	"version": "3.1.6",
 	"description": "Application to convert chordpro files to HTML or PDF",
 	"main": "bin/index.js",
 	"type": "module",
@@ -16,6 +16,7 @@
 		"build:columns": "npm run clean && npm run build:css && npm run build:htmlcolumns",
 		"convert": "npm run build && npm run pdf",
 		"convert:columns": "npm run build:columns && npm run pdf",
+		"lint": "eslint --fix",
 		"pdf": "node tools/pdf.js",
 		"serve": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build && node ./tools/serve.js\" ",
 		"serve:columns": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"npm run build:columns && node ./tools/serve.js\" ",
@@ -30,13 +31,13 @@
 		"ejs": "^3.1.10",
 		"fs-extra": "^11.3.2",
 		"handlebars": "^4.7.8",
-		"puppeteer": "^24.22.0",
-		"sass": "^1.93.1",
+		"puppeteer": "^24.22.3",
+		"sass": "^1.93.2",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^9.36.0",
-		"eslint-config-reverentgeek": "^6.2.0",
+		"eslint-config-reverentgeek": "^6.3.0",
 		"nodemon": "^3.1.10",
 		"serve": "^14.2.5"
 	},

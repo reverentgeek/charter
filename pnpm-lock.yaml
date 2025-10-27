@@ -32,7 +32,7 @@ importers:
         version: 9.38.0
       eslint-config-reverentgeek:
         specifier: ^6.3.0
-        version: 6.3.0(eslint@9.38.0)(typescript@5.9.2)
+        version: 6.3.1(eslint@9.38.0)(typescript@5.9.2)
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
@@ -58,6 +58,10 @@ packages:
 
   '@eslint-community/regexpp@4.12.1':
     resolution: {integrity: sha512-CCZCDJuduB9OUkFkY2IgppNZMi2lBQgD2qzwXkEia16cge2pijY/aXi96CJMquDMn3nJdlPV1A5KrJEXwfLNzQ==}
+    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
+
+  '@eslint-community/regexpp@4.12.2':
+    resolution: {integrity: sha512-EriSTlt5OC9/7SXkRSCAhfSxxoSUgBm33OH+IkwbdpgoqsSsUg7y3uh+IICI/Qg4BBWr3U2i39RpmycbxMq4ew==}
     engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
 
   '@eslint/config-array@0.21.1':
@@ -534,8 +538,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-reverentgeek@6.3.0:
-    resolution: {integrity: sha512-BcXNIdbLK29Mu/FA5zMmVbFEWXJSiMuFzkaqCASWIVbsR4R2Dx4CTU6Kmag3Trk7s1gzuVlX/E702FlTrAllDw==}
+  eslint-config-reverentgeek@6.3.1:
+    resolution: {integrity: sha512-nlmjd8gNHqH50xdzK27gNhyRqAnw3xRR11WTLJSj7YUPQel/j1DVB7R2pfiO2O1Z27SftEDp+YzF8h0Ry1qxFQ==}
     engines: {node: '>=18.0.0'}
 
   eslint-plugin-es-x@7.8.0:
@@ -671,8 +675,8 @@ packages:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
 
-  get-tsconfig@4.12.0:
-    resolution: {integrity: sha512-LScr2aNr2FbjAjZh2C6X6BxRx1/x+aTDExct/xyq2XKbYOiG5c0aK7pMsSuyc0brz3ibr/lbQiHD9jzt4lccJw==}
+  get-tsconfig@4.13.0:
+    resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
 
   get-uri@6.0.5:
     resolution: {integrity: sha512-b1O07XYq8eRuVzBNgJLstU6FYc1tS6wnMtF1I1D9lE8LxZSOGZ7LhxN54yPP6mGw5f2CkXY2BQUL9Fx41qvcIg==}
@@ -1321,6 +1325,8 @@ snapshots:
 
   '@eslint-community/regexpp@4.12.1': {}
 
+  '@eslint-community/regexpp@4.12.2': {}
+
   '@eslint/config-array@0.21.1':
     dependencies:
       '@eslint/object-schema': 2.1.7
@@ -1774,7 +1780,7 @@ snapshots:
       eslint: 9.38.0
       semver: 7.7.3
 
-  eslint-config-reverentgeek@6.3.0(eslint@9.38.0)(typescript@5.9.2):
+  eslint-config-reverentgeek@6.3.1(eslint@9.38.0)(typescript@5.9.2):
     dependencies:
       '@stylistic/eslint-plugin': 5.5.0(eslint@9.38.0)
       eslint-plugin-n: 17.23.1(eslint@9.38.0)(typescript@5.9.2)
@@ -1786,7 +1792,7 @@ snapshots:
   eslint-plugin-es-x@7.8.0(eslint@9.38.0):
     dependencies:
       '@eslint-community/eslint-utils': 4.9.0(eslint@9.38.0)
-      '@eslint-community/regexpp': 4.12.1
+      '@eslint-community/regexpp': 4.12.2
       eslint: 9.38.0
       eslint-compat-utils: 0.5.1(eslint@9.38.0)
 
@@ -1796,7 +1802,7 @@ snapshots:
       enhanced-resolve: 5.18.3
       eslint: 9.38.0
       eslint-plugin-es-x: 7.8.0(eslint@9.38.0)
-      get-tsconfig: 4.12.0
+      get-tsconfig: 4.13.0
       globals: 15.15.0
       globrex: 0.1.2
       ignore: 5.3.2
@@ -1956,7 +1962,7 @@ snapshots:
 
   get-stream@6.0.1: {}
 
-  get-tsconfig@4.12.0:
+  get-tsconfig@4.13.0:
     dependencies:
       resolve-pkg-maps: 1.0.0
 

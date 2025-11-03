@@ -31,12 +31,12 @@
 		"ejs": "^3.1.10",
 		"fs-extra": "^11.3.2",
 		"handlebars": "^4.7.8",
-		"puppeteer": "^24.26.1",
-		"sass": "^1.93.2",
+		"puppeteer": "^24.28.0",
+		"sass": "^1.93.3",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^9.38.0",
+		"eslint": "^9.39.0",
 		"eslint-config-reverentgeek": "^6.3.1",
 		"nodemon": "^3.1.10",
 		"serve": "^14.2.5"
@@ -44,5 +44,6 @@
 	"bin": {
 		"chord-charter": "./bin/index.js"
 	},
-	"repository": "github:reverentgeek/charter"
+	"repository": "github:reverentgeek/charter",
+	"packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd"
 }

@@ -32,12 +32,12 @@
 		"fs-extra": "^11.3.2",
 		"handlebars": "^4.7.8",
 		"puppeteer": "^24.30.0",
-		"sass": "^1.94.0",
+		"sass": "^1.94.1",
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
 		"eslint": "^9.39.1",
-		"eslint-config-reverentgeek": "^6.3.2",
+		"eslint-config-reverentgeek": "^6.3.5",
 		"nodemon": "^3.1.11",
 		"serve": "^14.2.5"
 	},

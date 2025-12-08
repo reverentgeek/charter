@@ -1,6 +1,6 @@
 {
 	"name": "chord-charter",
-	"version": "3.1.16",
+	"version": "3.1.17",
 	"description": "Application to convert chordpro files to HTML or PDF",
 	"main": "bin/index.js",
 	"type": "module",

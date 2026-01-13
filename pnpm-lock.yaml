@@ -32,7 +32,7 @@ importers:
         version: 9.39.2
       eslint-config-reverentgeek:
         specifier: ^6.3.7
-        version: 6.3.7(eslint@9.39.2)(typescript@5.9.2)
+        version: 6.3.8(eslint@9.39.2)(typescript@5.9.2)
       nodemon:
         specifier: ^3.1.11
         version: 3.1.11
@@ -212,8 +212,8 @@ packages:
   '@types/yauzl@2.10.3':
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
 
-  '@typescript-eslint/types@8.52.0':
-    resolution: {integrity: sha512-LWQV1V4q9V4cT4H5JCIx3481iIFxH1UkVk+ZkGGAV1ZGcjGI9IoFOfg3O6ywz8QqCDEp7Inlg6kovMofsNRaGg==}
+  '@typescript-eslint/types@8.53.0':
+    resolution: {integrity: sha512-Bmh9KX31Vlxa13+PqPvt4RzKRN1XORYSLlAE+sO1i28NkisGbTtSLFVB3l7PWdHtR3E0mVMuC7JilWJ99m2HxQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@zeit/schemas@2.36.0':
@@ -533,8 +533,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-reverentgeek@6.3.7:
-    resolution: {integrity: sha512-mzjbFMBqCDMpI00n+AvPV9Wd47pfO37D6SgRBoUjTKaITyoLCFlcAnO00TpREcYARsA7sKHAoaiLOH4xjpd0Lg==}
+  eslint-config-reverentgeek@6.3.8:
+    resolution: {integrity: sha512-fnZIU0sYHhkdAwbbTaf2KDlIl1tB+S3zNr1iACgfHWRwPyP6PUyQ+TXO45JGuXju+TFs+SbqlZGbgjN1ndjDjA==}
     engines: {node: '>=18.0.0'}
 
   eslint-plugin-es-x@7.8.0:
@@ -1453,7 +1453,7 @@ snapshots:
   '@stylistic/eslint-plugin@5.7.0(eslint@9.39.2)':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.2)
-      '@typescript-eslint/types': 8.52.0
+      '@typescript-eslint/types': 8.53.0
       eslint: 9.39.2
       eslint-visitor-keys: 5.0.0
       espree: 11.0.0
@@ -1476,7 +1476,7 @@ snapshots:
       '@types/node': 25.0.6
     optional: true
 
-  '@typescript-eslint/types@8.52.0': {}
+  '@typescript-eslint/types@8.53.0': {}
 
   '@zeit/schemas@2.36.0': {}
 
@@ -1777,7 +1777,7 @@ snapshots:
       eslint: 9.39.2
       semver: 7.7.3
 
-  eslint-config-reverentgeek@6.3.7(eslint@9.39.2)(typescript@5.9.2):
+  eslint-config-reverentgeek@6.3.8(eslint@9.39.2)(typescript@5.9.2):
     dependencies:
       '@stylistic/eslint-plugin': 5.7.0(eslint@9.39.2)
       eslint-plugin-n: 17.23.1(eslint@9.39.2)(typescript@5.9.2)

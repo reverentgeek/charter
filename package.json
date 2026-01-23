@@ -37,7 +37,7 @@
 	},
 	"devDependencies": {
 		"eslint": "^9.39.2",
-		"eslint-config-reverentgeek": "^6.3.8",
+		"eslint-config-reverentgeek": "^6.3.9",
 		"nodemon": "^3.1.11",
 		"serve": "^14.2.5"
 	},

@@ -18,16 +18,14 @@ async function validate( config ) {
 	const isPdf = !config.html;
 	const isHtml = !!config.html;
 	const isTempDir = !isHtml && !config.temp;
-	let isFile = false;
-	let isFolder = false;
 
 	const pathExists = await fs.exists( config.source );
 	if ( !pathExists ) {
 		throw new Error( "The path to the chordpro file(s) does not appear to be valid." );
 	}
 	const stats = await fs.lstat( config.source );
-	isFolder = stats.isDirectory();
-	isFile = stats.isFile();
+	const isFolder = stats.isDirectory();
+	const isFile = stats.isFile();
 
 	if ( !isFile && !isFolder ) {
 		throw new Error( "The path to the chordpro file(s) does not appear to be valid." );

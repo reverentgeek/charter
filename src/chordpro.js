@@ -1,3 +1,9 @@
+const bareSectionPattern = /^(INTRO|VERSE|CHORUS|PRE-CHORUS|POST-CHORUS|BRIDGE|TAG|ENDING|OUTRO|INTERLUDE|INSTRUMENTAL|TURNAROUND|VAMP|CODA)(\s+.*)?$/i;
+
+export function isBareSection( line ) {
+	return bareSectionPattern.test( line );
+}
+
 export function parseLyricLine( lyricLine ) {
 	const chunks = lyricLine.split( /(\[[^\]]*\]\s+(?=\[|$)|\[[^\]]*\][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
 	const chords = [];
@@ -89,10 +95,22 @@ export function parse( chordProText ) {
 				}
 				return parsed;
 			}
-			const { chords, lyrics, directions } = parseLyricLine( lines[i] );
-			parsed.sections[sectionIndex].chords.push( chords );
-			parsed.sections[sectionIndex].lyrics.push( lyrics );
-			parsed.sections[sectionIndex].directions.push( directions );
+			if ( isBareSection( lines[i].trim() ) ) {
+				sectionIndex++;
+				parsed.sections.push( {
+					title: lines[i].trim(),
+					lyrics: [],
+					chords: [],
+					directions: []
+				} );
+			} else if ( lines[i].trim() === "PAGE_BREAK" ) {
+				// skip page break markers
+			} else {
+				const { chords, lyrics, directions } = parseLyricLine( lines[i] );
+				parsed.sections[sectionIndex].chords.push( chords );
+				parsed.sections[sectionIndex].lyrics.push( lyrics );
+				parsed.sections[sectionIndex].directions.push( directions );
+			}
 		}
 	}
 	return parsed;

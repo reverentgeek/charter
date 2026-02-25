@@ -213,4 +213,62 @@ describe( "chordpro tests", () => {
 		assert.deepEqual( res.sections[0].lyrics[0], [ "A very ", "short ", "song" ] );
 		assert.equal( res.footer.length, 0 );
 	} );
+
+	it( "detects bare VERSE 1 header as a section", () => {
+		assert.equal( chordpro.isBareSection( "VERSE 1" ), true );
+	} );
+
+	it( "detects bare PRE-CHORUS header (hyphenated)", () => {
+		assert.equal( chordpro.isBareSection( "PRE-CHORUS" ), true );
+	} );
+
+	it( "detects bare BRIDGE 1A header (alphanumeric suffix)", () => {
+		assert.equal( chordpro.isBareSection( "BRIDGE 1A" ), true );
+	} );
+
+	it( "detects bare section headers case-insensitively", () => {
+		assert.equal( chordpro.isBareSection( "Verse 1" ), true );
+		assert.equal( chordpro.isBareSection( "chorus" ), true );
+		assert.equal( chordpro.isBareSection( "Bridge" ), true );
+	} );
+
+	it( "does not treat regular lyrics as bare section headers", () => {
+		assert.equal( chordpro.isBareSection( "Amazing Grace how sweet the sound" ), false );
+		assert.equal( chordpro.isBareSection( "HALLELUJAH PRAISE THE LORD" ), false );
+		assert.equal( chordpro.isBareSection( "" ), false );
+	} );
+
+	it( "parses a chart with bare section headers", () => {
+		const res = chordpro.parse( `{title: Test Song}
+{key: G}
+
+VERSE 1
+
+[G]Amazing [C]grace how [G]sweet the sound
+[G]That saved a [D]wretch like [G]me
+
+CHORUS
+
+[C]I once was [G]lost but [D]now am [G]found` );
+		assert.equal( res.title, "Test Song" );
+		assert.equal( res.key, "G" );
+		assert.equal( res.sections.length, 2 );
+		assert.equal( res.sections[0].title, "VERSE 1" );
+		assert.equal( res.sections[0].lyrics.length, 2 );
+		assert.equal( res.sections[1].title, "CHORUS" );
+		assert.equal( res.sections[1].lyrics.length, 1 );
+	} );
+
+	it( "skips PAGE_BREAK lines", () => {
+		const res = chordpro.parse( `{comment: Verse 1}
+[G]Line one
+
+PAGE_BREAK
+
+{comment: Chorus}
+[C]Line two` );
+		assert.equal( res.sections.length, 2 );
+		assert.equal( res.sections[0].lyrics.length, 1 );
+		assert.equal( res.sections[1].lyrics.length, 1 );
+	} );
 } );

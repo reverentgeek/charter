@@ -68,9 +68,9 @@ describe( "chordpro tests", () => {
 		const res = chordpro.parseLyricLine( "[Ab] I hold my [Eb]head a bit higher, [Bb] I lift my [Cm]voice a bit louder" );
 		assert.equal( res.chords.length, res.lyrics.length );
 		assert.deepEqual( res, {
-			chords: [ "Ab", "", "Eb", "Bb", "", "Cm" ],
-			lyrics: [ " ", "I hold my ", "head a bit higher, ", " ", "I lift my ", "voice a bit louder" ],
-			directions: [ "", "", "", "", "", "" ]
+			chords: [ "Ab", "Eb", "Bb", "Cm" ],
+			lyrics: [ " I hold my ", "head a bit higher, ", " I lift my ", "voice a bit louder" ],
+			directions: [ "", "", "", "" ]
 		} );
 	} );
 
@@ -158,6 +158,42 @@ describe( "chordpro tests", () => {
 		assert.deepEqual( res.sections[0].chords[0], [ "", "G", "G7", "C", "G" ] );
 		assert.deepEqual( res.sections[0].lyrics[0], [ "A - ", "mazing ", "Grace! How ", "sweet the ", "sound" ] );
 		assert.equal( res.footer.length, 2 );
+	} );
+
+	it( "parses a chord followed by a space then lyrics", () => {
+		const res = chordpro.parseLyricLine( "[G] amazing grace" );
+		assert.deepEqual( res, {
+			chords: [ "G" ],
+			lyrics: [ " amazing grace" ],
+			directions: [ "" ]
+		} );
+	} );
+
+	it( "parses chord-space-lyrics without swallowing whitespace into chord-only chunk", () => {
+		const res = chordpro.parseLyricLine( "[C] I once was lost [G] but now am found" );
+		assert.deepEqual( res, {
+			chords: [ "C", "G" ],
+			lyrics: [ " I once was lost ", " but now am found" ],
+			directions: [ "", "" ]
+		} );
+	} );
+
+	it( "parses standalone chords separated by whitespace (no lyrics)", () => {
+		const res = chordpro.parseLyricLine( "[C]   [G]   [Am]" );
+		assert.deepEqual( res, {
+			chords: [ "C", "G", "Am" ],
+			lyrics: [ "   ", "   ", "" ],
+			directions: [ "", "", "" ]
+		} );
+	} );
+
+	it( "parses chords at end of line with trailing whitespace", () => {
+		const res = chordpro.parseLyricLine( "[C]word [G]   " );
+		assert.deepEqual( res, {
+			chords: [ "C", "G" ],
+			lyrics: [ "word ", "   " ],
+			directions: [ "", "" ]
+		} );
 	} );
 
 	it( "parses a single line chordpro file", async () => {

@@ -36,13 +36,23 @@ export function formatChord( chord ) {
 	if ( chord.length <= 1 || chord === "N.C." ) {
 		return chord;
 	}
-	const chords = chord.split( "/" );
+	// Strip grouping parentheses that indicate optional/passing chords.
+	// They can fully wrap a chord like (1/3), or span across chords like (4 ... 2m7)
+	// Quality parens mid-chord like 42(no3) or C(add9) must NOT be stripped.
+	const hasLeadingParen = chord.startsWith( "(" );
+	const hasTrailingParen = chord.endsWith( ")" );
+	const hasInnerParen = chord.indexOf( "(", hasLeadingParen ? 1 : 0 ) > 0;
+	const prefix = hasLeadingParen ? "(" : "";
+	const suffix = hasTrailingParen && !hasInnerParen ? ")" : "";
+	const inner = chord.slice( prefix.length, chord.length - suffix.length ) || chord;
+	const chords = inner.split( "/" );
 	const formatted = chords.map( ( c ) => {
 		const { flatted, root, quality } = parseChord( c );
 		const html = `${ flatted }${ root }${ quality ? "<sup>" + quality + "</sup>" : "" }`;
 		return html;
 	} );
-	return formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
+	const result = formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
+	return `${ prefix }${ result }${ suffix }`;
 }
 
 function renderLyricLine( body, lyric, chord, direction ) {

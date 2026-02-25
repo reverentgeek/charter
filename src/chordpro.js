@@ -1,5 +1,5 @@
 export function parseLyricLine( lyricLine ) {
-	const chunks = lyricLine.split( /(\[[^\]]*\]\s+|\[[^\]]*\][\w][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
+	const chunks = lyricLine.split( /(\[[^\]]*\]\s+(?=\[|$)|\[[^\]]*\][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
 	const chords = [];
 	const lyrics = [];
 	const directions = [];

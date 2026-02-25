@@ -126,6 +126,39 @@ describe( "html tests", () => {
 			assert.equal( fmajseven, "Fmaj<sup>7</sup>" );
 		} );
 
+		it( "formats chords wrapped in grouping parentheses", () => {
+			const res = html.formatChord( "(G)" );
+			assert.equal( res, "(G)" );
+			const res2 = html.formatChord( "(Am7)" );
+			assert.equal( res2, "(Am<sup>7</sup>)" );
+		} );
+
+		it( "formats inverted chords wrapped in grouping parentheses", () => {
+			const res = html.formatChord( "(1/3)" );
+			assert.equal( res, "(1/3)" );
+			const res2 = html.formatChord( "(G/B)" );
+			assert.equal( res2, "(G/B)" );
+			const res3 = html.formatChord( "(B7/F#)" );
+			assert.equal( res3, "(B<sup>7</sup>/F#)" );
+		} );
+
+		it( "formats chords with leading paren only (spanning group)", () => {
+			const res = html.formatChord( "(4" );
+			assert.equal( res, "(4" );
+			const res2 = html.formatChord( "(Dsus" );
+			assert.equal( res2, "(D<sup>sus</sup>" );
+		} );
+
+		it( "formats chords with trailing paren only (spanning group)", () => {
+			const res = html.formatChord( "2m7)" );
+			assert.equal( res, "2m<sup>7</sup>)" );
+		} );
+
+		it( "preserves quality parentheses mid-chord", () => {
+			const res = html.formatChord( "C(add9)" );
+			assert.equal( res, "C<sup>(add9)</sup>" );
+		} );
+
 		it( "does not format non-chords", () => {
 			const nc = html.formatChord( "N.C." );
 			assert.equal( nc, "N.C." );

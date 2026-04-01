@@ -13,7 +13,6 @@ npm test                    # Run tests with coverage (node:test + --experimenta
 npm run lint                # ESLint with auto-fix
 npm run build               # Clean + compile SCSS + generate HTML from charts/ folder
 npm run build:columns       # Same as build but with two-column layout
-npm run serve               # Dev server at localhost:3000 with file watching (nodemon)
 npm run convert             # Full pipeline: build + render PDFs
 npm run pdf                 # Render HTML files in build/ to PDF via Puppeteer
 ```
@@ -40,7 +39,7 @@ Run a single test file: `node --test tests/chordpro.test.js`
 
 ### Build tooling (`tools/`)
 
-Node.js scripts for clean, SCSS compilation, HTML generation, PDF rendering, and dev server. No bundler (webpack/rollup/vite).
+Node.js scripts for clean, SCSS compilation, HTML generation, and PDF rendering. No bundler (webpack/rollup/vite).
 
 ### Key directories
 

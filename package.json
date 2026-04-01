@@ -18,12 +18,8 @@
 		"convert:columns": "pnpm run build:columns && pnpm run pdf",
 		"lint": "eslint --fix",
 		"pdf": "node tools/pdf.js",
-		"serve": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"pnpm run build && node ./tools/serve.js\" ",
-		"serve:columns": "nodemon -e scss,hbs,js,cho,chordpro --watch src --watch charts --exec \"pnpm run build:columns && node ./tools/serve.js\" ",
 		"start": "pnpm run convert",
-		"test": "node --test --experimental-test-coverage",
-		"chrome": "pnpm run build && node tools/chrome-pdf.js",
-		"wk": "pnpm run build && node tools/wkhtmltopdf.js"
+		"test": "node --test --experimental-test-coverage"
 	},
 	"author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
 	"license": "MIT",
@@ -37,9 +33,7 @@
 	},
 	"devDependencies": {
 		"eslint": "^10.1.0",
-		"eslint-config-reverentgeek": "^7.1.2",
-		"nodemon": "^3.1.14",
-		"serve": "^14.2.6"
+		"eslint-config-reverentgeek": "^7.1.2"
 	},
 	"bin": {
 		"chord-charter": "./bin/index.js"

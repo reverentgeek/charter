@@ -82,30 +82,10 @@ HTML files will be generated in the `build` folder, and PDF files can be found i
 
 ### Viewing ChordPro files as HTML
 
-Put your `.chordpro` files in the `charts` folder and run the following in your terminal.
+Put your `.chordpro` files in the `charts` folder and run the following in your terminal to build the HTML files.
 
 ```sh
-npm run serve
+npm run build
 ```
 
-In your browser, navigate to `http://localhost:3000`.
-
-While running, any changes made to `.chordpro` files will be detected and the HTML is rebuilt. Refresh the browser page to see any changes.
-
-> Note: To stop the local web server, go to the terminal window and press `CTRL+C`.
-
-### Converting to PDF with wkHtmltoPDF
-
-There is an option to use [wkhtmltopdf](https://wkhtmltopdf.org/) to perform the final conversion from HTML to PDF. To us it, it must first be installed on your system and in your search path. For macOS, you can install this with [Homebrew](https://brew.sh/) using the following.
-
-> Note: As of this writing, wkhtmltopdf does not support CSS columns, so a two-column chord chart format will not work.
-
-```sh
-brew cask install wkhtmltopdf
-```
-
-With wkHtmltoPDF installed, use the following npm command to convert all chord files in the `charts` folder and save them to the `pdf` folder.
-
-```sh
-npm run wk
-```
+HTML files will be generated in the `build` folder. Open them in your browser to preview.

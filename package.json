@@ -24,7 +24,7 @@
 	"author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
 	"license": "MIT",
 	"dependencies": {
-		"ejs": "^5.0.1",
+		"ejs": "^5.0.2",
 		"fs-extra": "^11.3.4",
 		"handlebars": "^4.7.9",
 		"puppeteer": "^24.40.0",

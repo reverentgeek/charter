@@ -32,8 +32,8 @@
 		"yargs": "^18.0.0"
 	},
 	"devDependencies": {
-		"eslint": "^10.2.0",
-		"eslint-config-reverentgeek": "^7.1.3"
+		"eslint": "^10.2.1",
+		"eslint-config-reverentgeek": "^7.1.4"
 	},
 	"bin": {
 		"chord-charter": "./bin/index.js"

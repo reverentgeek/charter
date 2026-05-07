@@ -27,7 +27,7 @@
 		"ejs": "^5.0.2",
 		"fs-extra": "^11.3.4",
 		"handlebars": "^4.7.9",
-		"puppeteer": "^24.42.0",
+		"puppeteer": "^24.43.0",
 		"sass": "^1.99.0",
 		"yargs": "^18.0.0"
 	},
@@ -39,5 +39,5 @@
 		"chord-charter": "./bin/index.js"
 	},
 	"repository": "github:reverentgeek/charter",
-	"packageManager": "pnpm@11.0.4+sha512.0a397165007a014ed52919a61e5f46c48b9bca88404c303ecaecc63f62def563898d3c6b8a5d5ea5811eb398cfe03ab05da1a5ce963f126d5ead4c02f93b83c3"
+	"packageManager": "pnpm@11.0.8+sha512.4c4097e1dd2d42372c4e7fa5a791ff28fc75a484c7ac192e64b1df0fdef17594ba982f9b4fed9adfb3c757846f565b799b2763fb3733d1de1bcb82cf46684912"
 }

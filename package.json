@@ -24,10 +24,10 @@
 	"author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
 	"license": "MIT",
 	"dependencies": {
-		"ejs": "^5.0.2",
+		"ejs": "^6.0.1",
 		"fs-extra": "^11.3.5",
 		"handlebars": "^4.7.9",
-		"puppeteer": "^25.0.4",
+		"puppeteer": "^25.1.0",
 		"sass": "^1.100.0",
 		"yargs": "^18.0.0"
 	},
@@ -39,5 +39,5 @@
 		"chord-charter": "./bin/index.js"
 	},
 	"repository": "github:reverentgeek/charter",
-	"packageManager": "pnpm@11.3.0+sha512.2c403d6594527287672b1f7056343a1f7c3634036a67ffabfcc2b3d7595d843768f8787148d1b57cf7956c90606bbd192857c363af19e96d2d0ec9ec5741d215"
+	"packageManager": "pnpm@11.4.0+sha512.f0febc7e37552ab485494a914241b338e0b3580b93d54ce31f00933015880863129038a1b4ae4e414a0ee63ac35bf21197e990172c4a68256450b5636310968f"
 }

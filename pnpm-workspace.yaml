@@ -5,7 +5,7 @@ ignoredBuiltDependencies:
   - '@parcel/watcher'
 
 minimumReleaseAgeExclude:
-  - eslint-config-reverentgeek@7.1.8
+  - eslint-config-reverentgeek
 
 onlyBuiltDependencies:
   - puppeteer

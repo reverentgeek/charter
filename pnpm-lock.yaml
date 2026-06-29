@@ -18,8 +18,8 @@ importers:
         specifier: ^4.7.9
         version: 4.7.9
       puppeteer:
-        specifier: ^25.2.0
-        version: 25.2.0
+        specifier: ^25.2.1
+        version: 25.2.1
       sass:
         specifier: ^1.101.0
         version: 1.101.0
@@ -28,11 +28,11 @@ importers:
         version: 18.0.0
     devDependencies:
       eslint:
-        specifier: ^10.5.0
-        version: 10.5.0
+        specifier: ^10.6.0
+        version: 10.6.0
       eslint-config-reverentgeek:
-        specifier: ^7.1.10
-        version: 7.1.10(eslint@10.5.0)
+        specifier: ^7.1.12
+        version: 7.1.12(eslint@10.6.0)
 
 packages:
 
@@ -286,8 +286,8 @@ packages:
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
 
-  enhanced-resolve@5.24.0:
-    resolution: {integrity: sha512-SkE2t82KlkkxQRVMVLAGKxLfORGQfrkx5dkj+vlgXRVNEdPc4eZcR+J/Fvj8C+yKSFH5L0q3NFlyufOVQnCcYQ==}
+  enhanced-resolve@5.24.1:
+    resolution: {integrity: sha512-7DdUaTjmNwMcH2gLr1qycesKII3BK4RLy/mdAb7x10Lq7bR4aNKHt1BR1ZALSv0rPM/hF5wYF0PhGop/rJm8vw==}
     engines: {node: '>=10.13.0'}
 
   escalade@3.2.0:
@@ -304,8 +304,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-reverentgeek@7.1.10:
-    resolution: {integrity: sha512-ozXTwMGrkUOyL1SwckcN4puLb0kItsMjknT+jHYEfN/4+1NG4uPEktUJLZ1o6YcCOevee6USIXWMLh2Lnn99EA==}
+  eslint-config-reverentgeek@7.1.12:
+    resolution: {integrity: sha512-xe0tUFBK4AD1TN+nG48dYvqwjiI0XHeZ1r3phutunNQKu5tyRiOt3iVY2uV5R/Ibd5B4X8Yb3P9MFOUPoND01w==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       eslint: '>=10.0.0'
@@ -316,8 +316,8 @@ packages:
     peerDependencies:
       eslint: '>=8'
 
-  eslint-plugin-n@18.1.0:
-    resolution: {integrity: sha512-hkUm9EtnFV2h2fE16jNVUfCVUqvPzI7fGLsFdun5lFt/pbmf2kCgDx6ymi9rx+NCUSggBmurJCZOfG20JBs/kg==}
+  eslint-plugin-n@18.2.1:
+    resolution: {integrity: sha512-aO3C9//yq8JIvYOi/T+jPvcZ9hZzpwzbR8esrYpFtgE9vpbyM8kn42AQOtIqYspVmpaSWr8X+nrlQuAJYxXAaw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     peerDependencies:
       eslint: '>=8.57.1'
@@ -345,8 +345,8 @@ packages:
     resolution: {integrity: sha512-tD40eHxA35h0PEIZNeIjkHoDR4YjjJp34biM0mDvplBe//mB+IHCqHDGV7pxF+7MklTvighcCPPZC7ynWyjdTA==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  eslint@10.5.0:
-    resolution: {integrity: sha512-1y+7C+vi12bUK1IpZeaV3gsH9fHLBmPvYmPx42pvT/E9yG0IC8g3PUZZgp0+JLJl7ZDK0flc2gc+Aw9dpCvIsQ==}
+  eslint@10.6.0:
+    resolution: {integrity: sha512-6lVbcqSodALYo+4ELD0heG6lFiFxnLMuLkiMi2qV8LMp54N8tE8FT1GMH+ev4Ti00nFjNze2+Su6DsV5OQW3Dg==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
     hasBin: true
     peerDependencies:
@@ -445,8 +445,8 @@ packages:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
 
-  immutable@5.1.7:
-    resolution: {integrity: sha512-47Xb+LFbZ/ZIjQMj6Q5J3IfK7PJFuqRdFOC9FpGgRTK6U2dAEVmkR9hp58qU4FpYux5YXpneDwkj2EP6lppzFA==}
+  immutable@5.1.8:
+    resolution: {integrity: sha512-TM5YqrGeTsVIPPpILzeqZ8D2Zc2TvNgSDi88zPF2a4cyqQdWV/wVWBDRDbNzzrLeRWScrFcOX9lW2iX6GOtUDw==}
 
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
@@ -548,12 +548,12 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  puppeteer-core@25.2.0:
-    resolution: {integrity: sha512-jGhuGAlkgOcbyGRc0Cm9b/y4vvqoxhyAyl6a1diVe8F3sHsgTaQ60QQT5F3rGegTZV3prysgHVc+0LsvPZo3GA==}
+  puppeteer-core@25.2.1:
+    resolution: {integrity: sha512-MwEZ4FFGJ1ZLOmu/04eISxoEMKtCnHyJBRFfgpwPPSYNG6gT6Xw1laNziFSV7uwDcx3jK+ATYIo9SfOd8Uhc3w==}
     engines: {node: '>=22.12.0'}
 
-  puppeteer@25.2.0:
-    resolution: {integrity: sha512-JPMPd/2+lgdkLhEyPqH895oR3ccMt1wSra6oewgjjTuLmo2s9zPZpKXQTFEIiA/fMKpiL01kjU3+2zPEReRWNg==}
+  puppeteer@25.2.1:
+    resolution: {integrity: sha512-2D5RMkQH9FRhDU57a1/jV9xWoxqZvUjaZOYjAAPdRCEY8A01V5sxzyGOMs8XiKU9fPF91SOSwNYpHRu5SD958g==}
     engines: {node: '>=22.12.0'}
     hasBin: true
 
@@ -673,9 +673,9 @@ packages:
 
 snapshots:
 
-  '@eslint-community/eslint-utils@4.9.1(eslint@10.5.0)':
+  '@eslint-community/eslint-utils@4.9.1(eslint@10.6.0)':
     dependencies:
-      eslint: 10.5.0
+      eslint: 10.6.0
       eslint-visitor-keys: 3.4.3
 
   '@eslint-community/regexpp@4.12.2': {}
@@ -696,9 +696,9 @@ snapshots:
     dependencies:
       '@types/json-schema': 7.0.15
 
-  '@eslint/js@10.0.1(eslint@10.5.0)':
+  '@eslint/js@10.0.1(eslint@10.6.0)':
     optionalDependencies:
-      eslint: 10.5.0
+      eslint: 10.6.0
 
   '@eslint/object-schema@3.0.5': {}
 
@@ -789,11 +789,11 @@ snapshots:
       modern-tar: 0.7.6
       yargs: 18.0.0
 
-  '@stylistic/eslint-plugin@5.10.0(eslint@10.5.0)':
+  '@stylistic/eslint-plugin@5.10.0(eslint@10.6.0)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.5.0)
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.6.0)
       '@typescript-eslint/types': 8.62.0
-      eslint: 10.5.0
+      eslint: 10.6.0
       eslint-visitor-keys: 4.2.1
       espree: 10.4.0
       estraverse: 5.3.0
@@ -867,7 +867,7 @@ snapshots:
 
   emoji-regex@10.6.0: {}
 
-  enhanced-resolve@5.24.0:
+  enhanced-resolve@5.24.1:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.3.3
@@ -876,35 +876,35 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-compat-utils@0.5.1(eslint@10.5.0):
+  eslint-compat-utils@0.5.1(eslint@10.6.0):
     dependencies:
-      eslint: 10.5.0
+      eslint: 10.6.0
       semver: 7.8.5
 
-  eslint-config-reverentgeek@7.1.10(eslint@10.5.0):
+  eslint-config-reverentgeek@7.1.12(eslint@10.6.0):
     dependencies:
-      '@eslint/js': 10.0.1(eslint@10.5.0)
-      '@stylistic/eslint-plugin': 5.10.0(eslint@10.5.0)
-      eslint: 10.5.0
-      eslint-plugin-n: 18.1.0(eslint@10.5.0)
+      '@eslint/js': 10.0.1(eslint@10.6.0)
+      '@stylistic/eslint-plugin': 5.10.0(eslint@10.6.0)
+      eslint: 10.6.0
+      eslint-plugin-n: 18.2.1(eslint@10.6.0)
       globals: 17.7.0
     transitivePeerDependencies:
       - ts-declaration-location
       - typescript
 
-  eslint-plugin-es-x@7.8.0(eslint@10.5.0):
+  eslint-plugin-es-x@7.8.0(eslint@10.6.0):
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.5.0)
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.6.0)
       '@eslint-community/regexpp': 4.12.2
-      eslint: 10.5.0
-      eslint-compat-utils: 0.5.1(eslint@10.5.0)
+      eslint: 10.6.0
+      eslint-compat-utils: 0.5.1(eslint@10.6.0)
 
-  eslint-plugin-n@18.1.0(eslint@10.5.0):
+  eslint-plugin-n@18.2.1(eslint@10.6.0):
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.5.0)
-      enhanced-resolve: 5.24.0
-      eslint: 10.5.0
-      eslint-plugin-es-x: 7.8.0(eslint@10.5.0)
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.6.0)
+      enhanced-resolve: 5.24.1
+      eslint: 10.6.0
+      eslint-plugin-es-x: 7.8.0(eslint@10.6.0)
       get-tsconfig: 4.14.0
       globals: 15.15.0
       globrex: 0.1.2
@@ -924,9 +924,9 @@ snapshots:
 
   eslint-visitor-keys@5.0.1: {}
 
-  eslint@10.5.0:
+  eslint@10.6.0:
     dependencies:
-      '@eslint-community/eslint-utils': 4.9.1(eslint@10.5.0)
+      '@eslint-community/eslint-utils': 4.9.1(eslint@10.6.0)
       '@eslint-community/regexpp': 4.12.2
       '@eslint/config-array': 0.23.5
       '@eslint/config-helpers': 0.6.0
@@ -1042,7 +1042,7 @@ snapshots:
 
   ignore@5.3.2: {}
 
-  immutable@5.1.7: {}
+  immutable@5.1.8: {}
 
   imurmurhash@0.1.4: {}
 
@@ -1127,7 +1127,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  puppeteer-core@25.2.0:
+  puppeteer-core@25.2.1:
     dependencies:
       '@puppeteer/browsers': 3.0.5
       chromium-bidi: 16.0.1(devtools-protocol@0.0.1638949)
@@ -1140,13 +1140,13 @@ snapshots:
       - proxy-agent
       - utf-8-validate
 
-  puppeteer@25.2.0:
+  puppeteer@25.2.1:
     dependencies:
       '@puppeteer/browsers': 3.0.5
       chromium-bidi: 16.0.1(devtools-protocol@0.0.1638949)
       devtools-protocol: 0.0.1638949
       lilconfig: 3.1.3
-      puppeteer-core: 25.2.0
+      puppeteer-core: 25.2.1
       typed-query-selector: 2.12.2
     transitivePeerDependencies:
       - bufferutil
@@ -1160,7 +1160,7 @@ snapshots:
   sass@1.101.0:
     dependencies:
       chokidar: 5.0.0
-      immutable: 5.1.7
+      immutable: 5.1.8
       source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.6

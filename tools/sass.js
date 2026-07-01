@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import { join, parse } from "node:path";
 import { compileAsync } from "sass";
 const __dirname = import.meta.dirname;

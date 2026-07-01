@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import ejs from "ejs";
 import { join } from "node:path";
 

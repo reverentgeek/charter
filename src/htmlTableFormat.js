@@ -1,4 +1,4 @@
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import { join } from "node:path";
 import hb from "handlebars";
 

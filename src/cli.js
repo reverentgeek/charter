@@ -1,6 +1,6 @@
 import path from "node:path";
 import os from "node:os";
-import fs from "fs-extra";
+import fs from "node:fs/promises";
 import * as sass from "sass";
 
 import { render } from "./html.js";
@@ -14,12 +14,21 @@ function rename( file, isPdf ) {
 	return path.basename( file, path.extname( file ) ) + ext;
 }
 
+async function exists( pathToCheck ) {
+	try {
+		await fs.access( pathToCheck );
+		return true;
+	} catch {
+		return false;
+	}
+}
+
 async function validate( config ) {
 	const isPdf = !config.html;
 	const isHtml = !!config.html;
 	const isTempDir = !isHtml && !config.temp;
 
-	const pathExists = await fs.exists( config.source );
+	const pathExists = await exists( config.source );
 	if ( !pathExists ) {
 		throw new Error( "The path to the chordpro file(s) does not appear to be valid." );
 	}
@@ -32,9 +41,9 @@ async function validate( config ) {
 	}
 
 	if ( config.out ) {
-		let outExists = await fs.exists( config.out );
+		let outExists = await exists( config.out );
 		if ( !outExists ) {
-			outExists = await fs.exists( path.dirname( config.out ) );
+			outExists = await exists( path.dirname( config.out ) );
 		}
 
 		if ( !outExists ) {
@@ -63,7 +72,7 @@ async function validate( config ) {
 	}
 
 	if ( config.temp ) {
-		const tempExists = await fs.exists( config.temp );
+		const tempExists = await exists( config.temp );
 		if ( !tempExists ) {
 			throw new Error( "The path to the temp folder does not appear to be valid." );
 		}
@@ -109,7 +118,7 @@ async function renderSass( assetsFolder, sassFile, cssFile ) {
 
 async function renderAssets( buildFolder ) {
 	const assetsFolder = path.join( buildFolder, "assets" );
-	await fs.ensureDir( assetsFolder );
+	await fs.mkdir( assetsFolder, { recursive: true } );
 	await renderSass( assetsFolder, "styles.scss", "styles.css" );
 	await renderSass( assetsFolder, "tablestyles-columns.scss", "tablestyles-columns.css" );
 	await renderSass( assetsFolder, "tablestyles.scss", "tablestyles.css" );
@@ -133,7 +142,7 @@ export async function execute( config ) {
 	}
 	// console.log( files );
 	if ( cfg.isTempDir ) {
-		await fs.ensureDir( cfg.buildFolder );
+		await fs.mkdir( cfg.buildFolder, { recursive: true } );
 	}
 	await renderAssets( cfg.buildFolder );
 	for ( let i = 0; i < files.length; i++ ) {
@@ -154,9 +163,9 @@ export async function execute( config ) {
 		await renderPdf( files );
 		console.timeEnd( "time" );
 		if ( cfg.isTempDir ) {
-			fs.remove( cfg.buildFolder );
+			fs.rm( cfg.buildFolder, { recursive: true, force: true } );
 		}
 	} else if ( cfg.isTempDir ) {
-		fs.remove( cfg.buildFolder );
+		fs.rm( cfg.buildFolder, { recursive: true, force: true } );
 	}
 }

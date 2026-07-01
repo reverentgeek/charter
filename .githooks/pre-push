@@ -1,0 +1,14 @@
+#!/bin/sh
+# Blocks `git push` if lint or tests fail. Installed via `pnpm run prepare` (core.hooksPath).
+
+echo "Running lint before push..."
+if ! pnpm run lint; then
+	echo "Push aborted: lint failed."
+	exit 1
+fi
+
+echo "Running tests before push..."
+if ! pnpm test; then
+	echo "Push aborted: tests failed."
+	exit 1
+fi

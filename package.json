@@ -27,13 +27,13 @@
 	"dependencies": {
 		"ejs": "^6.0.1",
 		"handlebars": "^4.7.9",
-		"puppeteer": "^25.3.0",
+		"puppeteer": "^25.4.0",
 		"sass": "^1.102.0",
-		"yargs": "^18.0.0"
+		"yargs": "^18.1.0"
 	},
 	"devDependencies": {
 		"eslint": "^10.8.0",
-		"eslint-config-reverentgeek": "^7.1.14"
+		"eslint-config-reverentgeek": "^7.1.15"
 	},
 	"bin": {
 		"chord-charter": "./bin/index.js"

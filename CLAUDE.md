@@ -23,29 +23,9 @@ Run a single test file: `node --test tests/chordpro.test.js`
 
 **Data flow:** ChordPro text -> parsed chart object -> HTML (via templates) -> PDF (via Puppeteer)
 
-### Core modules (`src/`)
+There are **two independent HTML renderers** off the same parsed chart: `src/html.js` (EJS, `<pre>`-based pre-formatted layout) and `src/htmlTableFormat.js` (Handlebars, table-based). They are not interchangeable — a change to chart output usually needs to land in both.
 
-- **`chordpro.js`** - Regex-based parser. Exports `parse()`, `parseLyricLine()`, `parseSection()`. Produces a chart object with `{title, subtitle, artist[], key, tempo, time, sections[], footer[]}`.
-- **`html.js`** - Renders parsed charts to HTML using EJS templates (`chart.ejs`). Pre-formatted layout with `<pre>` tags.
-- **`htmlTableFormat.js`** - Alternative renderer using Handlebars (`chart.hbs`). Table-based layout.
-- **`pdf.js`** - Renders HTML files to PDF using Puppeteer.
-- **`processor.js`** - Orchestrates SCSS compilation and chart processing.
-- **`cli.js`** - CLI execution: validates args, processes files/folders, coordinates the pipeline.
-- **`sass/`** - SCSS stylesheets: `styles.scss` (main), `tablestyles.scss` (table format), `tablestyles-columns.scss` (two-column).
-
-### Entry point
-
-`bin/index.js` - CLI entry using yargs. Installed as `chord-charter` command.
-
-### Build tooling (`tools/`)
-
-Node.js scripts for clean, SCSS compilation, HTML generation, and PDF rendering. No bundler (webpack/rollup/vite).
-
-### Key directories
-
-- `charts/` - Input ChordPro files for local development
-- `build/` - Generated HTML and CSS (gitignored)
-- `pdf/` - Generated PDF files (gitignored)
+No bundler (webpack/rollup/vite); `tools/` holds plain Node scripts for the build steps.
 
 ## Code Style
 
@@ -54,7 +34,3 @@ Node.js scripts for clean, SCSS compilation, HTML generation, and PDF rendering.
 - Spaces inside parentheses and brackets: `parse( text )`, `items[ 0 ]`
 - Tabs for indentation
 - Node.js >= 22.16.0, pnpm as package manager
-
-## Testing
-
-Tests use Node.js built-in `node:test` and `assert` modules. Test files are in `tests/` with `.test.js` suffix. Tests cover the ChordPro parser and both HTML renderers.

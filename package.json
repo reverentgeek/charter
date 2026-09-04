@@ -27,7 +27,7 @@
 	"dependencies": {
 		"ejs": "^6.0.1",
 		"handlebars": "^4.7.9",
-		"puppeteer": "^25.9.0",
+		"puppeteer": "^25.10.0",
 		"sass": "^1.103.1",
 		"yargs": "^18.1.0"
 	},

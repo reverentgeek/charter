@@ -29,7 +29,7 @@
 		"handlebars": "^4.7.9",
 		"puppeteer": "^25.11.0",
 		"sass": "^1.104.1",
-		"yargs": "^18.1.0"
+		"yargs": "^18.2.0"
 	},
 	"devDependencies": {
 		"eslint": "^10.11.0",

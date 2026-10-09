@@ -1,5 +1,5 @@
 const chordRegEx = /^(?<flatted>[b#]{0,1})(?<root>[A-G1-7][#♯b♭]?(m(?!aj)|maj)?)(?<quality>(2|3|4|5|6|7|9|\(|\)|no|o|\+|add|dim|sus|aug){0,5})$/;
-const siteHost = "charts.reverentgeek.com";
+const siteHost = "charter.reverentgeek.com";
 const htmlEntities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&#34;", "'": "&#39;" };
 
 export function escapeHtml( text ) {

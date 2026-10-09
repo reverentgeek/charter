@@ -106,6 +106,16 @@ export function parse( chordProText ) {
 			} else if ( lines[i].trim() === "PAGE_BREAK" ) {
 				// skip page break markers
 			} else {
+				if ( sectionIndex === -1 ) {
+					// lyrics before any section heading go in an untitled section
+					sectionIndex++;
+					parsed.sections.push( {
+						title: "",
+						lyrics: [],
+						chords: [],
+						directions: []
+					} );
+				}
 				const { chords, lyrics, directions } = parseLyricLine( lines[i] );
 				parsed.sections[sectionIndex].chords.push( chords );
 				parsed.sections[sectionIndex].lyrics.push( lyrics );

@@ -13,6 +13,7 @@
 		"build:html": "node tools/html.js",
 		"build:htmlcolumns": "node tools/html.js --columns",
 		"build": "pnpm run clean && pnpm run build:css && pnpm run build:html",
+		"build:web": "node tools/web.js",
 		"build:columns": "pnpm run clean && pnpm run build:css && pnpm run build:htmlcolumns",
 		"convert": "pnpm run build && pnpm run pdf",
 		"convert:columns": "pnpm run build:columns && pnpm run pdf",
@@ -25,7 +26,6 @@
 	"author": "David Neal <david@reverentgeek.com> (http://reverentgeek.com)",
 	"license": "MIT",
 	"dependencies": {
-		"ejs": "^7.0.1",
 		"handlebars": "^4.7.10",
 		"puppeteer": "^25.13.0",
 		"sass": "^1.105.1",

@@ -10,7 +10,7 @@
 <body>
 	<header class="app-header">
 		<h1>Chord Charter</h1>
-		<p>Turn a ChordPro file into a printable chord chart. Your chart never leaves this browser.</p>
+		<p>Turn a ChordPro or chords-over-text file into a printable chord chart. Your chart never leaves this browser.</p>
 	</header>
 	<main class="app-main">
 		<section class="pane" id="editor-pane">
@@ -28,8 +28,9 @@
 				<label>Tempo <input type="text" name="tempo" inputmode="numeric"></label>
 				<label>Time <input type="text" name="time" placeholder="4/4"></label>
 			</form>
+			<p id="notice" class="notice" role="status" hidden>Converted from chords-over-text to ChordPro. <button type="button" id="undo-convert">Undo</button></p>
 			<textarea id="source" spellcheck="false" aria-label="ChordPro text"
-				placeholder="Paste ChordPro text here, or drop a .cho / .chordpro file…"></textarea>
+				placeholder="Paste ChordPro or chords-over-text here, or drop a .cho / .chordpro / .txt file…"></textarea>
 		</section>
 		<section class="pane" id="preview-pane">
 			<div class="toolbar">

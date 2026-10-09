@@ -2,10 +2,12 @@
 import { parse } from "./lib/chordpro.js";
 import { render } from "./lib/html.js";
 import { setMetadata, metadataFields } from "./lib/metadata.js";
+import { isChordsOverText, toChordPro } from "./lib/chordsOverText.js";
 
 const source = document.querySelector( "#source" );
 const preview = document.querySelector( "#preview" );
 const message = document.querySelector( "#message" );
+const notice = document.querySelector( "#notice" );
 const metadataForm = document.querySelector( "#metadata" );
 const editorPane = document.querySelector( "#editor-pane" );
 const fileInput = document.querySelector( "#file" );
@@ -18,6 +20,7 @@ const renderDelay = 200;
 let renderTimer;
 let fileName = "";
 let standaloneAssets;
+let unconverted = "";
 
 function setReady( ready ) {
 	printButton.disabled = !ready;
@@ -67,10 +70,18 @@ function scheduleUpdate() {
 	renderTimer = setTimeout( update, renderDelay );
 }
 
-function setSource( text, name = "" ) {
-	source.value = text;
-	fileName = name.replace( /\.[^.]+$/, "" );
+// Chords-over-text is converted on the way in; the original is kept so the conversion can be undone.
+function loadText( text ) {
+	const converted = isChordsOverText( text );
+	unconverted = converted ? text : "";
+	notice.hidden = !converted;
+	source.value = converted ? toChordPro( text ) : text;
 	update();
+}
+
+function setSource( text, name = "" ) {
+	fileName = name.replace( /\.[^.]+$/, "" );
+	loadText( text );
 }
 
 async function openFile( file ) {
@@ -126,8 +137,26 @@ async function download() {
 	}
 }
 
-source.addEventListener( "input", scheduleUpdate );
+source.addEventListener( "input", () => {
+	notice.hidden = true;
+	scheduleUpdate();
+} );
+// A paste that replaces the whole chart is treated like opening a file.
+source.addEventListener( "paste", ( e ) => {
+	const text = e.clipboardData.getData( "text/plain" );
+	const replacesAll = source.selectionStart === 0 && source.selectionEnd === source.value.length;
+	if ( replacesAll && isChordsOverText( text ) ) {
+		e.preventDefault();
+		loadText( text );
+	}
+} );
+document.querySelector( "#undo-convert" ).addEventListener( "click", () => {
+	source.value = unconverted;
+	notice.hidden = true;
+	update();
+} );
 metadataForm.addEventListener( "input", ( e ) => {
+	notice.hidden = true;
 	const scrollTop = source.scrollTop;
 	source.value = setMetadata( source.value, e.target.name, e.target.value );
 	source.scrollTop = scrollTop;

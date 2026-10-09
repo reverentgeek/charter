@@ -126,7 +126,7 @@ Open the files in the `build` folder with your browser to take a look. For the t
 
 ## Running the web app
 
-There's also a browser version: paste or open a ChordPro file, see the chart as you type, then print it, save it as a PDF from the print dialog, or download it as a single HTML file. Everything happens in the browser, so charts are never uploaded anywhere.
+There's also a browser version: paste or open a ChordPro file, see the chart as you type, then print it, save it as a PDF from the print dialog, or download it as a single HTML file. Everything happens in the browser, so charts are never uploaded anywhere. If you paste or open a "chords over text" chart (chords on their own line above the lyrics), it's converted to ChordPro for you.
 
 ```sh
 pnpm run build:web

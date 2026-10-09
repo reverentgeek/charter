@@ -1,25 +1,31 @@
 :root {
 	color-scheme: light dark;
-	--bg: #f4f4f2;
+	--bg: #f5f3ee;
 	--panel: #ffffff;
-	--text: #1f2328;
-	--muted: #5f6670;
-	--border: #d0d4da;
-	--accent: #1d5fd1;
-	--accent-text: #ffffff;
+	--text: #1c1b19;
+	--muted: #6b675f;
+	--border: #e2ded5;
+	--border-strong: #cdc7ba;
+	--ink: #1c1b19;
+	--ink-text: #ffffff;
+	--accent: #a8481f;
 	--error: #b3261e;
+	--shadow: 0 1px 2px rgb(40 30 10 / .06), 0 10px 28px rgb(40 30 10 / .08);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--bg: #16181c;
-		--panel: #1f2227;
-		--text: #e6e8eb;
-		--muted: #9aa1ab;
-		--border: #3a3f47;
-		--accent: #6ea0ff;
-		--accent-text: #0d1117;
+		--bg: #141413;
+		--panel: #1d1d1b;
+		--text: #ecebe7;
+		--muted: #a09c93;
+		--border: #2e2d2a;
+		--border-strong: #45433e;
+		--ink: #ecebe7;
+		--ink-text: #141413;
+		--accent: #e39b74;
 		--error: #ff8a80;
+		--shadow: 0 1px 2px rgb(0 0 0 / .4), 0 10px 28px rgb(0 0 0 / .35);
 	}
 }
 
@@ -36,69 +42,70 @@ body {
 	display: flex;
 	flex-direction: column;
 	font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-	font-size: 15px;
+	font-size: 14px;
+	line-height: 1.4;
 	color: var(--text);
 	background: var(--bg);
+	-webkit-font-smoothing: antialiased;
 }
 
 .app-header {
-	padding: 12px 16px 4px;
+	padding: 10px 24px;
+	border-bottom: 1px solid var(--border);
 }
 
 .app-header-bar {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-between;
-	gap: 4px 16px;
+	gap: 6px 24px;
+}
+
+.app-header h1 {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0;
+	font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+	font-size: 26px;
+	font-weight: 600;
+	font-style: italic;
+	line-height: 1;
+	letter-spacing: -.01em;
+}
+
+.app-logo {
+	display: block;
+	width: 40px;
+	height: 40px;
+}
+
+.app-header p {
+	flex: 1 1 320px;
+	margin: 0;
+	color: var(--muted);
 }
 
 .app-links {
 	display: flex;
 	align-items: center;
-	gap: 8px;
-	font-size: .9rem;
-	color: var(--muted);
+	gap: 20px;
 }
 
 .app-links a {
-	color: var(--accent);
+	color: var(--muted);
 	text-decoration: none;
+	border-radius: 4px;
+	transition: color .15s;
 }
 
 .app-links a:hover {
-	text-decoration: underline;
+	color: var(--text);
 }
 
 .app-links a:focus-visible {
 	outline: 2px solid var(--accent);
-	outline-offset: 2px;
-}
-
-.app-header h1 {
-	margin: 0;
-	font-size: 1.3rem;
-	line-height: 0;
-}
-
-/* The logo is black on white; blending drops the white so it sits on the page background. */
-.app-logo {
-	display: block;
-	width: auto;
-	height: 56px;
-	mix-blend-mode: multiply;
-}
-
-@media (prefers-color-scheme: dark) {
-	.app-logo {
-		filter: invert(1);
-		mix-blend-mode: screen;
-	}
-}
-
-.app-header p {
-	margin: 2px 0 0;
-	color: var(--muted);
+	outline-offset: 3px;
 }
 
 .app-main {
@@ -106,15 +113,15 @@ body {
 	min-height: 0;
 	display: grid;
 	grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-	gap: 16px;
-	padding: 12px 16px 16px;
+	gap: 24px;
+	padding: 16px 24px 20px;
 }
 
 .pane {
 	display: flex;
 	flex-direction: column;
 	min-height: 0;
-	gap: 8px;
+	gap: 12px;
 }
 
 .toolbar {
@@ -131,48 +138,113 @@ body {
 
 button {
 	font: inherit;
-	padding: 6px 12px;
-	border: 1px solid var(--border);
-	border-radius: 6px;
+	font-weight: 500;
+	padding: 6px 14px;
+	border: 1px solid var(--border-strong);
+	border-radius: 8px;
 	color: var(--text);
-	background: var(--panel);
+	background: transparent;
 	cursor: pointer;
+	transition: background-color .15s, border-color .15s, opacity .15s;
+}
+
+button:hover:not(:disabled) {
+	background: var(--panel);
+	border-color: var(--muted);
 }
 
 button:disabled {
-	opacity: .5;
+	opacity: .45;
 	cursor: default;
 }
 
 button.primary {
-	border-color: var(--accent);
-	color: var(--accent-text);
-	background: var(--accent);
+	border-color: var(--ink);
+	color: var(--ink-text);
+	background: var(--ink);
 }
 
-button:focus-visible, input:focus-visible, textarea:focus-visible {
+button.primary:hover:not(:disabled) {
+	background: var(--ink);
+	border-color: var(--ink);
+	opacity: .85;
+}
+
+button:focus-visible, input:focus-visible {
 	outline: 2px solid var(--accent);
-	outline-offset: 1px;
+	outline-offset: 2px;
 }
 
 .toggle {
 	display: inline-flex;
 	align-items: center;
-	gap: 4px;
+	gap: 8px;
 	white-space: nowrap;
+	cursor: pointer;
+}
+
+.toggle input {
+	appearance: none;
+	position: relative;
+	width: 32px;
+	height: 18px;
+	margin: 0;
+	border-radius: 9px;
+	background: var(--border-strong);
+	cursor: pointer;
+	transition: background-color .15s;
+}
+
+.toggle input::before {
+	content: "";
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: #ffffff;
+	box-shadow: 0 1px 2px rgb(0 0 0 / .25);
+	transition: transform .15s;
+}
+
+.toggle input:checked {
+	background: var(--ink);
+}
+
+.toggle input:checked::before {
+	background: var(--ink-text);
+	transform: translateX(14px);
+}
+
+/* The chart's details and its text are one card: fields on top, source below. */
+.editor {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	background: var(--panel);
 }
 
 .metadata {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	gap: 8px;
+	gap: 12px;
+	padding: 16px;
+	border-bottom: 1px solid var(--border);
 }
 
 .metadata label {
 	display: flex;
 	flex-direction: column;
-	gap: 2px;
-	font-size: .85rem;
+	gap: 4px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: .06em;
+	text-transform: uppercase;
 	color: var(--muted);
 }
 
@@ -182,43 +254,85 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 
 .metadata input, .metadata textarea {
 	width: 100%;
-	padding: 6px 8px;
+	padding: 7px 10px;
 	border: 1px solid var(--border);
 	border-radius: 6px;
 	font: inherit;
-	font-size: 15px;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: normal;
+	text-transform: none;
 	color: var(--text);
-	background: var(--panel);
+	background: transparent;
 	resize: none;
+	transition: border-color .15s, box-shadow .15s;
+}
+
+.metadata input:hover, .metadata textarea:hover {
+	border-color: var(--border-strong);
+}
+
+.metadata input:focus, .metadata textarea:focus {
+	outline: none;
+	border-color: var(--accent);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+::placeholder {
+	color: var(--muted);
+	opacity: .7;
 }
 
 #source {
 	flex: 1;
 	min-height: 240px;
-	padding: 10px;
-	border: 1px solid var(--border);
-	border-radius: 6px;
+	padding: 16px;
+	border: 0;
 	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 	font-size: 13px;
-	line-height: 1.4;
+	line-height: 1.55;
 	color: var(--text);
-	background: var(--panel);
+	background: transparent;
 	resize: none;
 }
 
-#editor-pane.dragging #source {
+#source:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: -2px;
+	border-radius: 0 0 9px 9px;
+}
+
+#editor-pane.dragging .editor {
 	border-color: var(--accent);
 	border-style: dashed;
 }
 
 /* The chart is always shown on white, the way it prints. */
-#preview {
+.sheet {
+	position: relative;
 	flex: 1;
 	min-height: 320px;
-	width: 100%;
-	border: 1px solid var(--border);
-	border-radius: 6px;
+	overflow: hidden;
+	padding-left: 16px;
+	border-radius: 4px;
 	background: #ffffff;
+	box-shadow: var(--shadow);
+}
+
+#preview {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+.app-main:has(#source:placeholder-shown) .sheet::after {
+	content: "Your chart will appear here";
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	color: #6b675f;
 }
 
 .message {
@@ -231,20 +345,38 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 }
 
 .notice {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
 	margin: 0;
-	font-size: .85rem;
+	padding: 8px 16px;
+	border-bottom: 1px solid var(--border);
+	font-size: 13px;
 	color: var(--muted);
+	background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.notice[hidden] {
+	display: none;
 }
 
 .notice button {
-	margin-left: 6px;
-	padding: 2px 8px;
+	padding: 2px 10px;
+	font-size: 13px;
 }
 
 .hint {
 	margin: 0;
-	font-size: .85rem;
+	font-size: 12px;
+	text-align: center;
 	color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: none !important;
+	}
 }
 
 @media (max-width: 800px) {
@@ -252,11 +384,18 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 		height: auto;
 	}
 
-	.app-main {
-		grid-template-columns: minmax(0, 1fr);
+	.app-header {
+		padding: 10px 16px;
 	}
 
-	#preview {
+	.app-main {
+		grid-template-columns: minmax(0, 1fr);
+		padding: 16px;
+	}
+
+	.sheet {
+		flex: none;
 		height: 70vh;
+		padding-left: 4px;
 	}
 }

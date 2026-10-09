@@ -122,7 +122,6 @@ async function renderAssets( buildFolder ) {
 	await renderSass( assetsFolder, "styles.scss", "styles.css" );
 	await renderSass( assetsFolder, "tablestyles-columns.scss", "tablestyles-columns.css" );
 	await renderSass( assetsFolder, "tablestyles.scss", "tablestyles.css" );
-	await fs.copyFile( path.join( __dirname, "assets", "logo.jpg" ), path.join( assetsFolder, "logo.jpg" ) );
 }
 
 async function saveChordProFileAsHtml( src, dst, columns ) {

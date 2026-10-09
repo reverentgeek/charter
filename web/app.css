@@ -45,9 +45,55 @@ body {
 	padding: 12px 16px 4px;
 }
 
+.app-header-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 4px 16px;
+}
+
+.app-links {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: .9rem;
+	color: var(--muted);
+}
+
+.app-links a {
+	color: var(--accent);
+	text-decoration: none;
+}
+
+.app-links a:hover {
+	text-decoration: underline;
+}
+
+.app-links a:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 2px;
+}
+
 .app-header h1 {
 	margin: 0;
 	font-size: 1.3rem;
+	line-height: 0;
+}
+
+/* The logo is black on white; blending drops the white so it sits on the page background. */
+.app-logo {
+	display: block;
+	width: auto;
+	height: 56px;
+	mix-blend-mode: multiply;
+}
+
+@media (prefers-color-scheme: dark) {
+	.app-logo {
+		filter: invert(1);
+		mix-blend-mode: screen;
+	}
 }
 
 .app-header p {

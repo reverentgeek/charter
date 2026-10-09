@@ -12,13 +12,6 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 	width: 100%;
 }
 
-.charter-logo {
-	position: absolute;
-	max-width: 240px;
-	top: 0;
-	right: 0;
-}
-
 .charter-title-wrapper {
 	line-height: 1.2;
 	display: block;
@@ -31,14 +24,14 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	display: inline-block;
 	white-space: normal;
-	width: 75%;
+	width: 100%;
 }
 
 .charter-sub-title {
 	font-size: .7em;
 	display: inline-block;
 	white-space: normal;
-	width: 85%;
+	width: 100%;
 }
 
 .charter-artist-wrapper {
@@ -50,12 +43,8 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 
 .charter-artist {
 	white-space: normal;
-	width: 73%;
+	width: 100%;
 	display: inline-block;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	padding-right: 15px;
 }
 
 .charter-song-key-tempo-wrapper {
@@ -172,6 +161,18 @@ $font-family: Verdana, Arial, Helvetica, sans-serif;
 pre {
 	margin: 0 0 0;
 	font-family: $font-family;
+}
+
+.charter-credit {
+	margin-top: 2.5em;
+	font-size: .7em;
+	color: #767676;
+	text-align: center;
+}
+
+.charter-credit a {
+	color: inherit;
+	text-decoration: none;
 }
 
 #charter-container {

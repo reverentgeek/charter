@@ -12,14 +12,13 @@ const metadataForm = document.querySelector( "#metadata" );
 const editorPane = document.querySelector( "#editor-pane" );
 const fileInput = document.querySelector( "#file" );
 const columnsToggle = document.querySelector( "#columns" );
-const logoToggle = document.querySelector( "#logo" );
 const printButton = document.querySelector( "#print" );
 const downloadButton = document.querySelector( "#download" );
 
 const renderDelay = 200;
 let renderTimer;
 let fileName = "";
-let standaloneAssets;
+let standaloneCss;
 let unconverted = "";
 
 function setReady( ready ) {
@@ -56,7 +55,7 @@ function update() {
 			setReady( false );
 			return;
 		}
-		showChart( render( chart, { columns: columnsToggle.checked, logo: logoToggle.checked ? undefined : false } ) );
+		showChart( render( chart, { columns: columnsToggle.checked } ) );
 		setReady( true );
 	} catch ( err ) {
 		console.error( err );
@@ -90,15 +89,6 @@ async function openFile( file ) {
 	}
 }
 
-function readAsDataUrl( blob ) {
-	return new Promise( ( resolve, reject ) => {
-		const reader = new FileReader();
-		reader.onload = () => resolve( reader.result );
-		reader.onerror = () => reject( reader.error );
-		reader.readAsDataURL( blob );
-	} );
-}
-
 async function fetchOk( url ) {
 	const res = await fetch( url );
 	if ( !res.ok ) {
@@ -107,23 +97,19 @@ async function fetchOk( url ) {
 	return res;
 }
 
-// A downloaded chart has no assets folder beside it, so the stylesheet and logo are embedded.
-async function loadStandaloneAssets() {
-	const [ css, logo ] = await Promise.all( [
-		fetchOk( "./assets/styles.css" ).then( res => res.text() ),
-		fetchOk( "./assets/logo.jpg" ).then( res => res.blob() ).then( readAsDataUrl )
-	] );
-	return { css, logo };
+// A downloaded chart has no assets folder beside it, so the stylesheet is embedded.
+async function loadStandaloneCss() {
+	const res = await fetchOk( "./assets/styles.css" );
+	return res.text();
 }
 
 async function download() {
 	try {
-		standaloneAssets ??= await loadStandaloneAssets();
+		standaloneCss ??= await loadStandaloneCss();
 		const chart = parse( source.value );
 		const html = render( chart, {
 			columns: columnsToggle.checked,
-			css: standaloneAssets.css,
-			logo: logoToggle.checked ? standaloneAssets.logo : false
+			css: standaloneCss
 		} );
 		const name = ( fileName || chart.title || "chart" ).replace( /[\\/:*?"<>|]+/g, " " ).trim();
 		const link = document.createElement( "a" );
@@ -166,7 +152,6 @@ metadataForm.addEventListener( "input", ( e ) => {
 metadataForm.addEventListener( "change", update );
 metadataForm.addEventListener( "submit", e => e.preventDefault() );
 columnsToggle.addEventListener( "change", update );
-logoToggle.addEventListener( "change", update );
 document.querySelector( "#open" ).addEventListener( "click", () => fileInput.click() );
 fileInput.addEventListener( "change", async () => {
 	await openFile( fileInput.files[0] );

@@ -1,18 +1,62 @@
-import fs from "node:fs/promises";
-import ejs from "ejs";
-import { join } from "node:path";
-
-let _template;
 const chordRegEx = /^(?<flatted>[b#]{0,1})(?<root>[A-G1-7][#♯b♭]?(m(?!aj)|maj)?)(?<quality>(2|3|4|5|6|7|9|\(|\)|no|o|\+|add|dim|sus|aug){0,5})$/;
+const defaultLogo = "./assets/logo.jpg";
+const htmlEntities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&#34;", "'": "&#39;" };
 
-async function getChartTemplate() {
-	if ( !_template ) {
-		const __dirname = import.meta.dirname;
-		const chartFile = join( __dirname, "chart.ejs" );
-		const text = await fs.readFile( chartFile, "utf8" );
-		_template = ejs.compile( text );
+export function escapeHtml( text ) {
+	return String( text ?? "" ).replace( /[&<>'"]/g, c => htmlEntities[c] );
+}
+
+function renderHeader( chart, logo ) {
+	const header = [];
+	header.push( "<span class=\"charter-song-header\">" );
+	header.push( "<span class=\"charter-title-wrapper\">" );
+	header.push( `<span class="charter-title">${ escapeHtml( chart.title ) }</span>` );
+	if ( logo ) {
+		header.push( `<img class="charter-logo" alt="ReverentGeek Charts" src="${ escapeHtml( logo ) }">` );
 	}
-	return _template;
+	header.push( "</span>" ); // charter-title-wrapper
+	chart.artist.forEach( ( artist ) => {
+		header.push( `<span class="charter-artist-wrapper"><span class="charter-artist">${ escapeHtml( artist ) }</span></span>` );
+	} );
+	if ( chart.subtitle ) {
+		header.push( `<span class="charter-sub-title">${ escapeHtml( chart.subtitle ) }</span>` );
+	}
+	const keyLine = [];
+	if ( chart.key ) {
+		keyLine.push( `Key: ${ chart.key }` );
+	}
+	if ( chart.tempo ) {
+		keyLine.push( `Tempo: ${ chart.tempo }` );
+	}
+	if ( chart.time ) {
+		keyLine.push( `Time: ${ chart.time }` );
+	}
+	if ( keyLine.length > 0 ) {
+		header.push( `<div class="charter-song-key-tempo-wrapper"><span class="charter-song-key-tempo">${ escapeHtml( keyLine.join( " | " ) ) }</span></div>` );
+	}
+	header.push( "</span>" ); // charter-song-header
+	return header.join( "\n" );
+}
+
+function renderPage( chart, body, { css, logo } ) {
+	const page = [];
+	page.push( "<!DOCTYPE html>" );
+	page.push( "<html>" );
+	page.push( "<head>" );
+	page.push( "<meta charset=\"utf-8\">" );
+	page.push( "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" );
+	page.push( `<title>${ escapeHtml( chart.title ) }</title>` );
+	page.push( css ? `<style>\n${ css }\n</style>` : "<link rel=\"stylesheet\" href=\"./assets/styles.css\">" );
+	page.push( "</head>" );
+	page.push( "<body>" );
+	page.push( "<div id=\"charter-container\">" );
+	page.push( renderHeader( chart, logo ) );
+	page.push( "<br>" );
+	page.push( body );
+	page.push( "</div>" );
+	page.push( "</body>" );
+	page.push( "</html>" );
+	return page.join( "\n" );
 }
 
 function parseChord( chord ) {
@@ -34,7 +78,7 @@ function parseChord( chord ) {
 
 export function formatChord( chord ) {
 	if ( chord.length <= 1 || chord === "N.C." ) {
-		return chord;
+		return escapeHtml( chord );
 	}
 	// Strip grouping parentheses that indicate optional/passing chords.
 	// They can fully wrap a chord like (1/3), or span across chords like (4 ... 2m7)
@@ -48,7 +92,7 @@ export function formatChord( chord ) {
 	const chords = inner.split( "/" );
 	const formatted = chords.map( ( c ) => {
 		const { flatted, root, quality } = parseChord( c );
-		const html = `${ flatted }${ root }${ quality ? "<sup>" + quality + "</sup>" : "" }`;
+		const html = `${ flatted }${ escapeHtml( root ) }${ quality ? "<sup>" + quality + "</sup>" : "" }`;
 		return html;
 	} );
 	const result = formatted.length > 1 ? formatted.join( "/" ) : formatted[0];
@@ -58,13 +102,13 @@ export function formatChord( chord ) {
 function renderLyricLine( body, lyric, chord, direction ) {
 	if ( chord ) {
 		body.push( `<span class="charter-chord-wrapper"><span class="charter-chord">${ formatChord( chord ) }</span>` );
-		body.push( `<span class="charter-chord-lyric">${ lyric.length > 0 ? lyric : " " }</span>` );
+		body.push( `<span class="charter-chord-lyric">${ lyric.length > 0 ? escapeHtml( lyric ) : " " }</span>` );
 		body.push( "</span>" );
 		if ( lyric.trim() === "" ) body.push( "    " );
 	} else if ( direction ) {
-		body.push( `<span class="charter-direction-wrapper"><span class="charter-direction">${ direction }</span></span>` );
+		body.push( `<span class="charter-direction-wrapper"><span class="charter-direction">${ escapeHtml( direction ) }</span></span>` );
 	} else {
-		body.push( lyric );
+		body.push( escapeHtml( lyric ) );
 	}
 }
 
@@ -86,10 +130,10 @@ export function getColumnBreak( sections ) {
 	}
 }
 
-export async function render( chart, options = { columns: false } ) {
-	const template = await getChartTemplate();
-	chart.columns = options.columns;
-	const columnBreak = options.columns ? getColumnBreak( chart.sections ) : 0;
+// options.css inlines a stylesheet instead of linking ./assets/styles.css; options.logo overrides the logo src (false omits it)
+export function render( chart, options = {} ) {
+	const { columns = false, css = "", logo = defaultLogo } = options;
+	const columnBreak = columns ? getColumnBreak( chart.sections ) : 0;
 	const body = [];
 	if ( chart.sections.length > 0 ) {
 		body.push( "<pre class=\"charter-song-body\">" );
@@ -100,7 +144,10 @@ export async function render( chart, options = { columns: false } ) {
 			if ( columnBreak > 0 && columnBreak === index ) {
 				body.push( "</span><span class=\"charter-column right-column\">" );
 			}
-			body.push( `<span class="charter-section-wrapper"><span class="charter-section-title">${ section.title }</span>` );
+			body.push( "<span class=\"charter-section-wrapper\">" );
+			if ( section.title ) {
+				body.push( `<span class="charter-section-title">${ escapeHtml( section.title ) }</span>` );
+			}
 			for ( let i = 0; i < section.chords.length; i++ ) {
 				if ( i > 0 ) body.push( "\n" );
 				body.push( "<span class=\"charter-song-line\">" );
@@ -119,7 +166,5 @@ export async function render( chart, options = { columns: false } ) {
 		}
 		body.push( "</pre>" ); // charter-song-body
 	}
-	chart.body = body.join( "" );
-	const rendered = template( chart );
-	return rendered;
+	return renderPage( chart, body.join( "" ), { css, logo } );
 }

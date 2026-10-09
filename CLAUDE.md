@@ -13,6 +13,7 @@ npm test                    # Run tests with coverage (node:test + --experimenta
 npm run lint                # ESLint with auto-fix
 npm run build               # Clean + compile SCSS + generate HTML from charts/ folder
 npm run build:columns       # Same as build but with two-column layout
+npm run build:web           # Build the static web app into dist/
 npm run convert             # Full pipeline: build + render PDFs
 npm run pdf                 # Render HTML files in build/ to PDF via Puppeteer
 ```
@@ -23,7 +24,9 @@ Run a single test file: `node --test tests/chordpro.test.js`
 
 **Data flow:** ChordPro text -> parsed chart object -> HTML (via templates) -> PDF (via Puppeteer)
 
-There are **two independent HTML renderers** off the same parsed chart: `src/html.js` (EJS, `<pre>`-based pre-formatted layout) and `src/htmlTableFormat.js` (Handlebars, table-based). They are not interchangeable — a change to chart output usually needs to land in both.
+There are **two independent HTML renderers** off the same parsed chart: `src/html.js` (`<pre>`-based pre-formatted layout) and `src/htmlTableFormat.js` (Handlebars, table-based). They are not interchangeable — a change to chart output usually needs to land in both.
+
+**Web app:** `web/` is a static, client-side page (paste/open ChordPro, live preview, print, download HTML). `tools/web.js` builds it into `dist/`, copying `src/chordpro.js`, `src/html.js`, and `src/metadata.js` there as `lib/` so the browser imports them unchanged. Those files must therefore stay free of Node APIs and npm imports. `src/metadata.js` writes the metadata form's values back into the ChordPro text (`setMetadata`); the form is filled from `parse()`.
 
 No bundler (webpack/rollup/vite); `tools/` holds plain Node scripts for the build steps.
 

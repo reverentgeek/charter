@@ -1,0 +1,205 @@
+:root {
+	color-scheme: light dark;
+	--bg: #f4f4f2;
+	--panel: #ffffff;
+	--text: #1f2328;
+	--muted: #5f6670;
+	--border: #d0d4da;
+	--accent: #1d5fd1;
+	--accent-text: #ffffff;
+	--error: #b3261e;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: #16181c;
+		--panel: #1f2227;
+		--text: #e6e8eb;
+		--muted: #9aa1ab;
+		--border: #3a3f47;
+		--accent: #6ea0ff;
+		--accent-text: #0d1117;
+		--error: #ff8a80;
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+	font-size: 15px;
+	color: var(--text);
+	background: var(--bg);
+}
+
+.app-header {
+	padding: 12px 16px 4px;
+}
+
+.app-header h1 {
+	margin: 0;
+	font-size: 1.3rem;
+}
+
+.app-header p {
+	margin: 2px 0 0;
+	color: var(--muted);
+}
+
+.app-main {
+	flex: 1;
+	min-height: 0;
+	display: grid;
+	grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+	gap: 16px;
+	padding: 12px 16px 16px;
+}
+
+.pane {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	gap: 8px;
+}
+
+.toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+	min-height: 34px;
+}
+
+.spacer {
+	flex: 1;
+}
+
+button {
+	font: inherit;
+	padding: 6px 12px;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	color: var(--text);
+	background: var(--panel);
+	cursor: pointer;
+}
+
+button:disabled {
+	opacity: .5;
+	cursor: default;
+}
+
+button.primary {
+	border-color: var(--accent);
+	color: var(--accent-text);
+	background: var(--accent);
+}
+
+button:focus-visible, input:focus-visible, textarea:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 1px;
+}
+
+.toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	white-space: nowrap;
+}
+
+.metadata {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 8px;
+}
+
+.metadata label {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	font-size: .85rem;
+	color: var(--muted);
+}
+
+.metadata .wide {
+	grid-column: 1 / -1;
+}
+
+.metadata input, .metadata textarea {
+	width: 100%;
+	padding: 6px 8px;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	font: inherit;
+	font-size: 15px;
+	color: var(--text);
+	background: var(--panel);
+	resize: none;
+}
+
+#source {
+	flex: 1;
+	min-height: 240px;
+	padding: 10px;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 13px;
+	line-height: 1.4;
+	color: var(--text);
+	background: var(--panel);
+	resize: none;
+}
+
+#editor-pane.dragging #source {
+	border-color: var(--accent);
+	border-style: dashed;
+}
+
+/* The chart is always shown on white, the way it prints. */
+#preview {
+	flex: 1;
+	min-height: 320px;
+	width: 100%;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	background: #ffffff;
+}
+
+.message {
+	margin: 0;
+	color: var(--error);
+}
+
+.message:empty {
+	display: none;
+}
+
+.hint {
+	margin: 0;
+	font-size: .85rem;
+	color: var(--muted);
+}
+
+@media (max-width: 800px) {
+	html, body {
+		height: auto;
+	}
+
+	.app-main {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	#preview {
+		height: 70vh;
+	}
+}

@@ -35,10 +35,12 @@ node_modules
 # ChordPro and HTML files
 *.chordpro
 *.html
+!web/*.html
 archive
 charts
 .DS_Store
 build/
+dist/
 coverage/
 pdf/
 tmp/

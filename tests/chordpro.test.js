@@ -271,4 +271,26 @@ PAGE_BREAK
 		assert.equal( res.sections[0].lyrics.length, 1 );
 		assert.equal( res.sections[1].lyrics.length, 1 );
 	} );
+
+	it( "puts lyrics before any section heading in an untitled section", () => {
+		const res = chordpro.parse( `{title: Test}
+[G]Line one
+Line two
+
+{comment: Chorus}
+[C]Line three` );
+		assert.equal( res.sections.length, 2 );
+		assert.equal( res.sections[0].title, "" );
+		assert.equal( res.sections[0].lyrics.length, 2 );
+		assert.deepEqual( res.sections[0].chords[0], [ "G" ] );
+		assert.equal( res.sections[1].title, "Chorus" );
+		assert.equal( res.sections[1].lyrics.length, 1 );
+	} );
+
+	it( "parses lyrics with no section headings at all", () => {
+		const res = chordpro.parse( "[G]Line one\nLine two" );
+		assert.equal( res.sections.length, 1 );
+		assert.equal( res.sections[0].title, "" );
+		assert.equal( res.sections[0].lyrics.length, 2 );
+	} );
 } );

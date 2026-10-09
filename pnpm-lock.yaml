@@ -166,9 +166,6 @@ importers:
 
   .:
     dependencies:
-      ejs:
-        specifier: ^7.0.1
-        version: 7.0.1
       handlebars:
         specifier: ^4.7.10
         version: 4.7.10
@@ -450,11 +447,6 @@ packages:
 
   devtools-protocol@0.0.1696802:
     resolution: {integrity: sha512-FO5/SENfvc2K8wRnWQflKcwuoTH4dBkXCWTQ9ebIWtuX8JM5+ZvCotaEmkfh21pO7TvIKGTM3hG4xFiq9WTwmg==}
-
-  ejs@7.0.1:
-    resolution: {integrity: sha512-TrAb1fY4jNY6aQrNjMJsoWQxGUK47A38JxuUvnt75vDcAA9Ln7ur6FHo+irVa5Bwd3w9rdUT3xLSl5MRgHIugg==}
-    engines: {node: '>=0.12.18'}
-    hasBin: true
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -1067,8 +1059,6 @@ snapshots:
     optional: true
 
   devtools-protocol@0.0.1696802: {}
-
-  ejs@7.0.1: {}
 
   emoji-regex@10.6.0: {}
 

@@ -166,4 +166,53 @@ describe( "html tests", () => {
 			assert.equal( nc2, "RANDOM" );
 		} );
 	} );
+
+	describe( "render options", () => {
+		it( "links the stylesheet and logo by default", () => {
+			assert.ok( renderedHtml.includes( "<link rel=\"stylesheet\" href=\"./assets/styles.css\">" ) );
+			assert.ok( renderedHtml.includes( "src=\"./assets/logo.jpg\"" ) );
+		} );
+
+		it( "inlines css when provided", () => {
+			const res = html.render( parsed, { css: "body { color: red; }" } );
+			assert.ok( res.includes( "<style>\nbody { color: red; }\n</style>" ) );
+			assert.ok( !res.includes( "<link rel=\"stylesheet\"" ) );
+		} );
+
+		it( "uses a custom logo or omits it", () => {
+			const custom = html.render( parsed, { logo: "data:image/jpeg;base64,abc" } );
+			assert.ok( custom.includes( "src=\"data:image/jpeg;base64,abc\"" ) );
+			const none = html.render( parsed, { logo: false } );
+			assert.ok( !none.includes( "charter-logo" ) );
+		} );
+
+		it( "escapes html in the header", () => {
+			const chart = chordpro.parse( "{title: Rock & <Roll>}\n{artist: \"Me\"}" );
+			const res = html.render( chart );
+			assert.ok( res.includes( "<title>Rock &amp; &lt;Roll&gt;</title>" ) );
+			assert.ok( res.includes( "<span class=\"charter-title\">Rock &amp; &lt;Roll&gt;</span>" ) );
+			assert.ok( res.includes( "<span class=\"charter-artist\">&#34;Me&#34;</span>" ) );
+		} );
+	} );
+
+	it( "renders an untitled section without an empty section title", async () => {
+		const chart = chordpro.parse( "[G]Line one\nLine two" );
+		const res = await html.render( chart );
+		assert.ok( res.includes( "Line one" ) );
+		assert.ok( !res.includes( "charter-section-title" ) );
+	} );
+
+	it( "escapes html in section titles, chords, lyrics, and directions", async () => {
+		const chart = chordpro.parse( "{title: A & B}\n{section: <i>Verse</i>}\n[<b>]Tom & <script>x</script> 'Jerry' (go <u>up</u>)" );
+		const res = await html.render( chart );
+		assert.ok( !res.includes( "<script>" ) );
+		assert.ok( !res.includes( "<i>" ) );
+		assert.ok( !res.includes( "<b>" ) );
+		assert.ok( !res.includes( "<u>" ) );
+		assert.ok( res.includes( "A &amp; B" ) );
+		assert.ok( res.includes( "&lt;i&gt;Verse&lt;/i&gt;" ) );
+		assert.ok( res.includes( "&lt;b&gt;" ) );
+		assert.ok( res.includes( "Tom &amp; &lt;script&gt;x&lt;/script&gt; &#39;Jerry&#39;" ) );
+		assert.ok( res.includes( "(go &lt;u&gt;up&lt;/u&gt;)" ) );
+	} );
 } );

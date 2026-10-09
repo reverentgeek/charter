@@ -164,4 +164,25 @@ describe( "html table tests", () => {
 			assert.equal( nc2, "RANDOM" );
 		} );
 	} );
+
+	it( "renders an untitled section without an empty section title", async () => {
+		const chart = chordpro.parse( "[G]Line one\nLine two" );
+		const res = await html.render( chart );
+		assert.ok( res.includes( "Line one" ) );
+		assert.ok( !res.includes( "charter-section-title" ) );
+	} );
+
+	it( "escapes html in section titles, chords, lyrics, and directions", async () => {
+		const chart = chordpro.parse( "{title: A & B}\n{section: <i>Verse</i>}\n[<b>]Tom & <script>x</script> 'Jerry' (go <u>up</u>)" );
+		const res = await html.render( chart );
+		assert.ok( !res.includes( "<script>" ) );
+		assert.ok( !res.includes( "<i>" ) );
+		assert.ok( !res.includes( "<b>" ) );
+		assert.ok( !res.includes( "<u>" ) );
+		assert.ok( res.includes( "A &amp; B" ) );
+		assert.ok( res.includes( "&lt;i&gt;Verse&lt;/i&gt;" ) );
+		assert.ok( res.includes( "&lt;b&gt;" ) );
+		assert.ok( res.includes( "Tom &amp; &lt;script&gt;x&lt;/script&gt; &#39;Jerry&#39;" ) );
+		assert.ok( res.includes( "(go &lt;u&gt;up&lt;/u&gt;)" ) );
+	} );
 } );

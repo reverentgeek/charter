@@ -124,4 +124,20 @@ pnpm run build
 
 Open the files in the `build` folder with your browser to take a look. For the two-column format, run `pnpm run build:columns` instead.
 
+## Running the web app
+
+There's also a browser version: paste or open a ChordPro file, see the chart as you type, then print it, save it as a PDF from the print dialog, or download it as a single HTML file. Everything happens in the browser, so charts are never uploaded anywhere.
+
+```sh
+pnpm run build:web
+```
+
+That creates a static site in the `dist` folder. It needs to be served over HTTP (opening `index.html` straight from disk won't work), so to try it locally:
+
+```sh
+npx serve dist
+```
+
+To publish it, upload the `dist` folder to any static host.
+
 Happy charting! 🎸

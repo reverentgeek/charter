@@ -147,7 +147,7 @@ export async function execute( config ) {
 	await renderAssets( cfg.buildFolder );
 	for ( let i = 0; i < files.length; i++ ) {
 		const dst = cfg.isFile ? path.join( cfg.buildFolder, rename( cfg.dst, false ) ) : path.join( cfg.buildFolder, rename( files[i], false ) );
-		saveChordProFileAsHtml( files[i], dst, cfg.columns );
+		await saveChordProFileAsHtml( files[i], dst, cfg.columns );
 		buildFiles.push( dst );
 	}
 	if ( cfg.isPdf ) {

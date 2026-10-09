@@ -11,14 +11,13 @@
 <body>
 	<header class="app-header">
 		<div class="app-header-bar">
-			<h1><img class="app-logo" src="./logo.jpg" alt="ReverentGeek Charts" width="925" height="275"></h1>
+			<h1><img class="app-logo" src="./logo.png" alt="ReverentGeek" width="256" height="256">Charter</h1>
+			<p>Turn a ChordPro or chords-over-text file into a printable chord chart. Your chart never leaves this browser.</p>
 			<nav class="app-links" aria-label="Project links">
 				<a href="https://github.com/reverentgeek/charter/discussions" target="_blank" rel="noopener">Discussions</a>
-				<span aria-hidden="true">·</span>
 				<a href="https://ko-fi.com/reverentgeek" target="_blank" rel="noopener">Buy me a coffee</a>
 			</nav>
 		</div>
-		<p>Turn a ChordPro or chords-over-text file into a printable chord chart. Your chart never leaves this browser.</p>
 	</header>
 	<main class="app-main">
 		<section class="pane" id="editor-pane">
@@ -28,17 +27,19 @@
 				<button type="button" id="sample">Load sample</button>
 				<button type="button" id="clear">Clear</button>
 			</div>
-			<form id="metadata" class="metadata" autocomplete="off">
-				<label class="wide">Title <input type="text" name="title"></label>
-				<label class="wide">Subtitle <input type="text" name="subtitle"></label>
-				<label class="wide">Artist <textarea name="artist" rows="2" placeholder="One per line"></textarea></label>
-				<label>Key <input type="text" name="key"></label>
-				<label>Tempo <input type="text" name="tempo" inputmode="numeric"></label>
-				<label>Time <input type="text" name="time" placeholder="4/4"></label>
-			</form>
-			<p id="notice" class="notice" role="status" hidden>Converted from chords-over-text to ChordPro. <button type="button" id="undo-convert">Undo</button></p>
-			<textarea id="source" spellcheck="false" aria-label="ChordPro text"
-				placeholder="Paste ChordPro or chords-over-text here, or drop a .cho / .chordpro / .txt file…"></textarea>
+			<div class="editor">
+				<form id="metadata" class="metadata" autocomplete="off">
+					<label class="wide">Title <input type="text" name="title"></label>
+					<label class="wide">Subtitle <input type="text" name="subtitle"></label>
+					<label class="wide">Artist <textarea name="artist" rows="2" placeholder="One per line"></textarea></label>
+					<label>Key <input type="text" name="key"></label>
+					<label>Tempo <input type="text" name="tempo" inputmode="numeric"></label>
+					<label>Time <input type="text" name="time" placeholder="4/4"></label>
+				</form>
+				<p id="notice" class="notice" role="status" hidden>Converted from chords-over-text to ChordPro. <button type="button" id="undo-convert">Undo</button></p>
+				<textarea id="source" spellcheck="false" aria-label="ChordPro text"
+					placeholder="Paste ChordPro or chords-over-text here, or drop a .cho / .chordpro / .txt file…"></textarea>
+			</div>
 		</section>
 		<section class="pane" id="preview-pane">
 			<div class="toolbar">
@@ -48,7 +49,9 @@
 				<button type="button" id="print" class="primary" disabled>Print / Save as PDF</button>
 			</div>
 			<p id="message" class="message" role="status"></p>
-			<iframe id="preview" title="Chart preview" sandbox="allow-same-origin allow-modals"></iframe>
+			<div class="sheet">
+				<iframe id="preview" title="Chart preview" sandbox="allow-same-origin allow-modals"></iframe>
+			</div>
 			<p class="hint">For a PDF, choose “Save as PDF” as the printer and turn off headers and footers.</p>
 		</section>
 	</main>

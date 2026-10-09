@@ -11,7 +11,7 @@ await fs.cp( join( root, "web" ), distFolder, { recursive: true } );
 
 // The page imports these straight from src/; none of them has any outside dependencies.
 await fs.mkdir( join( distFolder, "lib" ) );
-for ( const file of [ "chordpro.js", "html.js", "metadata.js" ] ) {
+for ( const file of [ "chordpro.js", "html.js", "metadata.js", "chordsOverText.js" ] ) {
 	await fs.copyFile( join( root, "src", file ), join( distFolder, "lib", file ) );
 }
 

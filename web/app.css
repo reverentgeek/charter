@@ -184,6 +184,17 @@ button:focus-visible, input:focus-visible, textarea:focus-visible {
 	display: none;
 }
 
+.notice {
+	margin: 0;
+	font-size: .85rem;
+	color: var(--muted);
+}
+
+.notice button {
+	margin-left: 6px;
+	padding: 2px 8px;
+}
+
 .hint {
 	margin: 0;
 	font-size: .85rem;

@@ -138,6 +138,6 @@ That creates a static site in the `dist` folder. It needs to be served over HTTP
 npx serve dist
 ```
 
-To publish it, upload the `dist` folder to any static host.
+Every push to `main` builds the site and deploys it to GitHub Pages (see `.github/workflows/pages.yml`). To host it somewhere else, upload the `dist` folder to any static host.
 
 Happy charting! 🎸

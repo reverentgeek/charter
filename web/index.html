@@ -4,12 +4,20 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Chord Charter</title>
+	<link rel="icon" type="image/png" href="./favicon.png">
 	<link rel="stylesheet" href="./app.css">
 	<script type="module" src="./app.js"></script>
 </head>
 <body>
 	<header class="app-header">
-		<h1>Chord Charter</h1>
+		<div class="app-header-bar">
+			<h1><img class="app-logo" src="./logo.jpg" alt="ReverentGeek Charts" width="925" height="275"></h1>
+			<nav class="app-links" aria-label="Project links">
+				<a href="https://github.com/reverentgeek/charter/discussions" target="_blank" rel="noopener">Discussions</a>
+				<span aria-hidden="true">·</span>
+				<a href="https://ko-fi.com/reverentgeek" target="_blank" rel="noopener">Buy me a coffee</a>
+			</nav>
+		</div>
 		<p>Turn a ChordPro or chords-over-text file into a printable chord chart. Your chart never leaves this browser.</p>
 	</header>
 	<main class="app-main">
@@ -35,7 +43,6 @@
 		<section class="pane" id="preview-pane">
 			<div class="toolbar">
 				<label class="toggle"><input type="checkbox" id="columns"> Two columns</label>
-				<label class="toggle"><input type="checkbox" id="logo" checked> Logo</label>
 				<span class="spacer"></span>
 				<button type="button" id="download" disabled>Download HTML</button>
 				<button type="button" id="print" class="primary" disabled>Print / Save as PDF</button>

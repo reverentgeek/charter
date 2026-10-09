@@ -78,7 +78,7 @@ Prefer to view a chart in the browser? Add `--html`.
 chord-charter -f path/to/chartfile.chordpro --html
 ```
 
-You'll also find an `assets` folder next to the HTML file. That's the stylesheets and logo the chart needs to look right, so keep them together.
+You'll also find an `assets` folder next to the HTML file. That's the stylesheets the chart needs to look right, so keep them together.
 
 ### All the options
 

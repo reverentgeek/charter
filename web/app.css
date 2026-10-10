@@ -1,3 +1,12 @@
+/* Montserrat (latin, variable weight) is served from here so the page makes no third-party requests. */
+@font-face {
+	font-family: Montserrat;
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: url("./fonts/montserrat-latin.woff2") format("woff2");
+}
+
 :root {
 	color-scheme: light dark;
 	--bg: #f5f3ee;
@@ -50,6 +59,7 @@ body {
 }
 
 .app-header {
+	font-family: Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif;
 	padding: 10px 24px;
 	border-bottom: 1px solid var(--border);
 }
@@ -66,12 +76,10 @@ body {
 	align-items: center;
 	gap: 12px;
 	margin: 0;
-	font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-	font-size: 26px;
-	font-weight: 600;
-	font-style: italic;
+	font-size: 24px;
+	font-weight: 700;
 	line-height: 1;
-	letter-spacing: -.01em;
+	letter-spacing: -.02em;
 }
 
 .app-logo {

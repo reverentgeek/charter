@@ -183,8 +183,8 @@ importers:
         specifier: ^10.13.0
         version: 10.13.0
       eslint-config-reverentgeek:
-        specifier: ^7.1.24
-        version: 7.1.24(eslint@10.13.0)
+        specifier: ^7.1.25
+        version: 7.1.25(eslint@10.13.0)
 
 packages:
 
@@ -469,8 +469,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-reverentgeek@7.1.24:
-    resolution: {integrity: sha512-UlW4yEPopy2me8TsCGldtuZZYFLZ6FTlQhIG4pJlExxGLs0qz+Vv4ViNMpBdZZuDbjjvjxF+wjAOoc7nxfdnxA==}
+  eslint-config-reverentgeek@7.1.25:
+    resolution: {integrity: sha512-b1O2WUhq93MQej1+RyL1KOR9eC+NKq7hmeqPLaVNqrPD0D9dyh7BWRNfVfsSUxldqVyXYn4F1fy+AQpadngPnA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       eslint: '>=10.0.0'
@@ -1076,7 +1076,7 @@ snapshots:
       eslint: 10.13.0
       semver: 7.8.5
 
-  eslint-config-reverentgeek@7.1.24(eslint@10.13.0):
+  eslint-config-reverentgeek@7.1.25(eslint@10.13.0):
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.13.0)
       '@stylistic/eslint-plugin': 5.10.0(eslint@10.13.0)

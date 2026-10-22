@@ -173,8 +173,8 @@ importers:
         specifier: ^25.15.0
         version: 25.15.0
       sass:
-        specifier: ^1.105.2
-        version: 1.105.2
+        specifier: ^1.106.0
+        version: 1.106.0
       yargs:
         specifier: ^18.2.0
         version: 18.2.0
@@ -735,8 +735,8 @@ packages:
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
-  sass@1.105.2:
-    resolution: {integrity: sha512-KxW6ZKZiBKWK3ziQ4YZ3cpqo8/1TlHXE8t9nBNvGDZFoBFbk2MD7RacxYFs8zy8hzeFwpFYkVyAhboi47uYPEQ==}
+  sass@1.106.0:
+    resolution: {integrity: sha512-JHAqUksyijU5tsmDLCDq8/IX3Mq8mVkOtxvcXnUdwy8vsX5MVnvQauMomauxyuEux8uBJdT/OuBwWBYavoWUqQ==}
     engines: {node: '>=20.19.0'}
     hasBin: true
 
@@ -1358,7 +1358,7 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
-  sass@1.105.2:
+  sass@1.106.0:
     dependencies:
       chokidar: 5.0.0
       immutable: 5.1.9

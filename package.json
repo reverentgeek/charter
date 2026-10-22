@@ -28,7 +28,7 @@
 	"dependencies": {
 		"handlebars": "^4.7.10",
 		"puppeteer": "^25.15.0",
-		"sass": "^1.105.2",
+		"sass": "^1.106.0",
 		"yargs": "^18.2.0"
 	},
 	"devDependencies": {

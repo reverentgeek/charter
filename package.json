@@ -27,8 +27,8 @@
 	"license": "MIT",
 	"dependencies": {
 		"handlebars": "^4.7.10",
-		"puppeteer": "^25.15.0",
-		"sass": "^1.106.0",
+		"puppeteer": "^25.16.0",
+		"sass": "^1.106.1",
 		"yargs": "^18.2.0"
 	},
 	"devDependencies": {

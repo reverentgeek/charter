@@ -33,7 +33,7 @@
 	},
 	"devDependencies": {
 		"eslint": "^10.13.0",
-		"eslint-config-reverentgeek": "^7.1.25"
+		"eslint-config-reverentgeek": "^7.1.26"
 	},
 	"bin": {
 		"chord-charter": "./bin/index.js"

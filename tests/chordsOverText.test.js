@@ -90,8 +90,21 @@ describe( "chords over text tests", () => {
 		assert.deepEqual( chart.artist, [ "Mark Knopfler", "Written by: Mark Knopfler" ] );
 		assert.equal( chart.subtitle, "From: “Sailing to Philadelphia” (2000)" );
 		assert.deepEqual( chart.sections.map( s => s.title ), [
-			"Intro", "Verse", "Chorus", "Verse", "Bridge", "Chorus", "Verse", "Bridge", "Chorus",
-			"Solo", "Verse", "Chorus", "Instrumental", "Outro Solo", "Coda"
+			"Intro",
+			"Verse",
+			"Chorus",
+			"Verse",
+			"Bridge",
+			"Chorus",
+			"Verse",
+			"Bridge",
+			"Chorus",
+			"Solo",
+			"Verse",
+			"Chorus",
+			"Instrumental",
+			"Outro Solo",
+			"Coda"
 		] );
 		assert.deepEqual( chart.sections[1].chords[0], [ "", "F#m", "A" ] );
 		assert.deepEqual( chart.sections[1].lyrics[0], [ "The ", "drinking dens are spilling out and ", "staggering in the square," ] );

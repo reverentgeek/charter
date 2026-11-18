@@ -179,8 +179,8 @@ importers:
         specifier: ^4.7.10
         version: 4.7.10
       puppeteer:
-        specifier: ^25.17.0
-        version: 25.17.0
+        specifier: ^25.18.1
+        version: 25.18.1
       sass:
         specifier: ^1.108.2
         version: 1.108.2
@@ -390,12 +390,12 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@typescript-eslint/types@8.72.2':
-    resolution: {integrity: sha512-Xfn37OLZx03+PCU7qWx9DTv2FCRh1E6fk2+wONeNY15HXIwtcwuveaSwVpGAUptkNmPQegRxW5JyRel9T7wrog==}
+  '@typescript-eslint/types@8.73.0':
+    resolution: {integrity: sha512-O/1ytYzflF16QDKXx4/qOXg1IuZp+n7hr9t+S0nv7N/2Tl8rJiNCshztV1gcSUvHbPtoX3+zmNbtSAyVbzxVfw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@typescript-eslint/visitor-keys@8.72.2':
-    resolution: {integrity: sha512-NAGrjn0Pitjqzq/GkgMC4kBYm233PQ8GffyQ9+kTA3AlNQYEzOf25EIM02BAHZv5FRJSpHpJk+OGUxVkOB93GQ==}
+  '@typescript-eslint/visitor-keys@8.73.0':
+    resolution: {integrity: sha512-k4lsFVpRZICbltkIEEH4hZRkwXkqDF1GHBpClKQOHQY+RkoZAAuyc1ci3I6p+CB6v3U4jaHIUshc4RzzQXZWLg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   acorn-jsx@5.3.2:
@@ -671,8 +671,8 @@ packages:
     resolution: {integrity: sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw==}
     engines: {node: '>=10'}
 
-  minimatch@11.0.8:
-    resolution: {integrity: sha512-nFQuYSTVrGvysVBps5Ih+0BdnYFN/Cj3C816r6+p7yK+FHrVLGE4O4N9AFwykrlNlvM2HYt+Rad1Uiro6h88Ig==}
+  minimatch@11.0.9:
+    resolution: {integrity: sha512-KCFkfyjqerNlSstjlhIGNXIKZGA/6O4V4RlhZ+Dsr621SPPw0mzlypE9D9ZOoPiVefHID+j7/XuMMlqfD/F60Q==}
     engines: {node: 20 || >=22}
 
   minimist@1.2.8:
@@ -729,12 +729,12 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  puppeteer-core@25.17.0:
-    resolution: {integrity: sha512-YAgBitkd+K9gxRt+wzBAFTTkGjkC8aC2o4OxofsU8JUy2nnK/RflTCJ9bRCvCMNbq9TPhqFk4Phz98otN9FrGg==}
+  puppeteer-core@25.18.1:
+    resolution: {integrity: sha512-C0wHOJHDfAggGBtN5uUfsJGpeSKtPL5jzhgQYDuz4XKeOG1FUkxeZI2M5yK7AUyrdHO+RgDuiCfjmOpcw3PYTA==}
     engines: {node: '>=22.12.0'}
 
-  puppeteer@25.17.0:
-    resolution: {integrity: sha512-J+OQNlI7I6ZjHhF6Q8M+LgiUGldF7meer5EqMJBZMHgnFN3zcehOhpz/x0bYDEEvbEiXzKzmqSRP3QT+5accjQ==}
+  puppeteer@25.18.1:
+    resolution: {integrity: sha512-fCsfwERKluvC84jsVyhDoBZMNuI8t5FFnWXcTdH1vn3NhMk6clZcrF0Da2se6/Hj6CBJ+2PRPpqeV0qPIETeJA==}
     engines: {node: '>=22.12.0'}
     hasBin: true
 
@@ -881,7 +881,7 @@ snapshots:
     dependencies:
       '@eslint/object-schema': 3.0.5
       debug: 4.4.3
-      minimatch: 11.0.8
+      minimatch: 11.0.9
     transitivePeerDependencies:
       - supports-color
 
@@ -995,8 +995,8 @@ snapshots:
   '@stylistic/eslint-plugin@6.0.1(eslint@10.15.0)':
     dependencies:
       '@eslint-community/eslint-utils': 4.10.1(eslint@10.15.0)
-      '@typescript-eslint/types': 8.72.2
-      '@typescript-eslint/visitor-keys': 8.72.2
+      '@typescript-eslint/types': 8.73.0
+      '@typescript-eslint/visitor-keys': 8.73.0
       espree: 11.2.0
       picomatch: 4.0.7
     optionalDependencies:
@@ -1008,11 +1008,11 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@typescript-eslint/types@8.72.2': {}
+  '@typescript-eslint/types@8.73.0': {}
 
-  '@typescript-eslint/visitor-keys@8.72.2':
+  '@typescript-eslint/visitor-keys@8.73.0':
     dependencies:
-      '@typescript-eslint/types': 8.72.2
+      '@typescript-eslint/types': 8.73.0
       eslint-visitor-keys: 5.0.1
 
   acorn-jsx@5.3.2(acorn@8.19.0):
@@ -1169,7 +1169,7 @@ snapshots:
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       json-stable-stringify-without-jsonify: 1.0.1
-      minimatch: 11.0.8
+      minimatch: 11.0.9
       natural-compare: 1.4.0
       optionator: 0.9.4
     transitivePeerDependencies:
@@ -1290,7 +1290,7 @@ snapshots:
     dependencies:
       p-locate: 5.0.0
 
-  minimatch@11.0.8:
+  minimatch@11.0.9:
     dependencies:
       '@isaacs/nonrecursive-glob-match': 1.1.0
       brace-expansion: 5.0.13
@@ -1337,7 +1337,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  puppeteer-core@25.17.0:
+  puppeteer-core@25.18.1:
     dependencies:
       '@puppeteer/browsers': 3.2.7
       chromium-bidi: 157.0.8090-0(devtools-protocol@0.0.1717327)
@@ -1351,13 +1351,13 @@ snapshots:
       - utf-8-validate
       - yauzl
 
-  puppeteer@25.17.0:
+  puppeteer@25.18.1:
     dependencies:
       '@puppeteer/browsers': 3.2.7
       chromium-bidi: 157.0.8090-0(devtools-protocol@0.0.1717327)
       devtools-protocol: 0.0.1717327
       lilconfig: 3.1.5
-      puppeteer-core: 25.17.0
+      puppeteer-core: 25.18.1
       typed-query-selector: 2.12.4
     transitivePeerDependencies:
       - bufferutil

@@ -20,8 +20,6 @@ await fs.mkdir( join( distFolder, "assets" ) );
 const css = await compileAsync( join( root, "src", "sass", "styles.scss" ) );
 await fs.writeFile( join( distFolder, "assets", "styles.css" ), css.css, "utf-8" );
 
-await fs.copyFile( join( root, "tests", "test.cho" ), join( distFolder, "sample.cho" ) );
-
 // GitHub Pages lets browsers reuse every file for ten minutes, so a deploy could pair the new page with a
 // stale stylesheet or script. Stamping each relative URL with a hash of the build makes them change together.
 const files = ( await fs.readdir( distFolder, { recursive: true, withFileTypes: true } ) )

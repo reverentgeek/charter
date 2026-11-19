@@ -196,6 +196,60 @@ describe( "chordpro tests", () => {
 		} );
 	} );
 
+	it( "parses a lone chord at the end of a line of lyrics", () => {
+		const res = chordpro.parseLyricLine( "Look at all you've done [G]" );
+		assert.deepEqual( res, {
+			chords: [ "", "G" ],
+			lyrics: [ "Look at all you've done ", "" ],
+			directions: [ "", "" ]
+		} );
+	} );
+
+	it( "parses a lone chord after lyrics with no space", () => {
+		const res = chordpro.parseLyricLine( "Look at all you've done[G]" );
+		assert.deepEqual( res, {
+			chords: [ "", "G" ],
+			lyrics: [ "Look at all you've done", "" ],
+			directions: [ "", "" ]
+		} );
+	} );
+
+	it( "parses a chord followed by a direction after lyrics", () => {
+		const res = chordpro.parseLyricLine( "text [G](softly)" );
+		assert.deepEqual( res, {
+			chords: [ "", "G", "" ],
+			lyrics: [ "text ", "", "" ],
+			directions: [ "", "", "(softly)" ]
+		} );
+	} );
+
+	it( "parses a chord inside parentheses as a chord over the lyric", () => {
+		const res = chordpro.parseLyricLine( "[C(add9)]word (echo [G]word)" );
+		assert.deepEqual( res, {
+			chords: [ "C(add9)", "G" ],
+			lyrics: [ "word (echo ", "word)" ],
+			directions: [ "", "" ]
+		} );
+	} );
+
+	it( "parses a chord inside parentheses at the start of a line", () => {
+		const res = chordpro.parseLyricLine( "([F]God) You shine in the [C]shadows" );
+		assert.deepEqual( res, {
+			chords: [ "", "F", "C" ],
+			lyrics: [ "(", "God) You shine in the ", "shadows" ],
+			directions: [ "", "", "" ]
+		} );
+	} );
+
+	it( "treats an unclosed chord bracket as lyric text", () => {
+		const res = chordpro.parseLyricLine( "a [G" );
+		assert.deepEqual( res, {
+			chords: [ "" ],
+			lyrics: [ "a [G" ],
+			directions: [ "" ]
+		} );
+	} );
+
 	it( "parses a single line chordpro file", async () => {
 		const res = chordpro.parse( `{comment: Verse 1}
 [1]A very [4]short [5]song` );

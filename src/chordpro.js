@@ -5,21 +5,22 @@ export function isBareSection( line ) {
 }
 
 export function parseLyricLine( lyricLine ) {
-	const chunks = lyricLine.split( /(\[[^\]]*\]\s+(?=\[|$)|\[[^\]]*\][^[()]+|\([^)]*\))/ ).filter( t => t !== "" );
+	const chunks = lyricLine.replace( /\r/g, "" ).split( /(\[[^\]]*\]|\([^()[\]]*\))/ ).filter( t => t !== "" );
 	const chords = [];
 	const lyrics = [];
 	const directions = [];
 	for ( let i = 0; i < chunks.length; i++ ) {
-		chunks[i] = chunks[i].replace( "\r", "" );
-		if ( chunks[i].indexOf( "[" ) > -1 ) {
-			const subchunks = chunks[i].split( /(\[[^\]]*\])/ ).filter( t => t !== "" );
-			chords.push( subchunks[0].replace( "[", "" ).replace( "]", "" ) );
-			lyrics.push( subchunks.length === 2 ? subchunks[1] : "" );
+		if ( chunks[i].startsWith( "[" ) && chunks[i].endsWith( "]" ) ) {
+			chords.push( chunks[i].slice( 1, -1 ) );
+			lyrics.push( "" );
 			directions.push( "" );
-		} else if ( chunks[i].startsWith( "(" ) ) {
+		} else if ( chunks[i].startsWith( "(" ) && chunks[i].endsWith( ")" ) ) {
 			chords.push( "" );
 			lyrics.push( "" );
 			directions.push( chunks[i] );
+		} else if ( i > 0 && chunks[i - 1].startsWith( "[" ) && chunks[i - 1].endsWith( "]" ) ) {
+			// lyric text belongs to the chord just before it
+			lyrics[lyrics.length - 1] = chunks[i];
 		} else {
 			chords.push( "" );
 			lyrics.push( chunks[i] );

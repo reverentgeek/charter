@@ -45,6 +45,12 @@
 		<section class="pane" id="preview-pane">
 			<div class="toolbar">
 				<label class="toggle"><input type="checkbox" id="columns"> Two columns</label>
+				<div class="transpose" role="group" aria-labelledby="transpose-label">
+					<span id="transpose-label">Transpose</span>
+					<button type="button" id="transpose-down" aria-label="Down a half step" title="Down a half step" disabled>−</button>
+					<output id="transpose-value" aria-live="polite">0</output>
+					<button type="button" id="transpose-up" aria-label="Up a half step" title="Up a half step" disabled>+</button>
+				</div>
 				<span class="spacer"></span>
 				<button type="button" id="download" disabled>Download HTML</button>
 				<button type="button" id="print" class="primary" disabled>Print / Save as PDF</button>

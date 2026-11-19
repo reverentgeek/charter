@@ -3,6 +3,7 @@ import { parse } from "./lib/chordpro.js";
 import { render } from "./lib/html.js";
 import { setMetadata, metadataFields } from "./lib/metadata.js";
 import { isChordsOverText, toChordPro } from "./lib/chordsOverText.js";
+import { findKey, transpose, transposeKey } from "./lib/transpose.js";
 
 const source = document.querySelector( "#source" );
 const preview = document.querySelector( "#preview" );
@@ -14,12 +15,17 @@ const fileInput = document.querySelector( "#file" );
 const columnsToggle = document.querySelector( "#columns" );
 const printButton = document.querySelector( "#print" );
 const downloadButton = document.querySelector( "#download" );
+const transposeDown = document.querySelector( "#transpose-down" );
+const transposeUp = document.querySelector( "#transpose-up" );
+const transposeValue = document.querySelector( "#transpose-value" );
 
 const renderDelay = 200;
 let renderTimer;
 let fileName = "";
 let standaloneCss;
 let unconverted = "";
+let transposeSteps = 0;
+const maxSteps = 11;
 
 function setReady( ready ) {
 	printButton.disabled = !ready;
@@ -44,18 +50,32 @@ function syncForm( chart ) {
 	}
 }
 
+// Shows how far the chart is moved and, when it has a key, the key it lands in.
+function syncTranspose( chart ) {
+	const key = findKey( chart );
+	const offset = transposeSteps > 0 ? `+${ transposeSteps }` : String( transposeSteps );
+	transposeValue.textContent = key && transposeSteps !== 0 ? `${ offset } (${ transposeKey( key, transposeSteps ).name }${ key.minor ? "m" : "" })` : offset;
+	transposeDown.disabled = !key || transposeSteps <= -maxSteps;
+	transposeUp.disabled = !key || transposeSteps >= maxSteps;
+}
+
+function renderChart( chart, options = {} ) {
+	return render( transpose( chart, transposeSteps ), { columns: columnsToggle.checked, ...options } );
+}
+
 function update() {
 	clearTimeout( renderTimer );
 	message.textContent = "";
 	try {
 		const chart = parse( source.value );
 		syncForm( chart );
+		syncTranspose( chart );
 		if ( source.value.trim() === "" ) {
 			showChart( "" );
 			setReady( false );
 			return;
 		}
-		showChart( render( chart, { columns: columnsToggle.checked } ) );
+		showChart( renderChart( chart ) );
 		setReady( true );
 	} catch ( err ) {
 		console.error( err );
@@ -80,6 +100,7 @@ function loadText( text ) {
 
 function setSource( text, name = "" ) {
 	fileName = name.replace( /\.[^.]+$/, "" );
+	transposeSteps = 0;
 	loadText( text );
 }
 
@@ -107,10 +128,7 @@ async function download() {
 	try {
 		standaloneCss ??= await loadStandaloneCss();
 		const chart = parse( source.value );
-		const html = render( chart, {
-			columns: columnsToggle.checked,
-			css: standaloneCss
-		} );
+		const html = renderChart( chart, { css: standaloneCss } );
 		const name = ( fileName || chart.title || "chart" ).replace( /[\\/:*?"<>|]+/g, " " ).trim();
 		const link = document.createElement( "a" );
 		link.href = URL.createObjectURL( new Blob( [ html ], { type: "text/html" } ) );
@@ -152,6 +170,12 @@ metadataForm.addEventListener( "input", ( e ) => {
 metadataForm.addEventListener( "change", update );
 metadataForm.addEventListener( "submit", e => e.preventDefault() );
 columnsToggle.addEventListener( "change", update );
+function shiftKey( steps ) {
+	transposeSteps = Math.max( -maxSteps, Math.min( maxSteps, transposeSteps + steps ) );
+	update();
+}
+transposeDown.addEventListener( "click", () => shiftKey( -1 ) );
+transposeUp.addEventListener( "click", () => shiftKey( 1 ) );
 document.querySelector( "#open" ).addEventListener( "click", () => fileInput.click() );
 fileInput.addEventListener( "change", async () => {
 	await openFile( fileInput.files[0] );

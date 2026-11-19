@@ -6,6 +6,7 @@ import * as sass from "sass";
 import { render } from "./html.js";
 import { parse } from "./chordpro.js";
 import { renderPdf } from "./pdf.js";
+import { parseTranspose, transpose } from "./transpose.js";
 
 const __dirname = import.meta.dirname;
 
@@ -24,6 +25,7 @@ async function exists( pathToCheck ) {
 }
 
 async function validate( config ) {
+	const transposeBy = config.transpose === undefined ? 0 : parseTranspose( config.transpose );
 	const isPdf = !config.html;
 	const isHtml = !!config.html;
 	const isTempDir = !isHtml && !config.temp;
@@ -99,7 +101,8 @@ async function validate( config ) {
 		isTempDir,
 		isHtml,
 		isPdf,
-		columns: !!config.columns
+		columns: !!config.columns,
+		transposeBy
 	};
 }
 
@@ -124,9 +127,9 @@ async function renderAssets( buildFolder ) {
 	await renderSass( assetsFolder, "tablestyles.scss", "tablestyles.css" );
 }
 
-async function saveChordProFileAsHtml( src, dst, columns ) {
+async function saveChordProFileAsHtml( src, dst, { columns, transposeBy } ) {
 	const text = await fs.readFile( src, "utf8" );
-	const chart = parse( text );
+	const chart = transposeBy ? transpose( parse( text ), transposeBy ) : parse( text );
 	const chartHtml = await render( chart, { columns } );
 	await fs.writeFile( dst, chartHtml, { encoding: "utf8" } );
 }
@@ -146,7 +149,7 @@ export async function execute( config ) {
 	await renderAssets( cfg.buildFolder );
 	for ( let i = 0; i < files.length; i++ ) {
 		const dst = cfg.isFile ? path.join( cfg.buildFolder, rename( cfg.dst, false ) ) : path.join( cfg.buildFolder, rename( files[i], false ) );
-		await saveChordProFileAsHtml( files[i], dst, cfg.columns );
+		await saveChordProFileAsHtml( files[i], dst, cfg );
 		buildFiles.push( dst );
 	}
 	if ( cfg.isPdf ) {

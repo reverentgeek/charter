@@ -225,6 +225,25 @@ button:focus-visible, input:focus-visible {
 	transform: translateX(14px);
 }
 
+.transpose {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	white-space: nowrap;
+}
+
+.transpose button {
+	width: 28px;
+	padding: 3px 0;
+	line-height: 1;
+}
+
+.transpose output {
+	min-width: 4.5em;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+}
+
 /* The chart's details and its text are one card: fields on top, source below. */
 .editor {
 	flex: 1;

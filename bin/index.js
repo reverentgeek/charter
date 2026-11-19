@@ -10,6 +10,7 @@ const config = yargs( hideBin( process.argv ) )
 	.option( "temp", { describe: "Specify path to temp folder for generating intermediate files.", type: "string" } )
 	.option( "html", { describe: "Save as HTML instead of PDF", type: "boolean" } )
 	.option( "columns", { describe: "Use two-column format", type: "boolean" } )
+	.option( "n", { alias: "numbers", describe: "Write the chords as Nashville numbers", type: "boolean" } )
 	.option( "t", { alias: "transpose", describe: "Transpose by a number of half steps (2, -3) or to a key (A, Bb)", type: "string", requiresArg: true } )
 	.parse();
 

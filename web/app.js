@@ -3,7 +3,7 @@ import { parse } from "./lib/chordpro.js";
 import { render } from "./lib/html.js";
 import { setMetadata, metadataFields } from "./lib/metadata.js";
 import { isChordsOverText, toChordPro } from "./lib/chordsOverText.js";
-import { findKey, transpose, transposeKey } from "./lib/transpose.js";
+import { findKey, toNumbers, transpose, transposeKey } from "./lib/transpose.js";
 
 const source = document.querySelector( "#source" );
 const preview = document.querySelector( "#preview" );
@@ -13,6 +13,7 @@ const metadataForm = document.querySelector( "#metadata" );
 const editorPane = document.querySelector( "#editor-pane" );
 const fileInput = document.querySelector( "#file" );
 const columnsToggle = document.querySelector( "#columns" );
+const numbersToggle = document.querySelector( "#numbers" );
 const printButton = document.querySelector( "#print" );
 const downloadButton = document.querySelector( "#download" );
 const transposeDown = document.querySelector( "#transpose-down" );
@@ -59,8 +60,10 @@ function syncTranspose( chart ) {
 	transposeUp.disabled = !key || transposeSteps >= maxSteps;
 }
 
+// Transposing moves the key, so it comes before numbers; the numbers themselves stay the same in any key.
 function renderChart( chart, options = {} ) {
-	return render( transpose( chart, transposeSteps ), { columns: columnsToggle.checked, ...options } );
+	const transposed = transpose( chart, transposeSteps );
+	return render( numbersToggle.checked ? toNumbers( transposed ) : transposed, { columns: columnsToggle.checked, ...options } );
 }
 
 function update() {
@@ -170,6 +173,7 @@ metadataForm.addEventListener( "input", ( e ) => {
 metadataForm.addEventListener( "change", update );
 metadataForm.addEventListener( "submit", e => e.preventDefault() );
 columnsToggle.addEventListener( "change", update );
+numbersToggle.addEventListener( "change", update );
 function shiftKey( steps ) {
 	transposeSteps = Math.max( -maxSteps, Math.min( maxSteps, transposeSteps + steps ) );
 	update();

@@ -6,7 +6,7 @@ import * as sass from "sass";
 import { render } from "./html.js";
 import { parse } from "./chordpro.js";
 import { renderPdf } from "./pdf.js";
-import { parseTranspose, transpose } from "./transpose.js";
+import { parseTranspose, toNumbers, transpose } from "./transpose.js";
 
 const __dirname = import.meta.dirname;
 
@@ -102,6 +102,7 @@ async function validate( config ) {
 		isHtml,
 		isPdf,
 		columns: !!config.columns,
+		numbers: !!config.numbers,
 		transposeBy
 	};
 }
@@ -127,9 +128,15 @@ async function renderAssets( buildFolder ) {
 	await renderSass( assetsFolder, "tablestyles.scss", "tablestyles.css" );
 }
 
-async function saveChordProFileAsHtml( src, dst, { columns, transposeBy } ) {
+async function saveChordProFileAsHtml( src, dst, { columns, numbers, transposeBy } ) {
 	const text = await fs.readFile( src, "utf8" );
-	const chart = transposeBy ? transpose( parse( text ), transposeBy ) : parse( text );
+	let chart = parse( text );
+	if ( transposeBy ) {
+		chart = transpose( chart, transposeBy );
+	}
+	if ( numbers ) {
+		chart = toNumbers( chart );
+	}
 	const chartHtml = await render( chart, { columns } );
 	await fs.writeFile( dst, chartHtml, { encoding: "utf8" } );
 }

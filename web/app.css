@@ -140,8 +140,11 @@ body {
 	min-height: 34px;
 }
 
-.spacer {
-	flex: 1;
+/* The buttons stay together at the right, moving to their own row when the toolbar runs out of room. */
+.actions {
+	display: flex;
+	gap: 8px;
+	margin-left: auto;
 }
 
 button {

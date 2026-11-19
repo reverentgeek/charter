@@ -1,5 +1,5 @@
-// Transposes a parsed chart (see parse() in chordpro.js) by a number of half steps or to a new key.
-// Only lettered chords and the key change; Nashville numbers are relative to the key, so they stay as written.
+// Transposes a parsed chart (see parse() in chordpro.js) by a number of half steps or to a new key, and turns
+// lettered chords into Nashville numbers. Numbers are relative to the key, so transposing leaves them as written.
 
 const letters = [ "C", "D", "E", "F", "G", "A", "B" ];
 const naturalPitches = [ 0, 2, 4, 5, 7, 9, 11 ];
@@ -272,6 +272,53 @@ export function transpose( chart, by ) {
 		sections: chart.sections.map( section => ( {
 			...section,
 			chords: section.chords.map( line => line.map( chord => transposeChord( chord, from, to ) ) )
+		} ) )
+	};
+}
+
+// The major scale in half steps above the tonic, and every degree by half steps for spellings that don't give a plain one
+const majorScale = naturalPitches;
+const degreeNames = [ "1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7" ];
+
+function relativeMajor( key ) {
+	return { index: mod( key.index + 2, 7 ), pitch: mod( key.pitch + 3, 12 ) };
+}
+
+// A note as a Nashville number in a key, measured against the major scale. The spelling decides sharp or flat:
+// A# in G is #2, Bb is b3. A minor key is numbered from its relative major, so Em C G D in E minor is 6m 4 1 5.
+function toNumber( note, minorOrMajorKey ) {
+	const key = minorOrMajorKey.minor ? relativeMajor( minorOrMajorKey ) : minorOrMajorKey;
+	const steps = mod( note.index - key.index, 7 );
+	const offset = mod( note.pitch - key.pitch - majorScale[steps] + 6, 12 ) - 6;
+	if ( Math.abs( offset ) > 1 ) {
+		return degreeNames[mod( note.pitch - key.pitch, 12 )];
+	}
+	return ( offset === 1 ? "#" : offset === -1 ? "b" : "" ) + ( steps + 1 );
+}
+
+// Writes a chord as numbers in a key: Em7 in G is 6m7, D/F# is 5/7. Anything that isn't a lettered chord stays as it is.
+export function chordToNumbers( chord, key ) {
+	return chord.split( /(\s+)/ ).map( ( token ) => {
+		if ( !isChordToken( token ) ) {
+			return token;
+		}
+		return token.replace( notePattern, ( _, before, letter, accidental ) => before + toNumber( toNote( letter, accidental ), key ) );
+	} ).join( "" );
+}
+
+// Returns a copy of the chart with its chords as Nashville numbers. A chart without a key gets the one its chords
+// point to, since a number chart means nothing without it. A chart with no lettered chords comes back as it is.
+export function toNumbers( chart ) {
+	const key = findKey( chart );
+	if ( !key ) {
+		return chart;
+	}
+	return {
+		...chart,
+		key: chart.key || `${ key.name }${ key.rest }`,
+		sections: chart.sections.map( section => ( {
+			...section,
+			chords: section.chords.map( line => line.map( chord => chordToNumbers( chord, key ) ) )
 		} ) )
 	};
 }

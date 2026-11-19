@@ -92,6 +92,16 @@ chord-charter -f path/to/chartfile.chordpro -t Bb
 
 The key and every lettered chord move together. Charter spells the new chords to fit the new key, so a song in F comes out with `Bb`, not `A#`. Nashville numbers stay as they are, since they're already relative to the key; only the key at the top changes. If a chart has no `{key}`, Charter works the key out from its chords: which key they fit best, which chord the song keeps coming home to, and its cadences. So a chart that loops `Em C G D` is read as being in G. Giving a key moves the key's root note, so `-t A` on a song in `Em` gives you `Am`.
 
+### Turn it into a number chart
+
+Add `-n` (or `--numbers`) to write the chords as Nashville numbers instead of letters: in G, `Em7` becomes `6m7` and `D/F#` becomes `5/7`. Chords outside the key get a flat or sharp (`F` in G is `b7`), and a minor key is numbered from its relative major, so `Em C G D` in E minor is `6m 4 1 5`. If the chart has no `{key}`, Charter works it out from the chords and adds it to the chart, since a number chart isn't much use without one.
+
+```sh
+chord-charter -f path/to/chartfile.chordpro -n
+```
+
+Combine it with `-t` to change the key printed at the top; the numbers stay the same in any key.
+
 ### All the options
 
 |Option|Description|
@@ -103,6 +113,7 @@ The key and every lettered chord move together. Charter spells the new chords to
 |`--temp`|Specify path to an existing folder for generating intermediate files. Defaults to a folder in the system temp directory that is removed when finished. Ignored when using `--html`.|
 |`--html`|Save as HTML instead of PDF|
 |`--columns`|Use two-column format (doesn't work well with all charts)|
+|`-n`, `--numbers`|Write the chords as Nashville numbers|
 |`-t`, `--transpose`|Transpose by a number of half steps (like `2` or `-3`) or to a key (like `A` or `Bb`)|
 
 ## Working from the source folder
@@ -139,7 +150,7 @@ Open the files in the `build` folder with your browser to take a look. For the t
 
 ## Running the web app
 
-There's also a browser version: paste or open a ChordPro file, see the chart as you type, then print it, save it as a PDF from the print dialog, or download it as a single HTML file. Everything happens in the browser, so charts are never uploaded anywhere. If you paste or open a "chords over text" chart (chords on their own line above the lyrics), it's converted to ChordPro for you. Use the **Transpose** buttons above the preview to move the chart up or down a half step at a time. Printing and downloading use the transposed chart, and your ChordPro text stays as you wrote it.
+There's also a browser version: paste or open a ChordPro file, see the chart as you type, then print it, save it as a PDF from the print dialog, or download it as a single HTML file. Everything happens in the browser, so charts are never uploaded anywhere. If you paste or open a "chords over text" chart (chords on their own line above the lyrics), it's converted to ChordPro for you. Use the **Transpose** buttons above the preview to move the chart up or down a half step at a time, and turn on **Numbers** to see it as a Nashville number chart. Printing and downloading use what you see in the preview, and your ChordPro text stays as you wrote it.
 
 ```sh
 pnpm run build:web

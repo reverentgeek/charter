@@ -3,7 +3,7 @@ import assert from "node:assert";
 import fs from "node:fs/promises";
 import { parse } from "../src/chordpro.js";
 import { render } from "../src/html.js";
-import { detectKey, findKey, parseKey, parseTranspose, transpose, transposeChord, transposeKey } from "../src/transpose.js";
+import { chordToNumbers, detectKey, findKey, parseKey, parseTranspose, toNumbers, transpose, transposeChord, transposeKey } from "../src/transpose.js";
 
 const C = parseKey( "C" );
 const D = parseKey( "D" );
@@ -138,6 +138,75 @@ describe( "transpose tests", () => {
 		for ( const [ name, chords, key ] of cases ) {
 			it( name, () => assert.equal( detect( chords ), key ) );
 		}
+	} );
+
+	describe( "numbers", () => {
+		it( "writes each chord as its place in the key", () => {
+			const res = toNumbers( chart );
+			assert.equal( res.key, "G" );
+			assert.deepEqual( res.sections[0].chords[0], [ "", "1", "17", "4", "1" ] );
+			assert.deepEqual( res.sections[0].chords[3], [ "", "6m", "5", "1", "" ] );
+			assert.deepEqual( res.sections[0].lyrics, chart.sections[0].lyrics );
+		} );
+
+		it( "keeps the chord quality as written", () => {
+			const G = parseKey( "G" );
+			const C = parseKey( "C" );
+			assert.equal( chordToNumbers( "Em7", G ), "6m7" );
+			assert.equal( chordToNumbers( "Cmaj7", G ), "4maj7" );
+			assert.equal( chordToNumbers( "Dsus", G ), "5sus" );
+			assert.equal( chordToNumbers( "F2", C ), "42" );
+			assert.equal( chordToNumbers( "G(4)", C ), "5(4)" );
+			assert.equal( chordToNumbers( "G2(no3)", C ), "52(no3)" );
+		} );
+
+		it( "writes slash chords, parentheses, and groups", () => {
+			const G = parseKey( "G" );
+			assert.equal( chordToNumbers( "D/F#", G ), "5/7" );
+			assert.equal( chordToNumbers( "C/G", G ), "4/1" );
+			assert.equal( chordToNumbers( "(G/B)", G ), "(1/3)" );
+			assert.equal( chordToNumbers( "(Csus", G ), "(4sus" );
+			assert.equal( chordToNumbers( "Em7)", G ), "6m7)" );
+			assert.equal( chordToNumbers( "(G ... D/F#)", G ), "(1 ... 5/7)" );
+		} );
+
+		it( "marks chords outside the key with flats and sharps as spelled", () => {
+			const G = parseKey( "G" );
+			assert.equal( chordToNumbers( "F", G ), "b7" );
+			assert.equal( chordToNumbers( "F2", G ), "b72" );
+			assert.equal( chordToNumbers( "Bb", G ), "b3" );
+			assert.equal( chordToNumbers( "F#/A#", G ), "7/#2" );
+			assert.equal( chordToNumbers( "C#dim", G ), "#4dim" );
+			assert.equal( chordToNumbers( "Fmaj7", parseKey( "A" ) ), "b6maj7" );
+		} );
+
+		it( "numbers a minor key from its relative major", () => {
+			const Em = parseKey( "Em" );
+			assert.deepEqual( [ "Em", "C", "G", "D", "B7", "Am/E" ].map( c => chordToNumbers( c, Em ) ), [ "6m", "4", "1", "5", "37", "2m/6" ] );
+			assert.deepEqual( [ "F#m", "D", "A", "E", "C#7" ].map( c => chordToNumbers( c, parseKey( "F#m" ) ) ), [ "6m", "4", "1", "5", "37" ] );
+		} );
+
+		it( "leaves numbers and words alone", () => {
+			for ( const chord of [ "1", "4/6", "b72", "N.C.", "|", "Bridge" ] ) {
+				assert.equal( chordToNumbers( chord, G ), chord );
+			}
+		} );
+
+		it( "adds the key a chart without one is in", () => {
+			const res = toNumbers( parse( "[Em]Hi [C]there [G]my [D]friend" ) );
+			assert.equal( res.key, "G" );
+			assert.deepEqual( res.sections[0].chords[0], [ "6m", "4", "1", "5" ] );
+			assert.equal( toNumbers( parse( "[Am]Hi [Dm]there [E7]my [Am]friend" ) ).key, "Am" );
+		} );
+
+		it( "returns a chart with no lettered chords as it is", () => {
+			const numbers = parse( "{key: G}\n[1]Hi [4]there" );
+			assert.deepEqual( toNumbers( numbers ).sections, numbers.sections );
+		} );
+
+		it( "gives the same numbers in any key", () => {
+			assert.deepEqual( toNumbers( transpose( chart, 3 ) ).sections, toNumbers( chart ).sections );
+		} );
 	} );
 
 	it( "reads a transpose setting", () => {
